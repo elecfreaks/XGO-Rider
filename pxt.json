@@ -1,6 +1,6 @@
 {
     "name": "XGO",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "",
     "dependencies": {
         "core": "*",
@@ -10,7 +10,11 @@
     "files": [
         "main.blocks",
         "main.ts",
-        "README.md"
+        "README.md",
+        "_locales/XGO-jsdoc-strings.json",
+        "_locales/XGO-strings.json",
+        "_locales/zh-CN/XGO-jsdoc-strings.json",
+        "_locales/zh-CN/XGO-strings.json"
     ],
     "testFiles": [
         "test.ts"

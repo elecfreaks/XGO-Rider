@@ -2,6 +2,17 @@
 //% block="xgo" blockId="xgo"
 namespace xgo {
 
+    export enum direction_enum {
+        //% block="Forward"
+        Forward,
+        //% block="Backward"
+        Backward,
+        //% block="left"
+        Left,
+        //% block="Right"
+        Right
+    }
+
     export enum action_enum {
         //% block="Default_posture"
         Default_posture,
@@ -46,6 +57,37 @@ namespace xgo {
     //% block="set XGO|RX %tx|TX %rx"
     export function init_xgo_serial(tx: SerialPin, rx: SerialPin) {
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
+    }
+
+    //% block="move %direction speed %speed\\%"
+    //% speed.min = 0 speed.max = 100
+    export function move_xgo(direction: direction_enum,speed:number) {
+        let move_buffer = pins.createBuffer(9)
+        move_buffer[0] = 0x55
+        move_buffer[1] = 0x00
+        move_buffer[2] = 0x09
+        move_buffer[3] = 0x00
+        move_buffer[7] = 0x00
+        move_buffer[8] = 0xAA
+        switch (direction) {
+            case direction_enum.Forward:
+                move_buffer[4] = 0x30
+                move_buffer[5] = Math.map(speed, 0, 100, 128, 255)
+                move_buffer[6] = ~(0x90+0x00+0x30+move_buffer[5])
+            case direction_enum.Backward:
+                move_buffer[4] = 0x30
+                move_buffer[5] = Math.map(speed, 0, 100, 128, 0)
+                move_buffer[6] = ~(0x90+0x00+0x30+move_buffer[5])
+            case direction_enum.Left:
+                move_buffer[4] = 0x31
+                move_buffer[5] = Math.map(speed, 0, 100, 128, 0)
+                move_buffer[6] = ~(0x90+0x00+0x31+move_buffer[5])
+            case direction_enum.Right:
+                move_buffer[4] = 0x31
+                move_buffer[5] = Math.map(speed, 0, 100, 128, 255)
+                move_buffer[6] = ~(0x90+0x00+0x31+move_buffer[5])
+        }
+        serial.writeBuffer(move_buffer)
     }
 
     //% block="Execution action %action"

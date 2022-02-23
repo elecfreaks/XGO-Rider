@@ -20,5 +20,10 @@
   "xgo.action_enum.Whirl|block": "Whirl",
   "xgo.execution_action|block": "Execution action %action",
   "xgo.init_xgo_serial|block": "set XGO|RX %tx|TX %rx",
+  "xgo.direction_enum.Forward|block": "Forward",
+  "xgo.direction_enum.Backward|block": "Backward",
+  "xgo.direction_enum.Left|block": "Left",
+  "xgo.direction_enum.Right|block": "Right",
+  "xgo.move_xgo|block": "move %direction speed %speed\\%",
   "{id:category}Xgo": "Xgo"
 }

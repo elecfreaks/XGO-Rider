@@ -20,5 +20,10 @@
   "xgo.action_enum.Whirl|block": "转圈",
   "xgo.execution_action|block": "执行动作 %action",
   "xgo.init_xgo_serial|block": "设置 XGO 串口|RX %tx|TX %rx",
+  "xgo.direction_enum.Forward|block": "前",
+  "xgo.direction_enum.Backward|block": "后",
+  "xgo.direction_enum.Left|block": "左",
+  "xgo.direction_enum.Right|block": "右",
+  "xgo.move_xgo|block": "向 %direction 移动，速度为 %speed\\%",
   "{id:category}Xgo": "Xgo"
 }
