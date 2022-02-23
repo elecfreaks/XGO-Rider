@@ -43,6 +43,11 @@ namespace xgo {
         Handshake
     }
 
+    //% block="set XGO|RX %tx|TX %rx"
+    export function init_xgo_serial(tx: SerialPin, rx: SerialPin) {
+        serial.redirect(tx, rx, BaudRate.BaudRate115200)
+    }
+
     //% block="Execution action %action"
     export function execution_action(action: action_enum) {
         let commands_buffer = pins.createBuffer(9)
