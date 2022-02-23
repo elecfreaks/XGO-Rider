@@ -24,6 +24,6 @@
   "xgo.direction_enum.Backward|block": "后",
   "xgo.direction_enum.Left|block": "左",
   "xgo.direction_enum.Right|block": "右",
-  "xgo.move_xgo|block": "向 %direction 移动，速度为 %speed\\%",
+  "xgo.move_xgo|block": "向%direction 移动，速度为%speed\\%",
   "{id:category}Xgo": "Xgo"
 }

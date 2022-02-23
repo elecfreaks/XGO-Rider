@@ -73,19 +73,23 @@ namespace xgo {
             case direction_enum.Forward:
                 move_buffer[4] = 0x30
                 move_buffer[5] = Math.map(speed, 0, 100, 128, 255)
-                move_buffer[6] = ~(0x90+0x00+0x30+move_buffer[5])
+                move_buffer[6] = ~(0x09 + 0x00 + 0x30 + move_buffer[5])
+                break
             case direction_enum.Backward:
                 move_buffer[4] = 0x30
                 move_buffer[5] = Math.map(speed, 0, 100, 128, 0)
-                move_buffer[6] = ~(0x90+0x00+0x30+move_buffer[5])
+                move_buffer[6] = ~(0x09 + 0x00 + 0x30 + move_buffer[5])
+                break
             case direction_enum.Left:
                 move_buffer[4] = 0x31
                 move_buffer[5] = Math.map(speed, 0, 100, 128, 0)
-                move_buffer[6] = ~(0x90+0x00+0x31+move_buffer[5])
+                move_buffer[6] = ~(0x09 + 0x00 + 0x31 + move_buffer[5])
+                break
             case direction_enum.Right:
                 move_buffer[4] = 0x31
                 move_buffer[5] = Math.map(speed, 0, 100, 128, 255)
-                move_buffer[6] = ~(0x90+0x00+0x31+move_buffer[5])
+                move_buffer[6] = ~(0x09 + 0x00 + 0x31 + move_buffer[5])
+                break
         }
         serial.writeBuffer(move_buffer)
     }

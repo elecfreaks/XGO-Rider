@@ -24,6 +24,6 @@
   "xgo.direction_enum.Backward|block": "Backward",
   "xgo.direction_enum.Left|block": "Left",
   "xgo.direction_enum.Right|block": "Right",
-  "xgo.move_xgo|block": "move %direction speed %speed\\%",
+  "xgo.move_xgo|block": "move%direction speed %speed\\%",
   "{id:category}Xgo": "Xgo"
 }
