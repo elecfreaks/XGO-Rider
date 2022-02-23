@@ -45,66 +45,92 @@ namespace xgo {
 
     //% block="Execution action %action"
     export function execution_action(action: action_enum) {
-        serial.writeString("\x55\x00\x09\x00")
-        serial.writeString("\x3E")
+        let commands_buffer = pins.createBuffer(9)
+        commands_buffer[0] = 0x55
+        commands_buffer[1] = 0x00
+        commands_buffer[2] = 0x09
+        commands_buffer[3] = 0x00
+        commands_buffer[4] = 0x3E
+        commands_buffer[7] = 0x00
+        commands_buffer[8] = 0xAA
         switch (action) {
             case action_enum.Default_posture:
-                serial.writeString("\x00\xB8\x00\xAA")
+                commands_buffer[5] = 0x00
+                commands_buffer[6] = 0xB8
                 break
             case action_enum.Go_prone:
-                serial.writeString("\x01\xB7\x00\xAA")
+                commands_buffer[5] = 0x01
+                commands_buffer[6] = 0xB7
                 break
             case action_enum.Stand:
-                serial.writeString("\x02\xB6\x00\xAA")
+                commands_buffer[5] = 0x02
+                commands_buffer[6] = 0xB6
                 break
             case action_enum.Crawl_forward:
-                serial.writeString("\x03\xB5\x00\xAA")
+                commands_buffer[5] = 0x03
+                commands_buffer[6] = 0xB5
                 break
             case action_enum.Whirl:
-                serial.writeString("\x04\xB4\x00\xAA")
+                commands_buffer[5] = 0x04
+                commands_buffer[6] = 0xB4
                 break
             case action_enum.Sur_place:
-                serial.writeString("\x05\xB3\x00\xAA")
+                commands_buffer[5] = 0x05
+                commands_buffer[6] = 0xB3
                 break
             case action_enum.Squat:
-                serial.writeString("\x06\xB2\x00\xAA")
+                commands_buffer[5] = 0x06
+                commands_buffer[6] = 0xB2
                 break
             case action_enum.Twirl_Roll:
-                serial.writeString("\x07\xB1\x00\xAA")
+                commands_buffer[5] = 0x07
+                commands_buffer[6] = 0xB1
                 break
             case action_enum.Twirl_Pitch:
-                serial.writeString("\x08\xB0\x00\xAA")
+                commands_buffer[5] = 0x08
+                commands_buffer[6] = 0xB0
                 break
             case action_enum.Twirl_Yaw:
-                serial.writeString("\x09\xAF\x00\xAA")
+                commands_buffer[5] = 0x09
+                commands_buffer[6] = 0xAF
                 break
             case action_enum.Triaxial_rotation:
-                serial.writeString("\x0A\xAE\x00\xAA")
+                commands_buffer[5] = 0x0A
+                commands_buffer[6] = 0xAE
                 break
             case action_enum.Pee:
-                serial.writeString("\x0B\xAD\x00\xAA")
+                commands_buffer[5] = 0x0B
+                commands_buffer[6] = 0xAD
                 break
             case action_enum.Sit_down:
-                serial.writeString("\x0C\xAC\x00\xAA")
+                commands_buffer[5] = 0x0C
+                commands_buffer[6] = 0xAC
                 break
             case action_enum.Wave:
-                serial.writeString("\x0D\xAB\x00\xAA")
+                commands_buffer[5] = 0x0D
+                commands_buffer[6] = 0xAB
                 break
             case action_enum.Stretch_oneself:
-                serial.writeString("\x0E\xAA\x00\xAA")
+                commands_buffer[5] = 0x0E
+                commands_buffer[6] = 0xAA
                 break
             case action_enum.Play_pendulum:
-                serial.writeString("\x10\xA8\x00\xAA")
+                commands_buffer[5] = 0x10
+                commands_buffer[6] = 0xA8
                 break
             case action_enum.Request_feeding:
-                serial.writeString("\x11\xA7\x00\xAA")
+                commands_buffer[5] = 0x11
+                commands_buffer[6] = 0xA7
                 break
             case action_enum.Looking_for_food:
-                serial.writeString("\x12\xA6\x00\xAA")
+                commands_buffer[5] = 0x12
+                commands_buffer[6] = 0xA6
                 break
             case action_enum.Handshake:
-                serial.writeString("\x13\xA5\x00\xAA")
+                commands_buffer[5] = 0x13
+                commands_buffer[6] = 0xA5
                 break
         }
+        serial.writeBuffer(commands_buffer)
     }
 }
