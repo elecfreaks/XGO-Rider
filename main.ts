@@ -2,6 +2,13 @@
 //% block="xgo" blockId="xgo"
 namespace xgo {
 
+    export enum rotate_enum {
+        //% block="Left"
+        Left,
+        //% block="Right"
+        Right
+    }
+
     export enum direction_enum {
         //% block="Forward"
         Forward,
@@ -54,12 +61,52 @@ namespace xgo {
         Handshake
     }
 
+    //% block="Rotate %direction,speed is %speed\\%"
+    //% speed.min = 0 speed.max = 100
+    export function rotate(direction:rotate_enum,speed:number) {
+        let rotate_buffer = pins.createBuffer(9)
+        rotate_buffer[0] = 0x55
+        rotate_buffer[1] = 0x00
+        rotate_buffer[2] = 0x09
+        rotate_buffer[3] = 0x00
+        rotate_buffer[4] = 0x32
+        rotate_buffer[7] = 0x00
+        rotate_buffer[8] = 0xAA
+        switch (direction) {
+            case rotate_enum.Left:
+                rotate_buffer[5] = Math.map(speed, 0, 100, 128, 0)
+                rotate_buffer[6] = ~(0x90 + 0x00 + 0x32 + rotate_buffer[5])
+                break
+            case rotate_enum.Right:
+                rotate_buffer[5] = Math.map(speed, 0, 100, 128, 255)
+                rotate_buffer[6] = ~(0x90 + 0x00 + 0x32 + rotate_buffer[5])
+                break
+        }
+        serial.writeBuffer(rotate_buffer)
+    }
+
+    //% block="Body height %height\\%"
+    //% height.min=0 height.max=100
+    export function body_height(height: number) {
+        let height_buffer = pins.createBuffer(9)
+        height_buffer[0] = 0x55
+        height_buffer[1] = 0x00
+        height_buffer[2] = 0x09
+        height_buffer[3] = 0x00
+        height_buffer[4] = 0x35
+        height_buffer[5] = Math.map(height, 0, 100, 0, 255)
+        height_buffer[6] = ~(0x90 + 0x00 + 0x35 + height_buffer[5])
+        height_buffer[7] = 0x00
+        height_buffer[8] = 0xAA
+        serial.writeBuffer(height_buffer)
+    }
+
     //% block="set XGO|RX %tx|TX %rx"
     export function init_xgo_serial(tx: SerialPin, rx: SerialPin) {
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
     }
 
-    //% block="move %direction speed %speed\\%"
+    //% block="move%direction speed %speed\\%"
     //% speed.min = 0 speed.max = 100
     export function move_xgo(direction: direction_enum,speed:number) {
         let move_buffer = pins.createBuffer(9)

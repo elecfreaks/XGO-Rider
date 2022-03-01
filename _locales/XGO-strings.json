@@ -25,5 +25,9 @@
   "xgo.direction_enum.Left|block": "Left",
   "xgo.direction_enum.Right|block": "Right",
   "xgo.move_xgo|block": "move%direction speed %speed\\%",
+  "xgo.body_height|block": "Body height %height\\%",
+  "xgo.rotate_enum.Left|block": "Left",
+  "xgo.rotate_enum.Right|block": "Right",
+  "xgo.rotate|block": "Rotate %direction,speed is %speed\\%",
   "{id:category}Xgo": "Xgo"
 }

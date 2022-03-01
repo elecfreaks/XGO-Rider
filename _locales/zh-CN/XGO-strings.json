@@ -25,5 +25,9 @@
   "xgo.direction_enum.Left|block": "左",
   "xgo.direction_enum.Right|block": "右",
   "xgo.move_xgo|block": "向%direction 移动，速度为%speed\\%",
+  "xgo.body_height|block": "身体高度 %height\\%",
+  "xgo.rotate_enum.Left|block": "左",
+  "xgo.rotate_enum.Right|block": "右",
+  "xgo.rotate|block": "向%direction 旋转,速度为%speed\\%",
   "{id:category}Xgo": "Xgo"
 }
