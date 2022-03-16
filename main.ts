@@ -241,7 +241,7 @@ namespace xgo {
     }
 
     //%block="Set the servo rotation value of the %joint joint of the %part leg to %angle degrees"
-    export function set_servo_angle(part: body_parts_enum, joint: joint_enum, angle: number) {
+    export function set_servo_angle(joint: joint_enum, part: body_parts_enum, angle: number) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
@@ -673,7 +673,7 @@ namespace xgo {
                 commands_buffer[4] = 0x3B
                 break
         }
-        commands_buffer[5] = Math.map(angle, 1.5, 8, 0, 255)
+        commands_buffer[5] = Math.map(period, 1.5, 8, 0, 255)
         commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
     }
@@ -771,7 +771,7 @@ namespace xgo {
     }
 
     //% block="%on_off the servo for the XGO's %part leg"
-    export function servo_setting(part:body_parts_enum,on_off:servo_switch_enum) {
+    export function servo_setting(on_off:servo_switch_enum,part:body_parts_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
