@@ -508,7 +508,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //% block = "Set XGO execution to run in place at a fixed frequency at a leg lift height of %mm mm"
+    //% block="Set XGO execution to run in place at a fixed frequency at a leg lift height of %mm mm"
     //% mm.min=10 mm.max=35
     export function leg_lift(mm:number) {
         let commands_buffer = pins.createBuffer(9)
@@ -524,7 +524,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //% block = "Set XGO execution to run in place at a fixed frequency at a leg lift height of %mm mm for %time seconds"
+    //% block="Set XGO execution to run in place at a fixed frequency at a leg lift height of %mm mm for %time seconds"
     //% mm.min=10 mm.max=35
     export function leg_lift_continue(mm:number,time:number) {
         let commands_buffer = pins.createBuffer(9)
