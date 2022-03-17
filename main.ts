@@ -72,9 +72,9 @@ namespace xgo {
     }
 
     export enum servo_switch_enum {
-        //% block= "Load"
+        //% block= "load"
         Load,
-        //% block= "Unload"
+        //% block= "unload"
         Unload
     }
 
@@ -179,7 +179,7 @@ namespace xgo {
         serial.writeBuffer(height_buffer)
     }
 
-    //% block="set XGO|RX %tx|TX %rx"
+    //% block="set XGO|TX %tx|RX %rx"
     export function init_xgo_serial(tx: SerialPin, rx: SerialPin) {
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
     }
@@ -769,9 +769,9 @@ namespace xgo {
         commands_buffer[6] = ~(0x09 + 0x00 + 0x20 + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
     }
-
-    //% block="%on_off the servo for the XGO's %part leg"
-    export function servo_setting(on_off:servo_switch_enum,part:body_parts_enum) {
+    
+    //% block="Set XGO %part leg servo %on_off"
+    export function servo_setting(part:body_parts_enum,on_off:servo_switch_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
