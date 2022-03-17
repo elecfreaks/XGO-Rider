@@ -49,52 +49,52 @@ namespace xgo {
     }
 
     export enum rotate_direction_enum {
-        //% block= "left-turn"
+        //% block="left-turn"
         turn_left,
-        //% block= "right-turn"
+        //% block="right-turn"
         turn_right
     }
 
     export enum body_direction_xyz_enum {
-        //% block= "X"
+        //% block="X"
         X,
-        //% block= "Y"
+        //% block="Y"
         Y,
-        //% block= "Z"
+        //% block="Z"
         Z
     }
 
     export enum switch_enum {
-        //% block= "Turn on"
+        //% block="Turn on"
         Turn_on,
-        //% block= "Turn off"
+        //% block="Turn off"
         Turn_off
     }
 
     export enum servo_switch_enum {
-        //% block= "load"
+        //% block="load"
         Load,
-        //% block= "unload"
+        //% block="unload"
         Unload
     }
 
     export enum body_parts_enum {
-        //% block= "left front"
+        //% block="left front"
         left_front,
-        //% block= "left hind"
+        //% block="left hind"
         left_hind,
-         //% block= "right front"
+         //% block="right front"
         right_front,
-         //% block= "right hind"
+         //% block="right hind"
         right_hind
     }
 
     export enum joint_enum {
-        //% block= "upper"
+        //% block="upper"
         upper,
-        //% block= "middle"
+        //% block="middle"
         middle,
-        //% block= "below"
+        //% block="below"
         below
     }
 
@@ -140,7 +140,7 @@ namespace xgo {
     }
 
     //% block="Rotate %direction,speed is %speed\\%"
-    //% speed.min = 0 speed.max = 100
+    //% speed.min=0 speed.max=100
     export function rotate(direction:rotate_enum,speed:number) {
         let rotate_buffer = pins.createBuffer(9)
         rotate_buffer[0] = 0x55
@@ -185,7 +185,7 @@ namespace xgo {
     }
 
     //% block="move%direction speed %speed\\%"
-    //% speed.min = 0 speed.max = 100
+    //% speed.min=0 speed.max=100
     export function move_xgo(direction: direction_enum,speed:number) {
         let move_buffer = pins.createBuffer(9)
         move_buffer[0] = 0x55
