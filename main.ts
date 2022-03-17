@@ -240,8 +240,8 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //%block="Set the servo rotation value of the %joint joint of the %part leg to %angle degrees"
-    export function set_servo_angle(joint: joint_enum, part: body_parts_enum, angle: number) {
+    //%block="Set %part leg %joint servo to %angle"
+    export function set_servo_angle(part: body_parts_enum, joint: joint_enum, angle: number) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
