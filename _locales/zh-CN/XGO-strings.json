@@ -64,7 +64,7 @@
   "xgo.leg_lift|block": "设置机器狗执行以%mm毫米的抬腿高度以固定频率执行原地踏步",
   "xgo.leg_lift_continue|block": "设置机器狗执行以%mm毫米的抬腿高度以固定频率执行原地踏步，持续%time秒",
   "xgo.translational_motion|block": "设置机器狗执行%direction_xyz方向身体平移%distance毫米",
-  "xgo.translational_motion_reciprocate|block": "设置机器狗以周期%period秒向%direction_xyz方向身体往复平移",
+  "xgo.translational_motion_reciprocate|block": "设置机器狗身体向%direction_xyz方向以%period秒为周期往复平移",
   "xgo.translational_motion_reciprocate_stop|block": "停止机器狗向%direction_xyz方向身体往复平移",
   "xgo.rotate_angle_reel|block": "设置机器狗绕%direction_xyz轴旋转%angle度",
   "xgo.rotate_angle_reel_reciprocate|block": "设置机器狗以周期%period秒绕%direction_xyz轴往复转动",
