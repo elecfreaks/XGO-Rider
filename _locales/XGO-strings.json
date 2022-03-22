@@ -56,7 +56,7 @@
   "xgo.rotate|block": "Rotate %direction,speed is %speed\\%",
   "xgo.set_speed_frequency|block": "Set %speed_frequency speed to %speed",
   "xgo.set_servo_angle|block": "Set %part leg %joint servo to %angle",
-  "xgo.single_leg|block": "Set the X position of the tip of the %part leg to %location_x,Y position to %location_y,Z position to %location_z",
+  "xgo.single_leg|block": "Set the X position of the tip of the %part leg to%location_x, Y position to%location_y, Z position to%location_z",
   "xgo.translational_step|block": "Set XGO to perform a %direction translational motion with a step size of %step mm",
   "xgo.translational_step_continue|block": "Set XGO to perform a %direction translational motion with a step size of %step mm for %time seconds",
   "xgo.rotate_angle|block": "Set XGO to perform a %direction rotation at a speed of %speed degrees per second",

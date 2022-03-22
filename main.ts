@@ -1,4 +1,7 @@
-//% color=#8600FF weight=100 icon="\uf005"
+/**
+* Functions to XGO robot dog by ELECFREAKS Co.,Ltd.
+*/
+//% color=#8600FF icon="\uf6d3"
 //% block="xgo" blockId="xgo"
 namespace xgo {
 
@@ -180,6 +183,7 @@ namespace xgo {
     }
 
     //% block="set XGO|TX %tx|RX %rx"
+    //% weight=100
     export function init_xgo_serial(tx: SerialPin, rx: SerialPin) {
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
     }
@@ -310,7 +314,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //%block="Set the X position of the tip of the %part leg to %location_x,Y position to %location_y,Z position to %location_z"
+    //%block="Set the X position of the tip of the %part leg to%location_x, Y position to%location_y, Z position to%location_z"
     export function single_leg(part: body_parts_enum, location_x: number, location_y: number, location_z: number) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -880,6 +884,7 @@ namespace xgo {
     }
 
     //% block="Execution action %action"
+    //% weight=101
     export function execution_action(action: action_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
