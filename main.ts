@@ -1,7 +1,7 @@
 /**
 * Functions to XGO robot dog by ELECFREAKS Co.,Ltd.
 */
-//% color=#8600FF icon="\uf6d3"
+//% color=#8600FF icon="\uf544"
 //% block="xgo" blockId="xgo"
 namespace xgo {
 
@@ -183,7 +183,7 @@ namespace xgo {
     }
 
     //% block="set XGO|TX %tx|RX %rx"
-    //% weight=100
+    //% weight=101
     export function init_xgo_serial(tx: SerialPin, rx: SerialPin) {
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
     }
@@ -884,7 +884,7 @@ namespace xgo {
     }
 
     //% block="Execution action %action"
-    //% weight=101
+    //% weight=100
     export function execution_action(action: action_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
