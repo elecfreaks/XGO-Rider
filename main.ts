@@ -1,5 +1,5 @@
 /**
-* Functions to XGO robot dog by ELECFREAKS Co.,Ltd.
+* Functions to micro:bit XGO Robot Kit by ELECFREAKS Co.,Ltd.
 */
 //% color=#8600FF icon="\uf1b0"
 //% block="xgo" blockId="xgo"
@@ -38,7 +38,6 @@ namespace xgo {
         //% block="slow"
         slow = 0x10
     }
-    
 
     export enum translation_direction_enum {
         //% block="forward(0mm~25mm)"
