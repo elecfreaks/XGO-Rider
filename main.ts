@@ -1,7 +1,7 @@
 /**
 * Functions to XGO robot dog by ELECFREAKS Co.,Ltd.
 */
-//% color=#8600FF icon="\uf544"
+//% color=#8600FF icon="\uf1b0"
 //% block="xgo" blockId="xgo"
 namespace xgo {
 
