@@ -656,7 +656,7 @@ namespace xgo {
     }
 
     //% block="Set XGO to rotate around the %direction_xyz axis with a period of %period seconds"
-    //% period.min=1.5 period.max=8
+    //% period.min=2 period.max=8
     export function rotate_angle_reel_reciprocate(direction_xyz: body_direction_xyz_enum,period:number) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -682,7 +682,6 @@ namespace xgo {
     }
 
     //% block="Stop the periodic rotation of XGO around the %direction_xyz axis"
-    //% period.min=1.5 period.max=8
     export function rotate_angle_reel_reciprocate_stop(direction_xyz: body_direction_xyz_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
