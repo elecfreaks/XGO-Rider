@@ -67,7 +67,7 @@
   "xgo.translational_motion_reciprocate|block": "设置机器狗身体向%direction_xyz方向以%period秒为周期往复平移",
   "xgo.translational_motion_reciprocate_stop|block": "停止机器狗向%direction_xyz方向身体往复平移",
   "xgo.rotate_angle_reel|block": "设置机器狗绕%direction_xyz轴旋转%angle度",
-  "xgo.rotate_angle_reel_reciprocate|block": "设置机器狗以周期%period秒绕%direction_xyz轴往复转动",
+  "xgo.rotate_angle_reel_reciprocate|block": "设置机器狗绕%direction_xyz轴以%period秒为周期往复转动",
   "xgo.rotate_angle_reel_reciprocate_stop|block": "停止机器狗周期性绕%direction_xyz轴往复转动",
   "xgo.gyroscope_switch|block": "%on_off陀螺仪",
   "xgo.performance_model_switch|block": "%switch机器狗表演模式",
@@ -75,5 +75,6 @@
   "xgo.servo_setting|block": "设置机器狗%part腿部舵机%on_off",
   "xgo.get_electric_quantity|block": "获取机器狗当前电量",
   "xgo.get_servo_angle|block": "获取%part腿部%joint关节舵机的角度",
+  "xgo.init_action|block": "恢复初始动作",
   "{id:category}Xgo": "Xgo"
 }
