@@ -22,7 +22,7 @@ namespace xgo {
         //% block="Right"
         Right
     }
-    
+
     export enum speed_frequency_enum {
         //% block="servo speed"
         servo_speed,
@@ -155,11 +155,11 @@ namespace xgo {
         switch (direction) {
             case rotate_enum.Left:
                 rotate_buffer[5] = Math.map(speed, 0, 100, 128, 0)
-                rotate_buffer[6] = ~(0x90 + 0x00 + 0x32 + rotate_buffer[5])
+                rotate_buffer[6] = ~(0x09 + 0x00 + 0x32 + rotate_buffer[5])
                 break
             case rotate_enum.Right:
                 rotate_buffer[5] = Math.map(speed, 0, 100, 128, 255)
-                rotate_buffer[6] = ~(0x90 + 0x00 + 0x32 + rotate_buffer[5])
+                rotate_buffer[6] = ~(0x09 + 0x00 + 0x32 + rotate_buffer[5])
                 break
         }
         serial.writeBuffer(rotate_buffer)
@@ -175,7 +175,7 @@ namespace xgo {
         height_buffer[3] = 0x00
         height_buffer[4] = 0x35
         height_buffer[5] = Math.map(height, 0, 100, 0, 255)
-        height_buffer[6] = ~(0x90 + 0x00 + 0x35 + height_buffer[5])
+        height_buffer[6] = ~(0x09 + 0x00 + 0x35 + height_buffer[5])
         height_buffer[7] = 0x00
         height_buffer[8] = 0xAA
         serial.writeBuffer(height_buffer)
@@ -456,7 +456,7 @@ namespace xgo {
         commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
         basic.pause(time * 1000)
-        commands_buffer[5] = 0
+        commands_buffer[5] = 0x80
         commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
     }
@@ -506,7 +506,7 @@ namespace xgo {
         commands_buffer[6] = ~(0x09 + 0x00 + 0x32 + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
         basic.pause(time * 1000)
-        commands_buffer[5] = 0
+        commands_buffer[5] = 0x80
         commands_buffer[6] = ~(0x09 + 0x00 + 0x32 + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
     }
@@ -771,7 +771,7 @@ namespace xgo {
         commands_buffer[6] = ~(0x09 + 0x00 + 0x20 + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
     }
-    
+
     //% block="Set XGO %part leg servo %on_off"
     export function servo_setting(part:body_parts_enum,on_off:servo_switch_enum) {
         let commands_buffer = pins.createBuffer(9)
