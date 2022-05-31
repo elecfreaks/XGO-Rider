@@ -152,12 +152,16 @@ namespace xgo {
         rotate_buffer[4] = 0x32
         rotate_buffer[7] = 0x00
         rotate_buffer[8] = 0xAA
+        if (speed > 100)
+            speed = 100
+        if (speed < 0)
+            speed = 0
         switch (direction) {
-            case rotate_enum.Left:
+            case rotate_enum.Right:
                 rotate_buffer[5] = Math.map(speed, 0, 100, 128, 0)
                 rotate_buffer[6] = ~(0x09 + 0x00 + 0x32 + rotate_buffer[5])
                 break
-            case rotate_enum.Right:
+            case rotate_enum.Left:
                 rotate_buffer[5] = Math.map(speed, 0, 100, 128, 255)
                 rotate_buffer[6] = ~(0x09 + 0x00 + 0x32 + rotate_buffer[5])
                 break
@@ -169,6 +173,10 @@ namespace xgo {
     //% height.min=0 height.max=100
     export function body_height(height: number) {
         let height_buffer = pins.createBuffer(9)
+        if (height > 100)
+            height = 100
+        if (height < 0)
+            height = 0
         height_buffer[0] = 0x55
         height_buffer[1] = 0x00
         height_buffer[2] = 0x09
@@ -197,6 +205,10 @@ namespace xgo {
         move_buffer[3] = 0x00
         move_buffer[7] = 0x00
         move_buffer[8] = 0xAA
+        if (speed > 100)
+            speed = 100
+        if (speed < 0)
+            speed = 0
         switch (direction) {
             case direction_enum.Forward:
                 move_buffer[4] = 0x30
@@ -394,7 +406,7 @@ namespace xgo {
     }
 
     //%block="Set XGO to perform a %direction translational motion with a step size of %step mm"
-    //% distance.min=0 distance.max=25
+    //% step.min=0 step.max=25
     export function translational_step(direction: translation_direction_enum, step: number) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -403,6 +415,10 @@ namespace xgo {
         commands_buffer[3] = 0x00
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
+        if (step > 25)
+            step = 25
+        if (step < 0)
+            step = 0
         switch (direction) {
             case translation_direction_enum.Forward:
                 commands_buffer[4] = 0x30
@@ -414,11 +430,11 @@ namespace xgo {
                 break
             case translation_direction_enum.left_shift:
                 commands_buffer[4] = 0x31
-                commands_buffer[5] = Math.map(step, 0, 18, 128, 0)
+                commands_buffer[5] = Math.map(step, 0, 25, 128, 0)
                 break
             case translation_direction_enum.right_shift:
                 commands_buffer[4] = 0x31
-                commands_buffer[5] = Math.map(step, 0, 18, 128, 255)
+                commands_buffer[5] = Math.map(step, 0, 25, 128, 255)
                 break
         }
         commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
@@ -426,7 +442,7 @@ namespace xgo {
     }
 
     //%block="Set XGO to perform a %direction translational motion with a step size of %step mm for %time seconds"
-    //% distance.min=0 distance.max=25
+    //% step.min=0 step.max=25
     export function translational_step_continue(direction: translation_direction_enum, step: number,time:number) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -435,6 +451,10 @@ namespace xgo {
         commands_buffer[3] = 0x00
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
+        if (step > 25)
+            step = 25
+        if (step < 0)
+            step = 0
         switch (direction) {
             case translation_direction_enum.Forward:
                 commands_buffer[4] = 0x30
@@ -446,11 +466,11 @@ namespace xgo {
                 break
             case translation_direction_enum.left_shift:
                 commands_buffer[4] = 0x31
-                commands_buffer[5] = Math.map(step, 0, 18, 128, 0)
+                commands_buffer[5] = Math.map(step, 0, 25, 128, 0)
                 break
             case translation_direction_enum.right_shift:
                 commands_buffer[4] = 0x31
-                commands_buffer[5] = Math.map(step, 0, 18, 128, 255)
+                commands_buffer[5] = Math.map(step, 0, 25, 128, 255)
                 break
         }
         commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
@@ -472,6 +492,10 @@ namespace xgo {
         commands_buffer[4] = 0x32
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
+        if (speed > 150)
+            speed = 150
+        if (speed < 0)
+            speed = 0
         switch (direction) {
             case rotate_direction_enum.turn_left:
                 commands_buffer[5] = Math.map(speed, 0, 150, 128, 255)
@@ -495,6 +519,10 @@ namespace xgo {
         commands_buffer[4] = 0x32
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
+        if (speed > 150)
+            speed = 150
+        if (speed < 0)
+            speed = 0
         switch (direction) {
             case rotate_direction_enum.turn_left:
                 commands_buffer[5] = Math.map(speed, 0, 150, 128, 255)
@@ -515,6 +543,10 @@ namespace xgo {
     //% mm.min=10 mm.max=35
     export function leg_lift(mm:number) {
         let commands_buffer = pins.createBuffer(9)
+        if (mm > 35)
+            mm = 35
+        if (mm < 10)
+            mm = 10
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
         commands_buffer[2] = 0x09
@@ -531,6 +563,10 @@ namespace xgo {
     //% mm.min=10 mm.max=35
     export function leg_lift_continue(mm:number,time:number) {
         let commands_buffer = pins.createBuffer(9)
+        if (mm > 35)
+            mm = 35
+        if (mm < 10)
+            mm = 10
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
         commands_buffer[2] = 0x09
@@ -557,6 +593,10 @@ namespace xgo {
         commands_buffer[3] = 0x00
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
+        if (distance > 115)
+            distance = 115
+        if (distance < -35)
+            distance = -35
         switch (direction_xyz) {
             case body_direction_xyz_enum.X:
                 commands_buffer[4] = 0x33
@@ -576,7 +616,7 @@ namespace xgo {
     }
 
     //% block="Set XGO to move back and forth in the %direction_xyz direction with a period of %period seconds"
-    //% period.min=1.5  period.max=8
+    //% period.min=1  period.max=8
     export function translational_motion_reciprocate(direction_xyz: body_direction_xyz_enum, period: number) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -585,6 +625,10 @@ namespace xgo {
         commands_buffer[3] = 0x00
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
+        if (period > 8)
+            period = 8
+        if (period < 1)
+            period = 1
         switch (direction_xyz) {
             case body_direction_xyz_enum.X:
                 commands_buffer[4] = 0x80
@@ -596,13 +640,12 @@ namespace xgo {
                 commands_buffer[4] = 0x82
                 break
         }
-        commands_buffer[5] = Math.map(period, 1.5, 8, 0, 255)
+        commands_buffer[5] = Math.map(period, 1, 8, 0, 255)
         commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
     }
 
     //% block="Stop the periodic translation of XGO in the  %direction_xyz direction"
-    //% period.min=1.5  period.max=8
     export function translational_motion_reciprocate_stop(direction_xyz: body_direction_xyz_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -637,10 +680,14 @@ namespace xgo {
         commands_buffer[3] = 0x00
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
+        if (angle > 20)
+            angle = 20
+        if (angle < -20)
+            angle = -20
         switch (direction_xyz) {
             case body_direction_xyz_enum.X:
                 commands_buffer[4] = 0x36
-                commands_buffer[5] = Math.map(angle, -15, 15, 0, 255)
+                commands_buffer[5] = Math.map(angle, -20, 20, 0, 255)
                 break
             case body_direction_xyz_enum.Y:
                 commands_buffer[4] = 0x37
@@ -648,7 +695,7 @@ namespace xgo {
                 break
             case body_direction_xyz_enum.Z:
                 commands_buffer[4] = 0x38
-                commands_buffer[5] = Math.map(angle, -11, 11, 0, 255)
+                commands_buffer[5] = Math.map(angle, -20, 20, 0, 255)
                 break
         }
         commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
@@ -665,6 +712,10 @@ namespace xgo {
         commands_buffer[3] = 0x00
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
+        if (period > 8)
+            period = 8
+        if (period < 2)
+            period = 2
         switch (direction_xyz) {
             case body_direction_xyz_enum.X:
                 commands_buffer[4] = 0x39
@@ -676,7 +727,7 @@ namespace xgo {
                 commands_buffer[4] = 0x3B
                 break
         }
-        commands_buffer[5] = Math.map(period, 1.5, 8, 0, 255)
+        commands_buffer[5] = Math.map(period, 2, 8, 0, 255)
         commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
     }
