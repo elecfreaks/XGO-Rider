@@ -189,9 +189,14 @@ namespace xgo {
         serial.writeBuffer(height_buffer)
     }
 
+    /**
+    * TODO: initialization xgo
+    * @param tx describe parameter here, eg: SerialPin.P2
+    * @param rx describe parameter here, eg: SerialPin.P1
+    */
     //% block="set XGO|TX %tx|RX %rx"
     //% weight=101
-    export function init_xgo_serial(tx: SerialPin = SerialPin.P2, rx: SerialPin = SerialPin.P1) {
+    export function init_xgo_serial(tx: SerialPin, rx: SerialPin) {
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
     }
 
