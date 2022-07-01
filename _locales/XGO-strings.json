@@ -69,7 +69,7 @@
   "xgo.rotate_angle_reel|block": "Set XGO to be rotated %angle degrees about the %direction_xyz axis",
   "xgo.rotate_angle_reel_reciprocate|block": "Set XGO to rotate around the %direction_xyz axis with a period of %period seconds",
   "xgo.rotate_angle_reel_reciprocate_stop|block": "Stop the periodic rotation of XGO around the %direction_xyz axis",
-  "xgo.gyroscope_switch|block": "%on_off the gyroscop仪",
+  "xgo.gyroscope_switch|block": "%on_off the dynamic balance mode",
   "xgo.performance_model_switch|block": "%on_off XGO performance mode",
   "xgo.servo_switch|block": "%on_off all XGO servo",
   "xgo.servo_setting|block": "Set XGO %part leg servo %on_off",

@@ -69,7 +69,7 @@
   "xgo.rotate_angle_reel|block": "设置机器狗绕%direction_xyz轴旋转%angle度",
   "xgo.rotate_angle_reel_reciprocate|block": "设置机器狗绕%direction_xyz轴以%period秒为周期往复转动",
   "xgo.rotate_angle_reel_reciprocate_stop|block": "停止机器狗周期性绕%direction_xyz轴往复转动",
-  "xgo.gyroscope_switch|block": "%on_off陀螺仪",
+  "xgo.gyroscope_switch|block": "%on_off动态平衡模式",
   "xgo.performance_model_switch|block": "%switch机器狗表演模式",
   "xgo.servo_switch|block": "设置机器狗所有舵机%on_off",
   "xgo.servo_setting|block": "设置机器狗%part腿部舵机%on_off",

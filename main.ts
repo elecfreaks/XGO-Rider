@@ -191,7 +191,7 @@ namespace xgo {
 
     //% block="set XGO|TX %tx|RX %rx"
     //% weight=101
-    export function init_xgo_serial(tx: SerialPin, rx: SerialPin) {
+    export function init_xgo_serial(tx: SerialPin = SerialPin.P2, rx: SerialPin = SerialPin.P1) {
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
     }
 
@@ -757,7 +757,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //% block="%on_off the gyroscope"
+    //% block="%on_off the dynamic balance mode"
     export function gyroscope_switch(on_off:switch_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -779,6 +779,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% deprecated=true
     //% block="%on_off XGO performance mode"
     export function performance_model_switch(on_off:switch_enum) {
         let commands_buffer = pins.createBuffer(9)
