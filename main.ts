@@ -128,8 +128,8 @@ namespace xgo {
         //% block="Sit_down"
         Sit_down,
         //% block="Wave"
-        Wave,
-        //% block="Stretch_oneself"
+        // Wave,
+        // //% block="Stretch_oneself"
         Stretch_oneself,
         //% block="Play_pendulum"
         Play_pendulum,
@@ -1002,10 +1002,10 @@ namespace xgo {
                 commands_buffer[5] = 0x0C
                 commands_buffer[6] = 0xAC
                 break
-            case action_enum.Wave:
-                commands_buffer[5] = 0x0D
-                commands_buffer[6] = 0xAB
-                break
+            // case action_enum.Wave:
+            //     commands_buffer[5] = 0x0D
+            //     commands_buffer[6] = 0xAB
+            //     break
             case action_enum.Stretch_oneself:
                 commands_buffer[5] = 0x0E
                 commands_buffer[6] = 0xAA
