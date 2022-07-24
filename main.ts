@@ -602,13 +602,13 @@ namespace xgo {
     }
 
     //% block="Set XGO execution to run in place at a fixed frequency at a leg lift height of %mm mm for %time seconds"
-    //% mm.min=10 mm.max=35
+    //% mm.min=11 mm.max=35
     export function leg_lift_continue(mm:number,time:number) {
         let commands_buffer = pins.createBuffer(9)
         if (mm > 35)
             mm = 35
-        if (mm < 10)
-            mm = 10
+        if (mm < 11)
+            mm = 11
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
         commands_buffer[2] = 0x09
@@ -616,7 +616,7 @@ namespace xgo {
         commands_buffer[4] = 0x3C
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
-        commands_buffer[5] = Math.map(mm, 10, 35, 0, 255)
+        commands_buffer[5] = Math.map(mm, 8, 35, 0, 255)
         commands_buffer[6] = ~(0x09 + 0x00 + 0x3C + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
         basic.pause(time * 1000)
