@@ -254,7 +254,12 @@ namespace xgo {
         }
         else {
             commands_buffer[4] = 0x3D
-            commands_buffer[5] = speed
+            if (speed == speed_enum.fast)
+                commands_buffer[5] = 0x02
+            else if (speed == speed_enum.normal)
+                commands_buffer[5] = 0x00
+            else if (speed == speed_enum.slow)
+                commands_buffer[5] = 0x01
         }
         commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
@@ -850,19 +855,19 @@ namespace xgo {
                 if (on_off == servo_switch_enum.Load)
                     commands_buffer[5] = 0x22
                 else
-                    commands_buffer[5] = 0x12
+                    commands_buffer[5] = 0x14
                 break
             case body_parts_enum.right_front:
                 if (on_off == servo_switch_enum.Load)
                     commands_buffer[5] = 0x23
                 else
-                    commands_buffer[5] = 0x13
+                    commands_buffer[5] = 0x12
                 break
             case body_parts_enum.right_hind:
                 if (on_off == servo_switch_enum.Load)
                     commands_buffer[5] = 0x24
                 else
-                    commands_buffer[5] = 0x14
+                    commands_buffer[5] = 0x13
                 break
         }
         commands_buffer[6] = ~(0x09 + 0x00 + 0x20 + commands_buffer[5])
