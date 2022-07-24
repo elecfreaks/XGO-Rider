@@ -582,13 +582,13 @@ namespace xgo {
     }
 
     //% block="Set XGO execution to run in place at a fixed frequency at a leg lift height of %mm mm"
-    //% mm.min=10 mm.max=35
+    //% mm.min=11 mm.max=35
     export function leg_lift(mm:number) {
         let commands_buffer = pins.createBuffer(9)
         if (mm > 35)
             mm = 35
-        if (mm < 10)
-            mm = 10
+        if (mm < 11)
+            mm = 11
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
         commands_buffer[2] = 0x09
@@ -753,7 +753,7 @@ namespace xgo {
     }
 
     //% block="Set XGO to rotate around the %direction_xyz axis with a period of %period seconds"
-    //% period.min=2 period.max=8
+    //% period.min=3 period.max=8
     export function rotate_angle_reel_reciprocate(direction_xyz: body_direction_xyz_enum,period:number) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -764,8 +764,8 @@ namespace xgo {
         commands_buffer[8] = 0xAA
         if (period > 8)
             period = 8
-        if (period < 2)
-            period = 2
+        if (period < 3)
+            period = 3
         switch (direction_xyz) {
             case body_direction_xyz_enum.X:
                 commands_buffer[4] = 0x39
