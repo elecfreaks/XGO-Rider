@@ -341,21 +341,21 @@ namespace xgo {
                 break
         }
         switch (joint) {
-            case joint_enum.upper:
+            case turn_joint_enum.upper:
                 if (angle > 30)
                     angle = 30
                 if (angle < -30)
                     angle = -30
                 commands_buffer[5] = Math.map(angle, -30, 30, 0, 255)
                 break
-            case joint_enum.middle:
+            case turn_joint_enum.middle:
                 if (angle > 90)
                     angle = 90
                 if (angle < -70)
                     angle = -70
                 commands_buffer[5] = Math.map(angle, -70, 90, 0, 255)
                 break
-            case joint_enum.below:
+            case turn_joint_enum.below:
                 if (angle > 50)
                     angle = 50
                 if (angle < -70)
