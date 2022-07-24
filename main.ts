@@ -128,8 +128,8 @@ namespace xgo {
         //% block="Sit_down"
         Sit_down,
         //% block="Wave"
-        // Wave,
-        // //% block="Stretch_oneself"
+        Wave,
+        //% block="Stretch_oneself"
         Stretch_oneself,
         //% block="Play_pendulum"
         Play_pendulum,
@@ -852,13 +852,13 @@ namespace xgo {
                 else
                     commands_buffer[5] = 0x12
                 break
-            case body_parts_enum.left_hind:
+            case body_parts_enum.right_front:
                 if (on_off == servo_switch_enum.Load)
                     commands_buffer[5] = 0x23
                 else
                     commands_buffer[5] = 0x13
                 break
-            case body_parts_enum.left_hind:
+            case body_parts_enum.right_hind:
                 if (on_off == servo_switch_enum.Load)
                     commands_buffer[5] = 0x24
                 else
@@ -951,8 +951,8 @@ namespace xgo {
         commands_buffer[8] = 0xAA
         switch (action) {
             case action_enum.Default_posture:
-                commands_buffer[5] = 0x00
-                commands_buffer[6] = 0xB8
+                commands_buffer[5] = 0xFF
+                commands_buffer[6] = 0xB9
                 break
             case action_enum.Go_prone:
                 commands_buffer[5] = 0x01
@@ -1002,10 +1002,10 @@ namespace xgo {
                 commands_buffer[5] = 0x0C
                 commands_buffer[6] = 0xAC
                 break
-            // case action_enum.Wave:
-            //     commands_buffer[5] = 0x0D
-            //     commands_buffer[6] = 0xAB
-            //     break
+            case action_enum.Wave:
+                commands_buffer[5] = 0x0D
+                commands_buffer[6] = 0xAB
+                break
             case action_enum.Stretch_oneself:
                 commands_buffer[5] = 0x0E
                 commands_buffer[6] = 0xAA
