@@ -57,6 +57,15 @@ namespace xgo {
         turn_right
     }
 
+    export enum orientation_enum {
+        //% block="X"
+        X,
+        //% block="Y"
+        Y,
+        //% block="Z"
+        Z
+    }
+
     export enum body_direction_xyz_enum {
         //% block="X"
         X,
@@ -159,7 +168,7 @@ namespace xgo {
         Handshake
     }
 
-    //% block="Rotate %direction,speed is %speed\\%"
+    //% block="rotate %direction,speed is %speed\\%"
     //% speed.min=0 speed.max=100
     export function rotate(direction:rotate_enum,speed:number) {
         let rotate_buffer = pins.createBuffer(9)
@@ -187,7 +196,7 @@ namespace xgo {
         serial.writeBuffer(rotate_buffer)
     }
 
-    //% block="Body height %height\\%"
+    //% block="body height %height\\%"
     //% height.min=0 height.max=100
     export function body_height(height: number) {
         let height_buffer = pins.createBuffer(9)
@@ -258,7 +267,7 @@ namespace xgo {
         serial.writeBuffer(move_buffer)
     }
 
-    //%block="Set %speed_frequency speed to %speed"
+    //%block="set %speed_frequency speed to %speed"
     export function set_speed_frequency(speed_frequency: speed_frequency_enum, speed: speed_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -284,7 +293,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //%block="Set %part leg %joint servo to %angle"
+    //%block="set %part leg %joint servo to %angle"
     //% angle.min=-70  angle.max=90
     export function set_servo_angle(part: body_parts_enum, joint: turn_joint_enum, angle: number) {
         let commands_buffer = pins.createBuffer(9)
@@ -367,7 +376,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //%block="Set the X position of the tip of the %part leg to%location_x, Y position to%location_y, Z position to%location_z"
+    //%block="set the X position of the tip of the %part leg to%location_x, Y position to%location_y, Z position to%location_z"
     export function single_leg(part: body_parts_enum, location_x: number, location_y: number, location_z: number) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -447,7 +456,7 @@ namespace xgo {
         }
     }
 
-    //%block="Set XGO to perform a %direction translational motion with a step size of %step mm"
+    //%block="set XGO to perform a %direction translational motion with a step size of %step mm"
     //% step.min=5 step.max=25
     export function translational_step(direction: translation_direction_enum, step: number) {
         let commands_buffer = pins.createBuffer(9)
@@ -483,7 +492,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //%block="Set XGO to perform a %direction translational motion with a step size of %step mm for %time seconds"
+    //%block="set XGO to perform a %direction translational motion with a step size of %step mm for %time seconds"
     //% step.min=5 step.max=25
     export function translational_step_continue(direction: translation_direction_enum, step: number,time:number) {
         let commands_buffer = pins.createBuffer(9)
@@ -523,7 +532,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //% block="Set XGO to perform a %direction rotation at a speed of %speed degrees per second"
+    //% block="set XGO to perform a %direction rotation at a speed of %speed degrees per second"
     //% speed.min=0 speed.max=150
     export function rotate_angle(direction: rotate_direction_enum,speed:number) {
         let commands_buffer = pins.createBuffer(9)
@@ -550,7 +559,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //% block="Set XGO to perform a %direction rotation at a speed of %speed degrees per second for %time seconds"
+    //% block="set XGO to perform a %direction rotation at a speed of %speed degrees per second for %time seconds"
     //% speed.min=0 speed.max=150
     export function rotate_angle_continue(direction: rotate_direction_enum,speed:number,time:number) {
         let commands_buffer = pins.createBuffer(9)
@@ -581,7 +590,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //% block="Set XGO execution to run in place at a fixed frequency at a leg lift height of %mm mm"
+    //% block="set XGO execution to run in place at a fixed frequency at a leg lift height of %mm mm"
     //% mm.min=11 mm.max=35
     export function leg_lift(mm:number) {
         let commands_buffer = pins.createBuffer(9)
@@ -601,7 +610,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //% block="Set XGO execution to run in place at a fixed frequency at a leg lift height of %mm mm for %time seconds"
+    //% block="set XGO execution to run in place at a fixed frequency at a leg lift height of %mm mm for %time seconds"
     //% mm.min=11 mm.max=35
     export function leg_lift_continue(mm:number,time:number) {
         let commands_buffer = pins.createBuffer(9)
@@ -625,7 +634,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //% block="Set the XGO's body to pan %distance mm in the %direction_xyz direction"
+    //% block="set the XGO's body to pan %distance mm in the %direction_xyz direction"
     //% distance.min=-35  distance.max=115
     export function translational_motion(direction_xyz: translation_xyz_enum, distance: number) {
         let commands_buffer = pins.createBuffer(9)
@@ -665,7 +674,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //% block="Set XGO to move back and forth in the %direction_xyz direction with a period of %period seconds"
+    //% block="set XGO to move back and forth in the %direction_xyz direction with a period of %period seconds"
     //% period.min=2  period.max=8
     export function translational_motion_reciprocate(direction_xyz: body_direction_xyz_enum, period: number) {
         let commands_buffer = pins.createBuffer(9)
@@ -695,7 +704,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //% block="Stop the periodic translation of XGO in the  %direction_xyz direction"
+    //% block="stop the periodic translation of XGO in the  %direction_xyz direction"
     export function translational_motion_reciprocate_stop(direction_xyz: body_direction_xyz_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -720,7 +729,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //% block="Set XGO to be rotated %angle degrees about the %direction_xyz axis"
+    //% block="set XGO to be rotated %angle degrees about the %direction_xyz axis"
     //% angle.min=-20 angle.max=20
     export function rotate_angle_reel(direction_xyz: body_direction_xyz_enum,angle:number) {
         let commands_buffer = pins.createBuffer(9)
@@ -752,7 +761,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //% block="Set XGO to rotate around the %direction_xyz axis with a period of %period seconds"
+    //% block="set XGO to rotate around the %direction_xyz axis with a period of %period seconds"
     //% period.min=3 period.max=8
     export function rotate_angle_reel_reciprocate(direction_xyz: body_direction_xyz_enum,period:number) {
         let commands_buffer = pins.createBuffer(9)
@@ -782,7 +791,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //% block="Stop the periodic rotation of XGO around the %direction_xyz axis"
+    //% block="stop the periodic rotation of XGO around the %direction_xyz axis"
     export function rotate_angle_reel_reciprocate_stop(direction_xyz: body_direction_xyz_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -874,7 +883,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //% block="Set XGO %part leg servo %on_off"
+    //% block="set XGO %part leg servo %on_off"
     export function servo_setting(part:body_parts_enum,on_off:servo_switch_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -914,7 +923,26 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-    //%block="Get XGO's current power"
+    //%block="get XGO's version"
+    export function get_version(): string {
+        let commands_buffer = pins.createBuffer(9)
+        commands_buffer[0] = 0x55
+        commands_buffer[1] = 0x00
+        commands_buffer[2] = 0x09
+        commands_buffer[3] = 0x02
+        commands_buffer[4] = 0x07
+        commands_buffer[5] = 0x00
+        commands_buffer[6] = 0xED
+        commands_buffer[7] = 0x00
+        commands_buffer[8] = 0xAA
+        serial.writeBuffer(commands_buffer)
+        let read_data_buffer = pins.createBuffer(9)
+        read_data_buffer = serial.readBuffer(18)
+        let version = String.fromCharCode(read_data_buffer[5]) + String.fromCharCode(read_data_buffer[6]) + String.fromCharCode(read_data_buffer[7]) + String.fromCharCode(read_data_buffer[8]) + String.fromCharCode(read_data_buffer[9])
+        return version
+    }
+
+    //%block="get XGO's current power"
     export function get_electric_quantity():number{
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -932,7 +960,7 @@ namespace xgo {
         return read_data_buffer[5]
     }
 
-    //% block="Get the servo Angle of the %joint %part leg joint"
+    //% block="get the servo Angle of the %joint %part leg joint"
     export function get_servo_angle(part:body_parts_enum,joint:joint_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
