@@ -103,9 +103,9 @@ namespace xgo {
         left_front,
         //% block="left hind"
         left_hind,
-         //% block="right front"
+        //% block="right front"
         right_front,
-         //% block="right hind"
+        //% block="right hind"
         right_hind
     }
 
@@ -125,6 +125,12 @@ namespace xgo {
         middle,
         //% block="below(-70~50)"
         below
+    }
+    export enum clmap_stable_enum {
+        //% block="stable"
+        Stable,
+        //% block="unstable"
+        Unstable
     }
 
     export enum action_enum {
@@ -170,7 +176,7 @@ namespace xgo {
 
     //% block="rotate %direction,speed is %speed\\%"
     //% speed.min=0 speed.max=100
-    export function rotate(direction:rotate_enum,speed:number) {
+    export function rotate(direction: rotate_enum, speed: number) {
         let rotate_buffer = pins.createBuffer(9)
         rotate_buffer[0] = 0x55
         rotate_buffer[1] = 0x00
@@ -230,7 +236,7 @@ namespace xgo {
 
     //% block="move%direction speed %speed\\%"
     //% speed.min=0 speed.max=100
-    export function move_xgo(direction: direction_enum,speed:number) {
+    export function move_xgo(direction: direction_enum, speed: number) {
         let move_buffer = pins.createBuffer(9)
         move_buffer[0] = 0x55
         move_buffer[1] = 0x00
@@ -494,7 +500,7 @@ namespace xgo {
 
     //%block="set XGO to perform a %direction translational motion with a step size of %step mm for %time seconds"
     //% step.min=5 step.max=25
-    export function translational_step_continue(direction: translation_direction_enum, step: number,time:number) {
+    export function translational_step_continue(direction: translation_direction_enum, step: number, time: number) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
@@ -534,7 +540,7 @@ namespace xgo {
 
     //% block="set XGO to perform a %direction rotation at a speed of %speed degrees per second"
     //% speed.min=0 speed.max=150
-    export function rotate_angle(direction: rotate_direction_enum,speed:number) {
+    export function rotate_angle(direction: rotate_direction_enum, speed: number) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
@@ -561,7 +567,7 @@ namespace xgo {
 
     //% block="set XGO to perform a %direction rotation at a speed of %speed degrees per second for %time seconds"
     //% speed.min=0 speed.max=150
-    export function rotate_angle_continue(direction: rotate_direction_enum,speed:number,time:number) {
+    export function rotate_angle_continue(direction: rotate_direction_enum, speed: number, time: number) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
@@ -592,7 +598,7 @@ namespace xgo {
 
     //% block="set XGO execution to run in place at a fixed frequency at a leg lift height of %mm mm"
     //% mm.min=11 mm.max=35
-    export function leg_lift(mm:number) {
+    export function leg_lift(mm: number) {
         let commands_buffer = pins.createBuffer(9)
         if (mm > 35)
             mm = 35
@@ -612,7 +618,7 @@ namespace xgo {
 
     //% block="set XGO execution to run in place at a fixed frequency at a leg lift height of %mm mm for %time seconds"
     //% mm.min=11 mm.max=35
-    export function leg_lift_continue(mm:number,time:number) {
+    export function leg_lift_continue(mm: number, time: number) {
         let commands_buffer = pins.createBuffer(9)
         if (mm > 35)
             mm = 35
@@ -659,7 +665,7 @@ namespace xgo {
                     distance = 18
                 if (distance < -18)
                     distance = -18
-                commands_buffer[5] = Math.map(distance, -18, 18,  0, 255)
+                commands_buffer[5] = Math.map(distance, -18, 18, 0, 255)
                 break
             case translation_xyz_enum.Z:
                 commands_buffer[4] = 0x35
@@ -731,7 +737,7 @@ namespace xgo {
 
     //% block="set XGO to be rotated %angle degrees about the %direction_xyz axis"
     //% angle.min=-20 angle.max=20
-    export function rotate_angle_reel(direction_xyz: body_direction_xyz_enum,angle:number) {
+    export function rotate_angle_reel(direction_xyz: body_direction_xyz_enum, angle: number) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
@@ -763,7 +769,7 @@ namespace xgo {
 
     //% block="set XGO to rotate around the %direction_xyz axis with a period of %period seconds"
     //% period.min=3 period.max=8
-    export function rotate_angle_reel_reciprocate(direction_xyz: body_direction_xyz_enum,period:number) {
+    export function rotate_angle_reel_reciprocate(direction_xyz: body_direction_xyz_enum, period: number) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
@@ -817,7 +823,7 @@ namespace xgo {
     }
 
     //% block="%on_off the dynamic balance mode"
-    export function gyroscope_switch(on_off:switch_enum) {
+    export function gyroscope_switch(on_off: switch_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
@@ -840,7 +846,7 @@ namespace xgo {
 
     //% deprecated=true
     //% block="%on_off XGO performance mode"
-    export function performance_model_switch(on_off:switch_enum) {
+    export function performance_model_switch(on_off: switch_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
@@ -862,7 +868,7 @@ namespace xgo {
     }
 
     //% block="%on_off all XGO servo"
-    export function servo_switch(on_off:servo_switch_enum) {
+    export function servo_switch(on_off: servo_switch_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
@@ -884,7 +890,7 @@ namespace xgo {
     }
 
     //% block="set XGO %part leg servo %on_off"
-    export function servo_setting(part:body_parts_enum,on_off:servo_switch_enum) {
+    export function servo_setting(part: body_parts_enum, on_off: servo_switch_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
@@ -943,7 +949,7 @@ namespace xgo {
     }
 
     //%block="get XGO's current power"
-    export function get_electric_quantity():number{
+    export function get_electric_quantity(): number {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
@@ -961,7 +967,7 @@ namespace xgo {
     }
 
     //% block="get the servo Angle of the %joint %part leg joint"
-    export function get_servo_angle(part:body_parts_enum,joint:joint_enum) {
+    export function get_servo_angle(part: body_parts_enum, joint: joint_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
@@ -1115,6 +1121,91 @@ namespace xgo {
         commands_buffer[6] = ~(0x09 + 0x00 + 0x3E + 0xFF)
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
+        serial.writeBuffer(commands_buffer)
+    }
+
+    /*机械臂夹子*/
+    //% block="Set the position of the manipulator clamp %mm mm"
+    //% mm.min=0 mm.max=255
+    export function Manipulator_clamp(mm: number) {
+        let commands_buffer = pins.createBuffer(9)
+        if (mm > 255)
+            mm = 255
+        if (mm < 0)
+            mm = 0
+        commands_buffer[0] = 0x55
+        commands_buffer[1] = 0x00
+        commands_buffer[2] = 0x09
+        commands_buffer[3] = 0x00
+        commands_buffer[4] = 0x71
+        commands_buffer[7] = 0x00
+        commands_buffer[8] = 0xAA
+        commands_buffer[5] = mm
+        commands_buffer[6] = ~(0x09 + 0x00 + 0x71 + commands_buffer[5])
+        serial.writeBuffer(commands_buffer)
+    }
+
+    //% block="clmap stable is %on_off"
+    export function clmap_stable(on_off: clmap_stable_enum) {
+        let commands_buffer = pins.createBuffer(9)
+        commands_buffer[0] = 0x55
+        commands_buffer[1] = 0x00
+        commands_buffer[2] = 0x09
+        commands_buffer[3] = 0x00
+        commands_buffer[4] = 0x72
+        commands_buffer[7] = 0x00
+        commands_buffer[8] = 0xAA
+        switch (on_off) {
+            case clmap_stable_enum.Stable:
+                commands_buffer[5] = 0x01
+                break
+            case clmap_stable_enum.Unstable:
+                commands_buffer[5] = 0x00
+                break
+        }
+        commands_buffer[6] = ~(0x09 + 0x00 + 0x72 + commands_buffer[5])
+        serial.writeBuffer(commands_buffer)
+    }
+
+    /*夹爪X轴*/
+    //% block="Set the position of the manipulator clampX %mm mm"
+    //% mm.min=-80 mm.max=155
+    export function Manipulator_clampX(mm: number) {
+        let commands_buffer = pins.createBuffer(9)
+        if (mm > 155)
+            mm = 155
+        if (mm < -80)
+            mm = -80
+        commands_buffer[0] = 0x55
+        commands_buffer[1] = 0x00
+        commands_buffer[2] = 0x09
+        commands_buffer[3] = 0x00
+        commands_buffer[4] = 0x73
+        commands_buffer[7] = 0x00
+        commands_buffer[8] = 0xAA
+        commands_buffer[5] = mm
+        commands_buffer[6] = ~(0x09 + 0x00 + 0x73 + commands_buffer[5])
+        serial.writeBuffer(commands_buffer)
+    }
+
+    /*夹爪Z轴*/
+    //% block="Set the position of the manipulator clampZ %mm mm"
+    //% mm.min=-95 mm.max=155
+    export function Manipulator_clampZ(mm: number) {
+        let commands_buffer = pins.createBuffer(9)
+        if (mm > 155)
+            mm = 155
+        if (mm < -95)
+            mm = -95
+        commands_buffer[0] = 0x55
+        commands_buffer[1] = 0x00
+        commands_buffer[2] = 0x09
+        commands_buffer[3] = 0x00
+        commands_buffer[4] = 0x74
+        commands_buffer[7] = 0x00
+        commands_buffer[8] = 0xAA
+        commands_buffer[5] = mm
+        commands_buffer[6] = ~(0x09 + 0x00 + 0x74 + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
     }
 }
