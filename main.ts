@@ -275,7 +275,7 @@ namespace xgo {
         }
         serial.writeBuffer(move_buffer)
     }
-    
+
     //% weight=176
     //%block="set %speed_frequency speed to %speed"
     export function set_speed_frequency(speed_frequency: speed_frequency_enum, speed: speed_enum) {
