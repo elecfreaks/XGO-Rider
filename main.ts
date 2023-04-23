@@ -174,6 +174,7 @@ namespace xgo {
         Handshake
     }
 
+    //% weight=175
     //% block="rotate %direction,speed is %speed\\%"
     //% speed.min=0 speed.max=100
     export function rotate(direction: rotate_enum, speed: number) {
@@ -202,6 +203,7 @@ namespace xgo {
         serial.writeBuffer(rotate_buffer)
     }
 
+    //% weight=175
     //% block="body height %height\\%"
     //% height.min=0 height.max=100
     export function body_height(height: number) {
@@ -228,12 +230,13 @@ namespace xgo {
     * @param rx describe parameter here, eg: SerialPin.P1
     */
     //% block="set XGO|TX %tx|RX %rx"
-    //% weight=101
+    //% weight=200
     export function init_xgo_serial(tx: SerialPin, rx: SerialPin) {
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
         xgo.init_action()
     }
 
+    //% weight=176
     //% block="move%direction speed %speed\\%"
     //% speed.min=0 speed.max=100
     export function move_xgo(direction: direction_enum, speed: number) {
@@ -272,7 +275,8 @@ namespace xgo {
         }
         serial.writeBuffer(move_buffer)
     }
-
+    
+    //% weight=176
     //%block="set %speed_frequency speed to %speed"
     export function set_speed_frequency(speed_frequency: speed_frequency_enum, speed: speed_enum) {
         let commands_buffer = pins.createBuffer(9)
@@ -299,6 +303,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=177
     //%block="set %part leg %joint servo to %angle"
     //% angle.min=-70  angle.max=90
     export function set_servo_angle(part: body_parts_enum, joint: turn_joint_enum, angle: number) {
@@ -357,23 +362,23 @@ namespace xgo {
         }
         switch (joint) {
             case turn_joint_enum.upper:
-                if (angle > 30)
-                    angle = 30
-                if (angle < -30)
-                    angle = -30
-                commands_buffer[5] = Math.map(angle, -30, 30, 0, 255)
+                if (angle >= 31)
+                    angle = 31
+                if (angle <= -31)
+                    angle = -31
+                commands_buffer[5] = Math.map(angle, -31, 31, 0, 255)
                 break
             case turn_joint_enum.middle:
-                if (angle > 90)
+                if (angle >= 90)
                     angle = 90
-                if (angle < -70)
+                if (angle <= -70)
                     angle = -70
                 commands_buffer[5] = Math.map(angle, -70, 90, 0, 255)
                 break
             case turn_joint_enum.below:
-                if (angle > 50)
+                if (angle >= 50)
                     angle = 50
-                if (angle < -70)
+                if (angle <= -70)
                     angle = -70
                 commands_buffer[5] = Math.map(angle, -70, 50, 0, 255)
                 break
@@ -382,7 +387,11 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=178
     //%block="set the X position of the tip of the %part leg to%location_x, Y position to%location_y, Z position to%location_z"
+    //% location_x.min=-35  location_x.max=35
+    //% location_y.min=-18  location_y.max=18
+    //% location_z.min=75  location_z.max=115
     export function single_leg(part: body_parts_enum, location_x: number, location_y: number, location_z: number) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -462,6 +471,7 @@ namespace xgo {
         }
     }
 
+    //% weight=179
     //%block="set XGO to perform a %direction translational motion with a step size of %step mm"
     //% step.min=5 step.max=25
     export function translational_step(direction: translation_direction_enum, step: number) {
@@ -498,6 +508,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=180
     //%block="set XGO to perform a %direction translational motion with a step size of %step mm for %time seconds"
     //% step.min=5 step.max=25
     export function translational_step_continue(direction: translation_direction_enum, step: number, time: number) {
@@ -538,6 +549,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=181
     //% block="set XGO to perform a %direction rotation at a speed of %speed degrees per second"
     //% speed.min=0 speed.max=150
     export function rotate_angle(direction: rotate_direction_enum, speed: number) {
@@ -565,6 +577,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=182
     //% block="set XGO to perform a %direction rotation at a speed of %speed degrees per second for %time seconds"
     //% speed.min=0 speed.max=150
     export function rotate_angle_continue(direction: rotate_direction_enum, speed: number, time: number) {
@@ -596,6 +609,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=183
     //% block="set XGO execution to run in place at a fixed frequency at a leg lift height of %mm mm"
     //% mm.min=11 mm.max=35
     export function leg_lift(mm: number) {
@@ -616,6 +630,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=184
     //% block="set XGO execution to run in place at a fixed frequency at a leg lift height of %mm mm for %time seconds"
     //% mm.min=11 mm.max=35
     export function leg_lift_continue(mm: number, time: number) {
@@ -640,6 +655,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=185
     //% block="set the XGO's body to pan %distance mm in the %direction_xyz direction"
     //% distance.min=-35  distance.max=115
     export function translational_motion(direction_xyz: translation_xyz_enum, distance: number) {
@@ -680,6 +696,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=186
     //% block="set XGO to move back and forth in the %direction_xyz direction with a period of %period seconds"
     //% period.min=2  period.max=8
     export function translational_motion_reciprocate(direction_xyz: body_direction_xyz_enum, period: number) {
@@ -710,6 +727,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=187
     //% block="stop the periodic translation of XGO in the  %direction_xyz direction"
     export function translational_motion_reciprocate_stop(direction_xyz: body_direction_xyz_enum) {
         let commands_buffer = pins.createBuffer(9)
@@ -735,6 +753,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=188
     //% block="set XGO to be rotated %angle degrees about the %direction_xyz axis"
     //% angle.min=-20 angle.max=20
     export function rotate_angle_reel(direction_xyz: body_direction_xyz_enum, angle: number) {
@@ -767,6 +786,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=189
     //% block="set XGO to rotate around the %direction_xyz axis with a period of %period seconds"
     //% period.min=3 period.max=8
     export function rotate_angle_reel_reciprocate(direction_xyz: body_direction_xyz_enum, period: number) {
@@ -797,6 +817,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=190
     //% block="stop the periodic rotation of XGO around the %direction_xyz axis"
     export function rotate_angle_reel_reciprocate_stop(direction_xyz: body_direction_xyz_enum) {
         let commands_buffer = pins.createBuffer(9)
@@ -822,6 +843,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=191
     //% block="%on_off the dynamic balance mode"
     export function gyroscope_switch(on_off: switch_enum) {
         let commands_buffer = pins.createBuffer(9)
@@ -844,6 +866,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=192
     //% deprecated=true
     //% block="%on_off XGO performance mode"
     export function performance_model_switch(on_off: switch_enum) {
@@ -867,6 +890,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=193
     //% block="%on_off all XGO servo"
     export function servo_switch(on_off: servo_switch_enum) {
         let commands_buffer = pins.createBuffer(9)
@@ -889,6 +913,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=194
     //% block="set XGO %part leg servo %on_off"
     export function servo_setting(part: body_parts_enum, on_off: servo_switch_enum) {
         let commands_buffer = pins.createBuffer(9)
@@ -929,6 +954,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=195
     //%block="get XGO's version"
     export function get_version(): string {
         let commands_buffer = pins.createBuffer(9)
@@ -948,6 +974,7 @@ namespace xgo {
         return version
     }
 
+    //% weight=196
     //%block="get XGO's current power"
     export function get_electric_quantity(): number {
         let commands_buffer = pins.createBuffer(9)
@@ -966,6 +993,7 @@ namespace xgo {
         return read_data_buffer[5]
     }
 
+    //% weight=197
     //% block="get the servo Angle of the %joint %part leg joint"
     export function get_servo_angle(part: body_parts_enum, joint: joint_enum) {
         let commands_buffer = pins.createBuffer(9)
@@ -983,7 +1011,7 @@ namespace xgo {
         read_data_buffer = serial.readBuffer(20)
         switch (part) {
             case body_parts_enum.left_front:
-                if (joint == joint_enum.upper)
+                if (joint == joint_enum.below)
                     return read_data_buffer[5]
                 else if (joint == joint_enum.middle)
                     return read_data_buffer[6]
@@ -991,7 +1019,7 @@ namespace xgo {
                     return read_data_buffer[7]
                 break
             case body_parts_enum.left_hind:
-                if (joint == joint_enum.upper)
+                if (joint == joint_enum.below)
                     return read_data_buffer[8]
                 else if (joint == joint_enum.middle)
                     return read_data_buffer[9]
@@ -999,7 +1027,7 @@ namespace xgo {
                     return read_data_buffer[10]
                 break
             case body_parts_enum.right_front:
-                if (joint == joint_enum.upper)
+                if (joint == joint_enum.below)
                     return read_data_buffer[11]
                 else if (joint == joint_enum.middle)
                     return read_data_buffer[12]
@@ -1007,7 +1035,7 @@ namespace xgo {
                     return read_data_buffer[13]
                 break
             case body_parts_enum.right_hind:
-                if (joint == joint_enum.upper)
+                if (joint == joint_enum.below)
                     return read_data_buffer[14]
                 else if (joint == joint_enum.middle)
                     return read_data_buffer[15]
@@ -1018,7 +1046,7 @@ namespace xgo {
     }
 
     //% block="Execution action %action"
-    //% weight=100
+    //% weight=199
     export function execution_action(action: action_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -1110,6 +1138,7 @@ namespace xgo {
     }
 
     //% block="restore initial action"
+    //% weight=198
     export function init_action() {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
@@ -1125,6 +1154,7 @@ namespace xgo {
     }
 
     /*机械臂夹子*/
+    //% weight=168
     //% block="Set the position of the manipulator clamp %mm mm"
     //% mm.min=0 mm.max=255
     export function Manipulator_clamp(mm: number) {
@@ -1145,6 +1175,7 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
+    //% weight=166
     //% block="clmap stable is %on_off"
     export function clmap_stable(on_off: clmap_stable_enum) {
         let commands_buffer = pins.createBuffer(9)
@@ -1168,6 +1199,7 @@ namespace xgo {
     }
 
     /*夹爪X轴*/
+    //% weight=169
     //% block="Set the position of the manipulator clampX %mm mm"
     //% mm.min=-80 mm.max=155
     export function Manipulator_clampX(mm: number) {
@@ -1189,6 +1221,7 @@ namespace xgo {
     }
 
     /*夹爪Z轴*/
+    //% weight=168
     //% block="Set the position of the manipulator clampZ %mm mm"
     //% mm.min=-95 mm.max=155
     export function Manipulator_clampZ(mm: number) {
