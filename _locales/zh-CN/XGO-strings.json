@@ -79,15 +79,17 @@
     "xgo.performance_model_switch|block": "%switch机器狗表演模式",
     "xgo.servo_switch|block": "设置机器狗所有舵机%on_off",
     "xgo.servo_setting|block": "设置机器狗%part腿部舵机%on_off",
-    "xgo.get_version|block": "获取机器狗版本号",
-    "xgo.get_electric_quantity|block": "获取机器狗当前电量",
+    "xgo.get_version|block": "机器狗固件版本号",
+    "xgo.get_electric_quantity|block": "机器狗电量",
     "xgo.get_servo_angle|block": "获取%part腿部%joint关节舵机的角度",
-    "xgo.init_action|block": "恢复初始动作",
+    "xgo.init_action|block": "恢复默认站姿",
     "xgo.Manipulator_clamp|block": "机械臂夹子%mm毫米",
     "xgo.Manipulator_clampX|block": "夹爪X轴%mm毫米",
     "xgo.Manipulator_clampZ|block": "夹爪z轴%mm毫米",
     "xgo.clmap_stable|block": "设置机器狗所有舵机%on_off",
     "xgo.clmap_stable_enum.Stable|block": "启用自稳定",
     "xgo.clmap_stable_enum.Unstable|block": "不启用自稳定",
-    "{id:category}Xgo": "Xgo"
+    "{id:category}Xgo": "Xgo",
+    "xgo.GetPosestate|block": "将%posestate设置为机器狗当前状态",
+    "xgo.SetPosestate|block": "设置机器狗为%posestate状态"
 }

@@ -174,6 +174,25 @@ namespace xgo {
         Handshake
     }
 
+    export enum pose_enum {
+        //% block="pose1"
+        pose1,
+        //% block="pose2"
+        pose2,
+        //% block="pose3"
+        pose3,
+        //% block="pose4"
+        pose4,
+        //% block="pose5"
+        pose5
+    }
+
+    let pose1zx = pins.createBuffer(23)
+    let pose2zx = pins.createBuffer(23)
+    let pose3zx = pins.createBuffer(23)
+    let pose4zx = pins.createBuffer(23)
+    let pose5zx = pins.createBuffer(23)
+
     //% weight=175
     //% block="rotate %direction,speed is %speed\\%"
     //% speed.min=0 speed.max=100
@@ -222,6 +241,7 @@ namespace xgo {
         height_buffer[7] = 0x00
         height_buffer[8] = 0xAA
         serial.writeBuffer(height_buffer)
+        basic.pause(2000)
     }
 
     /**
@@ -362,29 +382,18 @@ namespace xgo {
         }
         switch (joint) {
             case turn_joint_enum.upper:
-                if (angle >= 31)
-                    angle = 31
-                if (angle <= -31)
-                    angle = -31
-                commands_buffer[5] = Math.map(angle, -31, 31, 0, 255)
+                commands_buffer[5] = angle
                 break
             case turn_joint_enum.middle:
-                if (angle >= 90)
-                    angle = 90
-                if (angle <= -70)
-                    angle = -70
-                commands_buffer[5] = Math.map(angle, -70, 90, 0, 255)
+                commands_buffer[5] = angle
                 break
             case turn_joint_enum.below:
-                if (angle >= 50)
-                    angle = 50
-                if (angle <= -70)
-                    angle = -70
-                commands_buffer[5] = Math.map(angle, -70, 50, 0, 255)
+                commands_buffer[5] = angle
                 break
         }
         commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
+        basic.pause(2000)
     }
 
     //% weight=178
@@ -419,6 +428,7 @@ namespace xgo {
                 commands_buffer[5] = Z
                 commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
                 serial.writeBuffer(commands_buffer)
+                basic.pause(2000)
                 break
             case body_parts_enum.right_front:
                 commands_buffer[4] = 0x43
@@ -435,6 +445,7 @@ namespace xgo {
                 commands_buffer[5] = Z
                 commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
                 serial.writeBuffer(commands_buffer)
+                basic.pause(2000)
                 break
             case body_parts_enum.right_hind:
                 commands_buffer[4] = 0x46
@@ -451,6 +462,7 @@ namespace xgo {
                 commands_buffer[5] = Z
                 commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
                 serial.writeBuffer(commands_buffer)
+                basic.pause(2000)
                 break
             case body_parts_enum.left_hind:
                 commands_buffer[4] = 0x49
@@ -467,6 +479,7 @@ namespace xgo {
                 commands_buffer[5] = Z
                 commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
                 serial.writeBuffer(commands_buffer)
+                basic.pause(2000)
                 break
         }
     }
@@ -694,6 +707,7 @@ namespace xgo {
         }
         commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
+        basic.pause(2000)
     }
 
     //% weight=186
@@ -784,6 +798,7 @@ namespace xgo {
         }
         commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
+        basic.pause(2000)
     }
 
     //% weight=189
@@ -911,6 +926,7 @@ namespace xgo {
         }
         commands_buffer[6] = ~(0x09 + 0x00 + 0x20 + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
+        basic.pause(50)
     }
 
     //% weight=194
@@ -952,6 +968,7 @@ namespace xgo {
         }
         commands_buffer[6] = ~(0x09 + 0x00 + 0x20 + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
+        basic.pause(50)
     }
 
     //% weight=195
@@ -997,18 +1014,20 @@ namespace xgo {
     //% block="get the servo Angle of the %joint %part leg joint"
     export function get_servo_angle(part: body_parts_enum, joint: joint_enum) {
         let commands_buffer = pins.createBuffer(9)
+        basic.pause(50)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
         commands_buffer[2] = 0x09
         commands_buffer[3] = 0x02
         commands_buffer[4] = 0x50
-        commands_buffer[5] = 0x0C
-        commands_buffer[6] = ~(0x09 + 0x02 + 0x50 + 0x0C)
+        commands_buffer[5] = 0x0F
+        commands_buffer[6] = ~(0x09 + 0x02 + 0x50 + 0x0F)
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
         serial.writeBuffer(commands_buffer)
-        let read_data_buffer = pins.createBuffer(20)
-        read_data_buffer = serial.readBuffer(20)
+        let read_data_buffer = pins.createBuffer(23)
+        serial.setRxBufferSize(1000)
+        read_data_buffer = serial.readBuffer(23)
         switch (part) {
             case body_parts_enum.left_front:
                 if (joint == joint_enum.below)
@@ -1060,81 +1079,119 @@ namespace xgo {
             case action_enum.Default_posture:
                 commands_buffer[5] = 0xFF
                 commands_buffer[6] = 0xB9
+                serial.writeBuffer(commands_buffer)
+                basic.pause(1000)
                 break
             case action_enum.Go_prone:
                 commands_buffer[5] = 0x01
                 commands_buffer[6] = 0xB7
+                serial.writeBuffer(commands_buffer)
+                basic.pause(3000)
                 break
             case action_enum.Stand:
                 commands_buffer[5] = 0x02
                 commands_buffer[6] = 0xB6
+                serial.writeBuffer(commands_buffer)
+                basic.pause(3000)
                 break
             case action_enum.Crawl_forward:
                 commands_buffer[5] = 0x03
                 commands_buffer[6] = 0xB5
+                serial.writeBuffer(commands_buffer)
+                basic.pause(5000)
                 break
             case action_enum.Whirl:
                 commands_buffer[5] = 0x04
                 commands_buffer[6] = 0xB4
+                serial.writeBuffer(commands_buffer)
+                basic.pause(5000)
                 break
             case action_enum.Sur_place:
                 commands_buffer[5] = 0x05
                 commands_buffer[6] = 0xB3
+                serial.writeBuffer(commands_buffer)
                 break
             case action_enum.Squat:
                 commands_buffer[5] = 0x06
                 commands_buffer[6] = 0xB2
+                serial.writeBuffer(commands_buffer)
+                basic.pause(4000)
                 break
             case action_enum.Twirl_Roll:
                 commands_buffer[5] = 0x07
                 commands_buffer[6] = 0xB1
+                serial.writeBuffer(commands_buffer)
+                basic.pause(4000)
                 break
             case action_enum.Twirl_Pitch:
                 commands_buffer[5] = 0x08
                 commands_buffer[6] = 0xB0
+                serial.writeBuffer(commands_buffer)
+                basic.pause(4000)
                 break
             case action_enum.Twirl_Yaw:
                 commands_buffer[5] = 0x09
                 commands_buffer[6] = 0xAF
+                serial.writeBuffer(commands_buffer)
+                basic.pause(4000)
                 break
             case action_enum.Triaxial_rotation:
                 commands_buffer[5] = 0x0A
                 commands_buffer[6] = 0xAE
+                serial.writeBuffer(commands_buffer)
+                basic.pause(7000)
                 break
             case action_enum.Pee:
                 commands_buffer[5] = 0x0B
                 commands_buffer[6] = 0xAD
+                serial.writeBuffer(commands_buffer)
+                basic.pause(7000)
                 break
             case action_enum.Sit_down:
                 commands_buffer[5] = 0x0C
                 commands_buffer[6] = 0xAC
+                serial.writeBuffer(commands_buffer)
+                basic.pause(5000)
                 break
             case action_enum.Wave:
                 commands_buffer[5] = 0x0D
                 commands_buffer[6] = 0xAB
+                serial.writeBuffer(commands_buffer)
+                basic.pause(7000)
                 break
             case action_enum.Stretch_oneself:
                 commands_buffer[5] = 0x0E
                 commands_buffer[6] = 0xAA
+                serial.writeBuffer(commands_buffer)
+                basic.pause(5000)
+                basic.pause(5000)
                 break
             case action_enum.Play_pendulum:
                 commands_buffer[5] = 0x10
                 commands_buffer[6] = 0xA8
+                serial.writeBuffer(commands_buffer)
+                basic.pause(6000)
                 break
             case action_enum.Request_feeding:
                 commands_buffer[5] = 0x11
                 commands_buffer[6] = 0xA7
+                serial.writeBuffer(commands_buffer)
+                basic.pause(4000)
                 break
             case action_enum.Looking_for_food:
                 commands_buffer[5] = 0x12
                 commands_buffer[6] = 0xA6
+                serial.writeBuffer(commands_buffer)
+                basic.pause(4000)
                 break
             case action_enum.Handshake:
                 commands_buffer[5] = 0x13
                 commands_buffer[6] = 0xA5
+                serial.writeBuffer(commands_buffer)
+                basic.pause(5000)
+                basic.pause(5000)
                 break
         }
-        serial.writeBuffer(commands_buffer)
     }
 
     //% block="restore initial action"
@@ -1151,6 +1208,7 @@ namespace xgo {
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
         serial.writeBuffer(commands_buffer)
+        basic.pause(1000)
     }
 
     /*机械臂夹子*/
@@ -1173,6 +1231,7 @@ namespace xgo {
         commands_buffer[5] = mm
         commands_buffer[6] = ~(0x09 + 0x00 + 0x71 + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
+        basic.pause(3000)
     }
 
     //% weight=166
@@ -1218,6 +1277,7 @@ namespace xgo {
         commands_buffer[5] = mm
         commands_buffer[6] = ~(0x09 + 0x00 + 0x73 + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
+        basic.pause(3000)
     }
 
     /*夹爪Z轴*/
@@ -1240,5 +1300,5 @@ namespace xgo {
         commands_buffer[5] = mm
         commands_buffer[6] = ~(0x09 + 0x00 + 0x74 + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
+        basic.pause(3000)
     }
-}
