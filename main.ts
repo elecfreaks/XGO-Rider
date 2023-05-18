@@ -1302,3 +1302,299 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
         basic.pause(3000)
     }
+
+    /*将"pose1"设置为机器狗当前状态*/
+    //% weight=166
+    //% block="Set %posestate as the current state of the XGO"
+    export function GetPosestate(posestate: pose_enum) {
+        let commands_buffer = pins.createBuffer(9)
+        let i = 0
+        basic.pause(50)
+        commands_buffer[0] = 0x55
+        commands_buffer[1] = 0x00
+        commands_buffer[2] = 0x09
+        commands_buffer[3] = 0x02
+        commands_buffer[4] = 0x50
+        commands_buffer[5] = 0x0F
+        commands_buffer[6] = ~(0x09 + 0x02 + 0x50 + 0x0F)
+        commands_buffer[7] = 0x00
+        commands_buffer[8] = 0xAA
+        serial.writeBuffer(commands_buffer)
+        let read_data_buffer = pins.createBuffer(23)
+        serial.setRxBufferSize(1000)
+        read_data_buffer = serial.readBuffer(23)
+        switch (posestate) {
+            case pose_enum.pose1:
+                for (i = 0; i < 23;) {
+                    pose1zx[i] = read_data_buffer[i]
+                    i = i + 1
+                }
+                break
+            case pose_enum.pose2:
+                for (i = 0; i < 23;) {
+                    pose2zx[i] = read_data_buffer[i]
+                    i = i + 1
+                }
+                break
+            case pose_enum.pose3:
+                for (i = 0; i < 23;) {
+                    pose3zx[i] = read_data_buffer[i]
+                    i = i + 1
+                }
+                break
+            case pose_enum.pose4:
+                for (i = 0; i < 23;) {
+                    pose4zx[i] = read_data_buffer[i]
+                    i = i + 1
+                }
+                break
+            case pose_enum.pose5:
+                for (i = 0; i < 23;) {
+                    pose5zx[i] = read_data_buffer[i]
+                    i = i + 1
+                }
+                break
+            default:
+                break
+        }
+
+    }
+
+    /*将"pose1"设置为机器狗当前状态*/
+    //% weight=166
+    //% block="Setting the XGO to %posestate state"
+    export function SetPosestate(posestate: pose_enum) {
+        let commands_buffer = pins.createBuffer(9)
+        let part = 0
+        let i = 0
+        let UsingBuffer = pins.createBuffer(23)
+        switch (posestate) {
+            case pose_enum.pose1:
+                for (i = 0; i < 23;) {
+                    UsingBuffer[i] = pose1zx[i]
+                    i = i + 1
+                }
+                break
+            case pose_enum.pose2:
+                for (i = 0; i < 23;) {
+                    UsingBuffer[i] = pose2zx[i]
+                    i = i + 1
+                }
+                break
+            case pose_enum.pose3:
+                for (i = 0; i < 23;) {
+                    UsingBuffer[i] = pose3zx[i]
+                    i = i + 1
+                }
+                break
+            case pose_enum.pose4:
+                for (i = 0; i < 23;) {
+                    UsingBuffer[i] = pose4zx[i]
+                    i = i + 1
+                }
+                break
+            case pose_enum.pose5:
+                for (i = 0; i < 23;) {
+                    UsingBuffer[i] = pose5zx[i]
+                    i = i + 1
+                }
+                break
+            default:
+                break
+        }
+        /*1将"UsingBuffer"设置为夹爪状态*/
+        commands_buffer[0] = 0x55
+        commands_buffer[1] = 0x00
+        commands_buffer[2] = 0x09
+        commands_buffer[3] = 0x00
+        commands_buffer[4] = 0x71
+        commands_buffer[5] = UsingBuffer[18]
+        commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+        commands_buffer[7] = 0x00
+        commands_buffer[8] = 0xAA
+        serial.writeBuffer(commands_buffer)
+        basic.pause(50)
+        /*1将"UsingBuffer"设置为夹爪X轴位置*/
+        commands_buffer[0] = 0x55
+        commands_buffer[1] = 0x00
+        commands_buffer[2] = 0x09
+        commands_buffer[3] = 0x00
+        commands_buffer[4] = 0x73
+        commands_buffer[5] = UsingBuffer[19]
+        commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+        commands_buffer[7] = 0x00
+        commands_buffer[8] = 0xAA
+        serial.writeBuffer(commands_buffer)
+        basic.pause(50)
+        /*1将"UsingBuffer"设置为夹爪Z轴位置*/
+        commands_buffer[0] = 0x55
+        commands_buffer[1] = 0x00
+        commands_buffer[2] = 0x09
+        commands_buffer[3] = 0x00
+        commands_buffer[4] = 0x74
+        commands_buffer[5] = UsingBuffer[20]
+        commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+        commands_buffer[7] = 0x00
+        commands_buffer[8] = 0xAA
+        serial.writeBuffer(commands_buffer)
+        basic.pause(50)
+
+        for (part = 0; part < 4; part++) {
+            switch (part) {
+                case body_parts_enum.left_front:
+                    commands_buffer[0] = 0x55
+                    commands_buffer[1] = 0x00
+                    commands_buffer[2] = 0x09
+                    commands_buffer[3] = 0x00
+                    commands_buffer[7] = 0x00
+                    commands_buffer[8] = 0xAA
+                    commands_buffer[4] = 0x52
+                    /*1将"UsingBuffer"设置为机器狗当前状态,左前，上*/
+                    commands_buffer[5] = UsingBuffer[7]
+                    commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+                    serial.writeBuffer(commands_buffer)
+                    basic.pause(50)
+                    commands_buffer[0] = 0x55
+                    commands_buffer[1] = 0x00
+                    commands_buffer[2] = 0x09
+                    commands_buffer[3] = 0x00
+                    commands_buffer[7] = 0x00
+                    commands_buffer[8] = 0xAA
+                    commands_buffer[4] = 0x51
+                    /*2将"UsingBuffer"设置为机器狗当前状态，左前，中*/
+                    commands_buffer[5] = UsingBuffer[6]
+                    commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+                    serial.writeBuffer(commands_buffer)
+                    basic.pause(50)
+                    commands_buffer[0] = 0x55
+                    commands_buffer[1] = 0x00
+                    commands_buffer[2] = 0x09
+                    commands_buffer[3] = 0x00
+                    commands_buffer[7] = 0x00
+                    commands_buffer[8] = 0xAA
+                    commands_buffer[4] = 0x50
+                    /*3将"UsingBuffer"设置为机器狗当前状态，左前，下*/
+                    commands_buffer[5] = UsingBuffer[5]
+                    commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+                    serial.writeBuffer(commands_buffer)
+                    basic.pause(50)
+                    break
+                case body_parts_enum.left_hind:
+                    commands_buffer[0] = 0x55
+                    commands_buffer[1] = 0x00
+                    commands_buffer[2] = 0x09
+                    commands_buffer[3] = 0x00
+                    commands_buffer[7] = 0x00
+                    commands_buffer[8] = 0xAA
+                    commands_buffer[4] = 0x5B
+                    /*4将"UsingBuffer"设置为机器狗当前状态，左后，上*/
+                    commands_buffer[5] = UsingBuffer[16]
+                    commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+                    serial.writeBuffer(commands_buffer)
+                    basic.pause(50)
+                    commands_buffer[0] = 0x55
+                    commands_buffer[1] = 0x00
+                    commands_buffer[2] = 0x09
+                    commands_buffer[3] = 0x00
+                    commands_buffer[7] = 0x00
+                    commands_buffer[8] = 0xAA
+                    commands_buffer[4] = 0x5A
+                    /*5将"UsingBuffer"设置为机器狗当前状态，左后，中*/
+                    commands_buffer[5] = UsingBuffer[15]
+                    commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+                    serial.writeBuffer(commands_buffer)
+                    basic.pause(50)
+                    commands_buffer[0] = 0x55
+                    commands_buffer[1] = 0x00
+                    commands_buffer[2] = 0x09
+                    commands_buffer[3] = 0x00
+                    commands_buffer[7] = 0x00
+                    commands_buffer[8] = 0xAA
+                    commands_buffer[4] = 0x59
+                    /*6将"UsingBuffer"设置为机器狗当前状态，左后，下*/
+                    commands_buffer[5] = UsingBuffer[14]
+                    commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+                    serial.writeBuffer(commands_buffer)
+                    basic.pause(50)
+                    break
+                case body_parts_enum.right_front:
+                    commands_buffer[0] = 0x55
+                    commands_buffer[1] = 0x00
+                    commands_buffer[2] = 0x09
+                    commands_buffer[3] = 0x00
+                    commands_buffer[7] = 0x00
+                    commands_buffer[8] = 0xAA
+                    commands_buffer[4] = 0x55
+                    /*7将"UsingBuffer"设置为机器狗当前状态，右前，上*/
+                    commands_buffer[5] = UsingBuffer[10]
+                    commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+                    serial.writeBuffer(commands_buffer)
+                    basic.pause(50)
+                    commands_buffer[0] = 0x55
+                    commands_buffer[1] = 0x00
+                    commands_buffer[2] = 0x09
+                    commands_buffer[3] = 0x00
+                    commands_buffer[7] = 0x00
+                    commands_buffer[8] = 0xAA
+                    commands_buffer[4] = 0x54
+                    /*8将"UsingBuffer"设置为机器狗当前状态，右前，中*/
+                    commands_buffer[5] = UsingBuffer[9]
+                    commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+                    serial.writeBuffer(commands_buffer)
+                    basic.pause(50)
+                    commands_buffer[0] = 0x55
+                    commands_buffer[1] = 0x00
+                    commands_buffer[2] = 0x09
+                    commands_buffer[3] = 0x00
+                    commands_buffer[7] = 0x00
+                    commands_buffer[8] = 0xAA
+                    commands_buffer[4] = 0x53
+                    /*9将"UsingBuffer"设置为机器狗当前状态，右前，下*/
+                    commands_buffer[5] = UsingBuffer[8]
+                    commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+                    serial.writeBuffer(commands_buffer)
+                    basic.pause(50)
+                    break
+                case body_parts_enum.right_hind:
+                    commands_buffer[0] = 0x55
+                    commands_buffer[1] = 0x00
+                    commands_buffer[2] = 0x09
+                    commands_buffer[3] = 0x00
+                    commands_buffer[7] = 0x00
+                    commands_buffer[8] = 0xAA
+                    commands_buffer[4] = 0x58
+                    /*10将"UsingBuffer"设置为机器狗当前状态，右后，上*/
+                    commands_buffer[5] = UsingBuffer[13]
+                    commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+                    serial.writeBuffer(commands_buffer)
+                    basic.pause(50)
+                    commands_buffer[0] = 0x55
+                    commands_buffer[1] = 0x00
+                    commands_buffer[2] = 0x09
+                    commands_buffer[3] = 0x00
+                    commands_buffer[7] = 0x00
+                    commands_buffer[8] = 0xAA
+                    commands_buffer[4] = 0x57
+                    /*11将"UsingBuffer"设置为机器狗当前状态，右后，中*/
+                    commands_buffer[5] = UsingBuffer[12]
+                    commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+                    serial.writeBuffer(commands_buffer)
+                    basic.pause(50)
+                    commands_buffer[0] = 0x55
+                    commands_buffer[1] = 0x00
+                    commands_buffer[2] = 0x09
+                    commands_buffer[3] = 0x00
+                    commands_buffer[7] = 0x00
+                    commands_buffer[8] = 0xAA
+                    commands_buffer[4] = 0x56
+                    /*12将"UsingBuffer"设置为机器狗当前状态，右后，下*/
+                    commands_buffer[5] = UsingBuffer[11]
+                    commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+                    serial.writeBuffer(commands_buffer)
+                    basic.pause(50)
+                    break
+            }
+        }
+
+    }
+}
