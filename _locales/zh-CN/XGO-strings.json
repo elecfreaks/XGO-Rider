@@ -91,5 +91,9 @@
     "xgo.clmap_stable_enum.Unstable|block": "不启用自稳定",
     "{id:category}Xgo": "Xgo",
     "xgo.GetPosestate|block": "将%posestate设置为机器狗当前状态",
-    "xgo.SetPosestate|block": "设置机器狗为%posestate状态"
+    "xgo.SetPosestate|block": "设置机器狗为%posestate状态",
+    "{id:group}Basic": "基础",
+    "{id:group}Set Servo": "设置舵机",
+    "{id:group}Sports": "运动",
+    "{id:group}Robot Arm(V2)": "机械臂(V2)"
 }
