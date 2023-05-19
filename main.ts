@@ -524,7 +524,7 @@ namespace xgo {
     }
 
     //% group="Set Servo"
-    /*将"pose1"设置为机器狗当前状态*/
+    /*设置机器狗为"pose1"状态*/
     //% weight=166
     //% block="Setting the XGO to %posestate state"
     export function SetPosestate(posestate: pose_enum) {
@@ -763,9 +763,10 @@ namespace xgo {
     }
 
     //% group="Set Servo"
-    /*将"pose1"设置为机器狗当前状态*/
-    //% weight=169
-    //% block="Set %posestate as the current state of the XGO"
+    /*将机器狗当前状态记录为"pose1"
+    */
+    //% weight=200
+    //% block="Record the current status of the XGO as %posestate"
     export function GetPosestate(posestate: pose_enum) {
         let commands_buffer = pins.createBuffer(9)
         let i = 0
@@ -1628,36 +1629,6 @@ namespace xgo {
         serial.writeBuffer(commands_buffer)
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //% weight=192
     //% deprecated=true
     //% block="%on_off XGO performance mode"
@@ -1681,29 +1652,4 @@ namespace xgo {
         commands_buffer[6] = ~(0x09 + 0x00 + 0x03 + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

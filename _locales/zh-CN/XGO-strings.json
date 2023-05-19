@@ -90,7 +90,7 @@
     "xgo.clmap_stable_enum.Stable|block": "启用自稳定",
     "xgo.clmap_stable_enum.Unstable|block": "不启用自稳定",
     "{id:category}Xgo": "Xgo",
-    "xgo.GetPosestate|block": "将%posestate设置为机器狗当前状态",
+    "xgo.GetPosestate|block": "将机器狗当前状态记录为%posestate",
     "xgo.SetPosestate|block": "设置机器狗为%posestate状态",
     "{id:group}Basic": "基础",
     "{id:group}Set Servo": "设置舵机",
