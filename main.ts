@@ -275,13 +275,13 @@ namespace xgo {
                 commands_buffer[5] = 0x08
                 commands_buffer[6] = 0xB0
                 serial.writeBuffer(commands_buffer)
-                basic.pause(4000)
+                basic.pause(5000)
                 break
             case action_enum.Twirl_Yaw:
                 commands_buffer[5] = 0x09
                 commands_buffer[6] = 0xAF
                 serial.writeBuffer(commands_buffer)
-                basic.pause(4000)
+                basic.pause(5000)
                 break
             case action_enum.Triaxial_rotation:
                 commands_buffer[5] = 0x0A
@@ -318,7 +318,7 @@ namespace xgo {
                 commands_buffer[5] = 0x10
                 commands_buffer[6] = 0xA8
                 serial.writeBuffer(commands_buffer)
-                basic.pause(6000)
+                basic.pause(7000)
                 break
             case action_enum.Request_feeding:
                 commands_buffer[5] = 0x11
@@ -330,7 +330,7 @@ namespace xgo {
                 commands_buffer[5] = 0x12
                 commands_buffer[6] = 0xA6
                 serial.writeBuffer(commands_buffer)
-                basic.pause(4000)
+                basic.pause(5000)
                 break
             case action_enum.Handshake:
                 commands_buffer[5] = 0x13
@@ -443,27 +443,31 @@ namespace xgo {
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
         switch (part) {
+            //左前
             case body_parts_enum.left_front:
                 if (on_off == servo_switch_enum.Load)
                     commands_buffer[5] = 0x21
                 else
                     commands_buffer[5] = 0x11
                 break
+            //左后
             case body_parts_enum.left_hind:
                 if (on_off == servo_switch_enum.Load)
-                    commands_buffer[5] = 0x22
+                    commands_buffer[5] = 0x24
                 else
                     commands_buffer[5] = 0x14
                 break
+            //右前
             case body_parts_enum.right_front:
                 if (on_off == servo_switch_enum.Load)
-                    commands_buffer[5] = 0x23
+                    commands_buffer[5] = 0x22
                 else
                     commands_buffer[5] = 0x12
                 break
+            //右后
             case body_parts_enum.right_hind:
                 if (on_off == servo_switch_enum.Load)
-                    commands_buffer[5] = 0x24
+                    commands_buffer[5] = 0x23
                 else
                     commands_buffer[5] = 0x13
                 break
@@ -1537,13 +1541,13 @@ namespace xgo {
     /*夹爪X轴*/
     //% weight=169
     //% block="Set the position of the manipulator clampX %mm mm"
-    //% mm.min=-80 mm.max=155
-    export function Manipulator_clampX(mm: number) {
+    //% mm.min=0 mm.max=100 
+    export function Manipulator_clampX(mm: number = 50 ) {
         let commands_buffer = pins.createBuffer(9)
-        if (mm > 155)
-            mm = 155
-        if (mm < -80)
-            mm = -80
+        if (mm > 100)
+            mm = 100
+        if (mm < 0)
+            mm = 0
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
         commands_buffer[2] = 0x09
@@ -1551,7 +1555,7 @@ namespace xgo {
         commands_buffer[4] = 0x73
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
-        commands_buffer[5] = mm
+        commands_buffer[5] = Math.map(mm, 0, 100, 0, 255)
         commands_buffer[6] = ~(0x09 + 0x00 + 0x73 + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
         basic.pause(3000)
@@ -1561,13 +1565,13 @@ namespace xgo {
     /*夹爪Z轴*/
     //% weight=168
     //% block="Set the position of the manipulator clampZ %mm mm"
-    //% mm.min=-95 mm.max=155
-    export function Manipulator_clampZ(mm: number) {
+    //% mm.min=0 mm.max=100
+    export function Manipulator_clampZ(mm: number ) {
         let commands_buffer = pins.createBuffer(9)
-        if (mm > 155)
-            mm = 155
-        if (mm < -95)
-            mm = -95
+        if (mm > 100)
+            mm = 100
+        if (mm < 0)
+            mm = 0
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
         commands_buffer[2] = 0x09
@@ -1575,7 +1579,7 @@ namespace xgo {
         commands_buffer[4] = 0x74
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
-        commands_buffer[5] = mm
+        commands_buffer[5] = Math.map(mm,0, 100, 0, 255)  
         commands_buffer[6] = ~(0x09 + 0x00 + 0x74 + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
         basic.pause(3000)
