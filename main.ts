@@ -1542,7 +1542,7 @@ namespace xgo {
     //% weight=169
     //% block="Set the position of the manipulator clampX %mm mm"
     //% mm.min=0 mm.max=100 
-    export function Manipulator_clampX(mm: number = 50 ) {
+    export function Manipulator_clampX(mm: number = 50) {
         let commands_buffer = pins.createBuffer(9)
         if (mm > 100)
             mm = 100
@@ -1566,7 +1566,7 @@ namespace xgo {
     //% weight=168
     //% block="Set the position of the manipulator clampZ %mm mm"
     //% mm.min=0 mm.max=100
-    export function Manipulator_clampZ(mm: number ) {
+    export function Manipulator_clampZ(mm: number) {
         let commands_buffer = pins.createBuffer(9)
         if (mm > 100)
             mm = 100
@@ -1579,7 +1579,7 @@ namespace xgo {
         commands_buffer[4] = 0x74
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
-        commands_buffer[5] = Math.map(mm,0, 100, 0, 255)  
+        commands_buffer[5] = Math.map(mm, 0, 100, 0, 255)
         commands_buffer[6] = ~(0x09 + 0x00 + 0x74 + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
         basic.pause(3000)
@@ -1656,4 +1656,32 @@ namespace xgo {
         commands_buffer[6] = ~(0x09 + 0x00 + 0x03 + commands_buffer[5])
         serial.writeBuffer(commands_buffer)
     }
+
+
+    /*
+    设置机械臂舵机"加载"
+    Set the state of robot arm servo as "load"
+     */
+    //% group="Robot Arm(V2)"
+    //% weight=194
+    //% block="Set the state of robot arm servo as %on_off"
+    export function servo_setting_robotArm( on_off: servo_switch_enum) {
+        let commands_buffer = pins.createBuffer(9)
+        commands_buffer[0] = 0x55
+        commands_buffer[1] = 0x00
+        commands_buffer[2] = 0x09
+        commands_buffer[3] = 0x00
+        commands_buffer[4] = 0x20
+        commands_buffer[7] = 0x00
+        commands_buffer[8] = 0xAA
+        if (on_off == servo_switch_enum.Load)
+            commands_buffer[5] = 0x25
+        else
+            commands_buffer[5] = 0x15
+
+        commands_buffer[6] = ~(0x09 + 0x00 + 0x20 + commands_buffer[5])
+        serial.writeBuffer(commands_buffer)
+        basic.pause(50)
+    }
+
 }

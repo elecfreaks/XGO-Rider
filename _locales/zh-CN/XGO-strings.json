@@ -86,7 +86,7 @@
     "xgo.Manipulator_clamp|block": "机械臂夹子%mm毫米",
     "xgo.Manipulator_clampX|block": "夹爪X轴%mm毫米",
     "xgo.Manipulator_clampZ|block": "夹爪z轴%mm毫米",
-    "xgo.clmap_stable|block": "设置机器狗所有舵机%on_off",
+    "xgo.clmap_stable|block": "设置机械臂舵机%on_off",
     "xgo.clmap_stable_enum.Stable|block": "启用自稳定",
     "xgo.clmap_stable_enum.Unstable|block": "不启用自稳定",
     "{id:category}Xgo": "Xgo",
@@ -95,5 +95,6 @@
     "{id:group}Basic": "基础",
     "{id:group}Set Servo": "设置舵机",
     "{id:group}Sports": "运动",
-    "{id:group}Robot Arm(V2)": "机械臂(V2)"
+    "{id:group}Robot Arm(V2)": "机械臂(V2)",
+    "xgo.servo_setting_robotArm|block": "设置机械臂舵机%on_off"
 }
