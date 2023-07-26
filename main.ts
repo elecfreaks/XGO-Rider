@@ -533,9 +533,21 @@ namespace xgo {
     //% block="Setting the XGO to %posestate state"
     export function SetPosestate(posestate: pose_enum) {
         let commands_buffer = pins.createBuffer(9)
+        let reset_buffer = pins.createBuffer(9)
         let part = 0
         let i = 0
         let UsingBuffer = pins.createBuffer(23)
+        commands_buffer[0] = 0x55
+        commands_buffer[1] = 0x00
+        commands_buffer[2] = 0x09
+        commands_buffer[3] = 0x00
+        commands_buffer[4] = 0x3E
+        commands_buffer[5] = 0xFF
+        commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
+        commands_buffer[7] = 0x00
+        commands_buffer[8] = 0xAA
+        serial.writeBuffer(commands_buffer)
+        basic.pause(1000)
         switch (posestate) {
             case pose_enum.pose1:
                 for (i = 0; i < 23;) {
@@ -576,7 +588,7 @@ namespace xgo {
         commands_buffer[2] = 0x09
         commands_buffer[3] = 0x00
         commands_buffer[4] = 0x71
-        commands_buffer[5] = UsingBuffer[18]
+        commands_buffer[5] = UsingBuffer[17]
         commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
@@ -587,8 +599,8 @@ namespace xgo {
         commands_buffer[1] = 0x00
         commands_buffer[2] = 0x09
         commands_buffer[3] = 0x00
-        commands_buffer[4] = 0x73
-        commands_buffer[5] = UsingBuffer[19]
+        commands_buffer[4] = 0x5D
+        commands_buffer[5] = UsingBuffer[18]
         commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
@@ -599,8 +611,8 @@ namespace xgo {
         commands_buffer[1] = 0x00
         commands_buffer[2] = 0x09
         commands_buffer[3] = 0x00
-        commands_buffer[4] = 0x74
-        commands_buffer[5] = UsingBuffer[20]
+        commands_buffer[4] = 0x5E
+        commands_buffer[5] = UsingBuffer[19]
         commands_buffer[6] = ~(0x09 + 0x00 + commands_buffer[4] + commands_buffer[5])
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
@@ -766,6 +778,8 @@ namespace xgo {
 
     }
 
+
+
     //% group="Set Servo"
     /*将机器狗当前状态记录为"pose1"
     */
@@ -773,6 +787,7 @@ namespace xgo {
     //% block="Record the current status of the XGO as %posestate"
     export function GetPosestate(posestate: pose_enum) {
         let commands_buffer = pins.createBuffer(9)
+        let read_data_buffer = pins.createBuffer(23)
         let i = 0
         basic.pause(50)
         commands_buffer[0] = 0x55
@@ -780,12 +795,12 @@ namespace xgo {
         commands_buffer[2] = 0x09
         commands_buffer[3] = 0x02
         commands_buffer[4] = 0x50
-        commands_buffer[5] = 0x0F
-        commands_buffer[6] = ~(0x09 + 0x02 + 0x50 + 0x0F)
+        commands_buffer[5] = 0x0C
+        commands_buffer[6] = ~(0x09 + 0x02 + 0x50 + commands_buffer[5])
         commands_buffer[7] = 0x00
         commands_buffer[8] = 0xAA
         serial.writeBuffer(commands_buffer)
-        let read_data_buffer = pins.createBuffer(23)
+
         serial.setRxBufferSize(1000)
         read_data_buffer = serial.readBuffer(23)
         switch (posestate) {
@@ -1665,7 +1680,7 @@ namespace xgo {
     //% group="Robot Arm(V2)"
     //% weight=194
     //% block="Set the state of robot arm servo as %on_off"
-    export function servo_setting_robotArm( on_off: servo_switch_enum) {
+    export function servo_setting_robotArm(on_off: servo_switch_enum) {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = 0x55
         commands_buffer[1] = 0x00
