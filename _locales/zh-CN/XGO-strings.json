@@ -2,11 +2,16 @@
     "xgo.PerformanceEnum.Normal|block": "正常控制模式",
     "xgo.PerformanceEnum.Cyclical1|block": "循环表演模式1",
     "xgo.PerformanceEnum.Cyclical2|block": "循环表演模式2",
+    "xgo.SelectRepeater.On|block": "打开",
+    "xgo.SelectRepeater.Off|block": "关闭",
     "xgo.initXGOSerial|block": "设置 XGO 串口 TX %tx RX %rx",
     "xgo.performanceMode|block": "表演模式 %mode",
     "xgo.batteryStatus|block": "获取Rider的当前电量",
     "xgo.getVersion|block": "获取Rider固件版本号",
     "xgo.setHeight|block": "调节机身高度 %high mm",
+    "xgo.setAngle|block": "调节机身左右倾斜 %angle °",
+    "xgo.initActionMode|block": "恢复初始动作",
+    "xgo.setBalanceMode|block": "%val 动态平衡模式",
     "{id:group}Basic": "基础",
     "{id:category}Xgo": "Xgo"
 }

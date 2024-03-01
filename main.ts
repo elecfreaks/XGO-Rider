@@ -15,6 +15,14 @@ namespace xgo {
         Cyclical2,
     }
 
+    export enum SelectRepeater {
+
+        //% block="On"
+        On,
+        //% block="OFF"
+        Off,
+    }
+
     let headData = 0x5500
     let tailData = 0x00AA
     let headDataH = (headData >> 8) & 0xff;
@@ -68,9 +76,12 @@ namespace xgo {
     /**
     * TODO: initialization xgo motor
     */
-    function initActionMode() {
+    //% group="Basic"
+    //% block="Restore initial action"
+    //% weight=199
+    export function initActionMode() {
 
-        writeCommand(0x09, 0x03, 0x00, 1000)
+        writeCommand(0x09, 0x3E, 0xFF, 1000)
     }
 
     /**
@@ -97,15 +108,15 @@ namespace xgo {
         addr = 0x03
         switch (mode) {
 
-            case PerformanceEnum.Normal:
+            case PerformanceEnum.Normal :
                 data = 0x00
                 wait = 1000
                 break
-            case PerformanceEnum.Cyclical1:
+            case PerformanceEnum.Cyclical1 :
                 data = 0x01
                 wait = 1000
                 break
-            case PerformanceEnum.Cyclical2:
+            case PerformanceEnum.Cyclical2 :
                 data = 0x02
                 wait = 1000
                 break
@@ -162,8 +173,52 @@ namespace xgo {
         let len, addr, data, wait
         len = 0x09
         addr = 0x35
-        data = Math.map(high, -20, 20, 0, 100)
-        wait = 0
+        data = Math.map(high, -20, 20, 0, 255)
+        wait = 100
+
+        writeCommand(len, addr, data, wait)
+    }
+
+    /**
+    * TODO: Adjust the left and right tilt of the fuselage angle °
+    * @param angle describe parameter here, eg: 0
+    */
+    //% group="Basic"
+    //% block="Adjust the left and right tilt of the fuselage %angle °"
+    //% angle.min=-100 angle.max=100
+    //% weight=199
+    export function setAngle(angle: number) {
+
+        let len, addr, data, wait
+        len = 0x09
+        addr = 0x35
+        data = Math.map(angle, -100, 100, 0, 255)
+        wait = 100
+
+        writeCommand(len, addr, data, wait)
+    }
+
+    /**
+    * TODO: Set the dynamic balance mode
+    */
+    //% group="Basic"
+    //% block="%val Dynamic balancing mode"
+    //% weight=199
+    export function setBalanceMode(val: SelectRepeater) {
+
+        let len, addr, data, wait
+        len = 0x09
+        addr = 0x61
+        switch(val) {
+
+            case SelectRepeater.On :
+                data = 0x01
+                break
+            case SelectRepeater.Off :
+                data = 0x00
+                break
+        }
+        wait = 100
 
         writeCommand(len, addr, data, wait)
     }
