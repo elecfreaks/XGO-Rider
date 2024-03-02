@@ -15,6 +15,7 @@
     "xgo.initActionMode|block": "恢复初始动作",
     "xgo.setBalanceMode|block": "%val 动态平衡模式",
     "xgo.moveRider|block": "向 %direct 以 %speed\\% 速度持续 %time s",
+    "xgo.squattingFunc|block": "设置Rider 以 %time s为周期蹲起运动",
     "{id:group}Basic": "基础",
     "{id:category}Xgo": "Xgo"
 }

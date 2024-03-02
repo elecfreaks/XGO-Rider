@@ -11,6 +11,7 @@
     "xgo.initActionMode|block": "Restore initial action",
     "xgo.setBalanceMode|block": "%val Dynamic balancing mode",
     "xgo.moveRider|block": "Move %direct at %speed speed for %time s",
+    "xgo.squattingFunc|block": "Set Rider to perform squatting motion with a period of %time s",
     "{id:group}Basic": "Basic",
     "{id:category}Xgo": "Xgo"
 }

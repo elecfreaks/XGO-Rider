@@ -206,24 +206,24 @@ namespace xgo {
         writeCommand(len, addr, data, wait)
     }
 
-    // /**
-    // * TODO: set Rider height
-    // * @param high describe parameter here, eg: 0
-    // */
-    // //% group="Basic"
-    // //% block="set Rider height %high mm"
-    // //% high.min=-20 high.max=20
-    // //% weight=199
-    // export function fluctuationFunc(time: number) {
+    /**
+    * TODO: Set Rider to perform squatting motion with a period of %time s.
+    * @param time describe parameter here, eg: 5
+    */
+    //% group="Basic"
+    //% block="Set Rider to perform squatting motion with a period of %time s"
+    //% high.min=0 high.max=0xff
+    //% weight=199
+    export function squattingFunc(time: number) {
 
-    //     let len, addr, data, wait
-    //     len = 0x09
-    //     addr = 0x35
-    //     data = Math.map(high, -20, 20, 0, 255)
-    //     wait = 100
+        let len, addr, data, wait
+        len = 0x09
+        addr = 0x82
+        data = time
+        wait = 1000
 
-    //     writeCommand(len, addr, data, wait)
-    // }
+        writeCommand(len, addr, data, wait)
+    }
 
     // /**
     // * TODO: Adjust the left and right tilt of the fuselage angle °
@@ -251,13 +251,21 @@ namespace xgo {
     */
     //% group="Basic"
     //% block="Move %direct at %speed speed for %time s"
-    //% speed.min=-100 speed.max=100
+    //% speed.min=0 speed.max=100
     //% weight=199
     export function moveRider(direct: DirectionEnum, speed: number, time: number) {
 
         let len, addr, data, wait
         len = 0x09
         addr = 0x30
+        if (direct == DirectionEnum.Forward) {
+
+            data = speed
+        } else if (direct == DirectionEnum.Backward) {
+
+            data = -speed
+        }
+        
         data = Math.map(speed, -100, 100, 0, 255)
         wait = time
 
