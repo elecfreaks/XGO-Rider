@@ -99,7 +99,7 @@ namespace xgo {
     */
     //% group="Basic"
     //% block="set XGO TX %tx RX %rx"
-    //% weight=199
+    //% weight=500
     export function initXGOSerial(tx: SerialPin, rx: SerialPin) {
 
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
