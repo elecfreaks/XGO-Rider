@@ -260,18 +260,19 @@ namespace xgo {
         addr = 0x30
         if (direct == DirectionEnum.Forward) {
 
-            data = speed
+            speed = speed
         } else if (direct == DirectionEnum.Backward) {
 
-            data = -speed
+            speed = -speed
         }
         
         data = Math.map(speed, -100, 100, 0, 255)
-        wait = time
+        wait = time * 1000
 
         writeCommand(len, addr, data, wait)
 
-        data = 0
+        speed = 0
+        data = Math.map(speed, -100, 100, 0, 255)
         wait = 100
         writeCommand(len, addr, data, wait)
     }
