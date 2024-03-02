@@ -17,10 +17,18 @@ namespace xgo {
 
     export enum SelectRepeater {
 
-        //% block="On"
+        //% block="on"
         On,
-        //% block="OFF"
+        //% block="off"
         Off,
+    }
+
+    export enum DirectionEnum {
+
+        //% block="forward"
+        Forward,
+        //% block="backward"
+        Backward,
     }
 
     let headData = 0x5500
@@ -191,10 +199,72 @@ namespace xgo {
 
         let len, addr, data, wait
         len = 0x09
-        addr = 0x35
+        addr = 0x36
         data = Math.map(angle, -100, 100, 0, 255)
         wait = 100
 
+        writeCommand(len, addr, data, wait)
+    }
+
+    // /**
+    // * TODO: set Rider height
+    // * @param high describe parameter here, eg: 0
+    // */
+    // //% group="Basic"
+    // //% block="set Rider height %high mm"
+    // //% high.min=-20 high.max=20
+    // //% weight=199
+    // export function fluctuationFunc(time: number) {
+
+    //     let len, addr, data, wait
+    //     len = 0x09
+    //     addr = 0x35
+    //     data = Math.map(high, -20, 20, 0, 255)
+    //     wait = 100
+
+    //     writeCommand(len, addr, data, wait)
+    // }
+
+    // /**
+    // * TODO: Adjust the left and right tilt of the fuselage angle °
+    // * @param angle describe parameter here, eg: 0
+    // */
+    // //% group="Basic"
+    // //% block="Adjust the left and right tilt of the fuselage %angle °"
+    // //% angle.min=-100 angle.max=100
+    // //% weight=199
+    // export function shufflingFunc(time: number) {
+
+    //     let len, addr, data, wait
+    //     len = 0x09
+    //     addr = 0x36
+    //     data = Math.map(angle, -100, 100, 0, 255)
+    //     wait = 100
+
+    //     writeCommand(len, addr, data, wait)
+    // }
+
+    /**
+    * TODO: Move at any speed for any s
+    * @param speed describe parameter here, eg: 0
+    * @param time describe parameter here, eg: 5
+    */
+    //% group="Basic"
+    //% block="Move %direct at %speed speed for %time s"
+    //% speed.min=-100 speed.max=100
+    //% weight=199
+    export function moveRider(direct: DirectionEnum, speed: number, time: number) {
+
+        let len, addr, data, wait
+        len = 0x09
+        addr = 0x30
+        data = Math.map(speed, -100, 100, 0, 255)
+        wait = time
+
+        writeCommand(len, addr, data, wait)
+
+        data = 0
+        wait = 100
         writeCommand(len, addr, data, wait)
     }
 

@@ -10,6 +10,7 @@
     "xgo.setAngle|block": "Adjust the left and right tilt of the fuselage %angle °",
     "xgo.initActionMode|block": "Restore initial action",
     "xgo.setBalanceMode|block": "%val Dynamic balancing mode",
+    "xgo.moveRider|block": "Move %direct at %speed speed for %time s",
     "{id:group}Basic": "Basic",
     "{id:category}Xgo": "Xgo"
 }
