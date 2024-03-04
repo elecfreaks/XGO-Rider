@@ -1,8 +1,8 @@
 /**
-* Functions to micro:bit XGO Robot Kit by ELECFREAKS Co.,Ltd.
+* Functions to micro:bit xgo Robot Kit by ELECFREAKS Co.,Ltd.
 */
 //% color=#8600FF icon="\uf1b0"
-//% block="xgo" blockId="xgo"
+//% block="Xgo_Rider" blockId="Xgo_Rider"
 namespace xgo {
 
     export enum PerformanceEnum {
@@ -76,7 +76,16 @@ namespace xgo {
         //% block=black
         Black = 0x000000
     }
-    
+
+    export enum AngleEnum {
+
+        //% block="roll"
+        Roll,
+        //% block="pitch"
+        Pitch,
+        //% block="yaw"
+        Yaw,
+    }
 
     let headData = 0x5500
     let tailData = 0x00AA
@@ -179,6 +188,28 @@ namespace xgo {
     }
 
     /**
+    * TODO: xgo read interface
+    */
+    function readDoubleCommandOneData(len: number, addr: number, readlen: number, wait: number) {
+
+        let commands_buffer = pins.createBuffer(len)
+        commands_buffer[0] = headDataH
+        commands_buffer[1] = headDataL
+        commands_buffer[2] = len
+        commands_buffer[3] = 0x02
+        commands_buffer[4] = addr
+        commands_buffer[5] = readlen
+        commands_buffer[6] = ~(len + 0x02 + addr + readlen)
+        commands_buffer[7] = tailDataH
+        commands_buffer[8] = tailDataL
+        serial.writeBuffer(commands_buffer)
+        let read_data_buffer = pins.createBuffer(10)
+        read_data_buffer = serial.readBuffer(10)
+
+        return read_data_buffer[5] | read_data_buffer[6]
+    }
+
+    /**
     * TODO: initialization xgo motor
     */
     //% group="Basic"
@@ -203,6 +234,9 @@ namespace xgo {
         initActionMode()
     }
 
+    /**
+    * TODO: performance mode
+    */
     //% group="Basic"
     //% block="performance mode %mode"
     //% weight=199
@@ -367,7 +401,7 @@ namespace xgo {
 
     /**
     * TODO: Set the color of the LED light on the back number to color
-    * @param num describe parameter here, eg: LEDNumber.All
+    * @param num describe parameter here, eg: LEDNumber.One
     */
     //% group="Basic"
     //% block="Set the color of the LED light on the back %num to $color"
@@ -538,6 +572,35 @@ namespace xgo {
         wait = 100
 
         writeCommand(len, addr, data, wait)
+    }
+
+    /**
+    * TODO: Read value attitude angle
+    * @param %val describe parameter here, eg: AngleEnum.Roll
+    */
+    //% group="Basic"
+    //% block="Read %val attitude angle"
+    //% weight=199
+    export function readAngle(val: AngleEnum) {
+
+        let len, addr, data, wait
+        len = 0x09
+        switch (val) {
+
+            case AngleEnum.Pitch:
+                addr = 0x67
+                break
+            case AngleEnum.Roll:
+                addr = 0x66
+                break
+            case AngleEnum.Yaw:
+                addr = 0x68
+                break
+        }
+        data = 0x02
+        wait = 100
+
+        readDoubleCommandOneData(len, addr, data, wait)
     }
 
 }

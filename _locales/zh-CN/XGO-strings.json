@@ -37,6 +37,7 @@
     "xgo.shufflingFunc|block": "设置Rider 以 %time s为周期左右晃动",
     "xgo.setLEDMode|block": "设置背部 %num LED灯颜色为 $color",
     "xgo.setCalibrationMode|block": "%val 标定模式",
+    "xgo.readAngle|block": "读取 %val 姿态角度",
     "{id:group}Basic": "基础",
-    "{id:category}Xgo": "Xgo"
+    "{id:category}xgo": "Xgo_Rider"
 }
