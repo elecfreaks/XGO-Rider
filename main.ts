@@ -87,6 +87,15 @@ namespace xgo {
         Yaw,
     }
 
+    export enum RatateEnum {
+
+        //% block="CW"
+        Cw,
+        //% block="CCW"
+        Ccw,
+    }
+    
+
     let headData = 0x5500
     let tailData = 0x00AA
     let headDataH = (headData >> 8) & 0xff;
@@ -214,7 +223,7 @@ namespace xgo {
     */
     //% group="Basic"
     //% block="Restore initial action"
-    //% weight=199
+    //% weight=480
     export function initActionMode() {
 
         writeCommand(0x09, 0x3E, 0xFF, 1000)
@@ -239,7 +248,7 @@ namespace xgo {
     */
     //% group="Basic"
     //% block="performance mode %mode"
-    //% weight=199
+    //% weight=490
     export function performanceMode(mode: PerformanceEnum) {
 
         let len, addr, data, wait
@@ -270,7 +279,7 @@ namespace xgo {
     */
     //% group="Basic"
     //% block="Set the Bluetooth name as %str"
-    //% weight=199
+    //% weight=450
     export function setBluetooth(str: string) {
 
         let len, addr, wait
@@ -283,7 +292,7 @@ namespace xgo {
 
     //% group="Basic"
     //% block="get XGO's current power"
-    //% weight=199
+    //% weight=470
     export function batteryStatus(): number {
 
         let len, addr, readlen, wait
@@ -296,7 +305,7 @@ namespace xgo {
     }
 
     //% group="Basic"
-    //% weight=199
+    //% weight=460
     //%block="get XGO's version"
     export function getVersion(): string {
         let commands_buffer = pins.createBuffer(9)
@@ -316,89 +325,6 @@ namespace xgo {
         return version
     }
 
-
-    /**
-    * TODO: set Rider height
-    * @param high describe parameter here, eg: 0
-    */
-    //% group="Basic"
-    //% block="set Rider height %high mm"
-    //% high.min=-20 high.max=20
-    //% weight=199
-    export function setHeight(high: number) {
-
-        let len, addr, data, wait
-        len = 0x09
-        addr = 0x35
-        data = Math.map(high, -20, 20, 0, 255)
-        wait = 100
-
-        writeCommand(len, addr, data, wait)
-    }
-
-    /**
-    * TODO: Adjust the left and right tilt of the fuselage angle °
-    * @param angle describe parameter here, eg: 0
-    */
-    //% group="Basic"
-    //% block="Adjust the left and right tilt of the fuselage %angle °"
-    //% angle.min=-100 angle.max=100
-    //% weight=199
-    export function setAngle(angle: number) {
-
-        let len, addr, data, wait
-        len = 0x09
-        addr = 0x36
-        data = Math.map(angle, -100, 100, 0, 255)
-        wait = 100
-
-        writeCommand(len, addr, data, wait)
-    }
-
-    /**
-    * TODO: Set Rider to perform squatting motion with a period of %time s.
-    * @param time describe parameter here, eg: 3
-    */
-    //% group="Basic"
-    //% block="Set Rider to perform squatting motion with a period of %time s"
-    //% time.min=2 time.max=4
-    //% weight=199
-    export function squattingFunc(time: number) {
-
-        let len, addr, data, wait
-        len = 0x09
-        addr = 0x82
-
-        time = 4 - time
-        data = Math.map(time, 0, 2, 1, 255)
-
-        wait = 1000
-
-        writeCommand(len, addr, data, wait)
-    }
-
-    /**
-    * TODO: Set the Rider to shake left and right with a period of x s.
-    * @param time describe parameter here, eg: 3
-    */
-    //% group="Basic"
-    //% block="Set the Rider to shake left and right with a period of %time s"
-    //% time.min=2 time.max=4
-    //% weight=199
-    export function shufflingFunc(time: number) {
-
-        let len, addr, data, wait
-        len = 0x09
-        addr = 0x39
-
-        time = 4 - time
-        data = Math.map(time, 0, 2, 1, 255)
-
-        wait = 1000
-
-        writeCommand(len, addr, data, wait)
-    }
-
     /**
     * TODO: Set the color of the LED light on the back number to color
     * @param num describe parameter here, eg: LEDNumber.One
@@ -406,14 +332,14 @@ namespace xgo {
     //% group="Basic"
     //% block="Set the color of the LED light on the back %num to $color"
     //% color.shadow="colorNumberPicker"
-    //% weight=199
+    //% weight=450
     export function setLEDMode(num: LEDNumber, color: number) {
 
         let len, addr, data, wait
         len = 0x09
 
         data = color
-        wait = 100       
+        wait = 100
         // switch (color) {
 
         //     case LEDColor.Red:
@@ -488,59 +414,26 @@ namespace xgo {
 
             writeThreeCommand(len, addr, ((data >> 16) & 0xff), ((data >> 8) & 0xff), ((data >> 0) & 0xff), wait)
         }
-        
-    }
 
-    /**
-    * TODO: Move at any speed for any s
-    * @param speed describe parameter here, eg: 0
-    * @param time describe parameter here, eg: 5
-    */
-    //% group="Basic"
-    //% block="Move %direct at %speed speed for %time s"
-    //% speed.min=0 speed.max=100
-    //% weight=199
-    export function moveRider(direct: DirectionEnum, speed: number, time: number) {
-
-        let len, addr, data, wait
-        len = 0x09
-        addr = 0x30
-        if (direct == DirectionEnum.Forward) {
-
-            speed = speed
-        } else if (direct == DirectionEnum.Backward) {
-
-            speed = -speed
-        }
-        
-        data = Math.map(speed, -100, 100, 0, 255)
-        wait = time * 1000
-
-        writeCommand(len, addr, data, wait)
-
-        speed = 0
-        data = Math.map(speed, -100, 100, 0, 255)
-        wait = 100
-        writeCommand(len, addr, data, wait)
     }
 
     /**
     * TODO: Set the dynamic balance mode
     */
-    //% group="Basic"
+    //% group="Servo"
     //% block="%val Dynamic balancing mode"
-    //% weight=199
+    //% weight=400
     export function setBalanceMode(val: SelectRepeater) {
 
         let len, addr, data, wait
         len = 0x09
         addr = 0x61
-        switch(val) {
+        switch (val) {
 
-            case SelectRepeater.On :
+            case SelectRepeater.On:
                 data = 0x01
                 break
-            case SelectRepeater.Off :
+            case SelectRepeater.Off:
                 data = 0x00
                 break
         }
@@ -552,9 +445,9 @@ namespace xgo {
     /**
     * TODO: Set calibration mode
     */
-    //% group="Basic"
+    //% group="Servo"
     //% block="%val calibration mode"
-    //% weight=199
+    //% weight=390
     export function setCalibrationMode(val: CalibrationEnum) {
 
         let len, addr, data, wait
@@ -578,9 +471,9 @@ namespace xgo {
     * TODO: Read value attitude angle
     * @param %val describe parameter here, eg: AngleEnum.Roll
     */
-    //% group="Basic"
+    //% group="Servo"
     //% block="Read %val attitude angle"
-    //% weight=199
+    //% weight=380
     export function readAngle(val: AngleEnum) {
 
         let len, addr, data, wait
@@ -603,4 +496,151 @@ namespace xgo {
         readDoubleCommandOneData(len, addr, data, wait)
     }
 
+    /**
+    * TODO: set Rider height
+    * @param high describe parameter here, eg: 0
+    */
+    //% group="Servo"
+    //% block="set Rider height %high mm"
+    //% high.min=-20 high.max=20
+    //% weight=370
+    export function setHeight(high: number) {
+
+        let len, addr, data, wait
+        len = 0x09
+        addr = 0x35
+        data = Math.map(high, -20, 20, 0, 255)
+        wait = 100
+
+        writeCommand(len, addr, data, wait)
+    }
+
+    /**
+    * TODO: Adjust the left and right tilt of the fuselage angle °
+    * @param angle describe parameter here, eg: 0
+    */
+    //% group="Servo"
+    //% block="Adjust the left and right tilt of the fuselage %angle °"
+    //% angle.min=-100 angle.max=100
+    //% weight=360
+    export function setAngle(angle: number) {
+
+        let len, addr, data, wait
+        len = 0x09
+        addr = 0x36
+        data = Math.map(angle, -100, 100, 0, 255)
+        wait = 100
+
+        writeCommand(len, addr, data, wait)
+    }
+
+    /**
+    * TODO: Move at any speed for any s
+    * @param speed describe parameter here, eg: 0
+    * @param time describe parameter here, eg: 5
+    */
+    //% group="Sports"
+    //% block="Move %direct at %speed speed for %time s"
+    //% speed.min=0 speed.max=100
+    //% weight=200
+    export function moveRider(direct: DirectionEnum, speed: number, time: number) {
+
+        let len, addr, data, wait
+        len = 0x09
+        addr = 0x30
+        if (direct == DirectionEnum.Forward) {
+
+            speed = speed
+        } else if (direct == DirectionEnum.Backward) {
+
+            speed = -speed
+        }
+
+        data = Math.map(speed, -100, 100, 0, 255)
+        wait = time * 1000
+
+        writeCommand(len, addr, data, wait)
+
+        speed = 0
+        data = Math.map(speed, -100, 100, 0, 255)
+        wait = 100
+        writeCommand(len, addr, data, wait)
+    }
+
+    /**
+    * TODO: Rotate %direct at %speed speed for %time s
+    * @param speed describe parameter here, eg: 0
+    * @param time describe parameter here, eg: 5
+    */
+    //% group="Sports"
+    //% block="Rotate %direct at %speed speed for %time s"
+    //% speed.min=0 speed.max=100
+    //% weight=190
+    export function rotateRider(direct: RatateEnum, speed: number, time: number) {
+
+        let len, addr, data, wait
+        len = 0x09
+        addr = 0x32
+        if (direct == RatateEnum.Cw) {
+
+            speed = speed
+        } else if (direct == RatateEnum.Ccw) {
+
+            speed = -speed
+        }
+
+        data = Math.map(speed, -100, 100, 0, 255)
+        wait = time * 1000
+
+        writeCommand(len, addr, data, wait)
+
+        speed = 0
+        data = Math.map(speed, -100, 100, 0, 255)
+        wait = 100
+        writeCommand(len, addr, data, wait)
+    }
+
+    /**
+    * TODO: Set Rider to perform squatting motion with a period of %time s.
+    * @param time describe parameter here, eg: 3
+    */
+    //% group="Sports"
+    //% block="Set Rider to perform squatting motion with a period of %time s"
+    //% time.min=2 time.max=4
+    //% weight=180
+    export function squattingFunc(time: number) {
+
+        let len, addr, data, wait
+        len = 0x09
+        addr = 0x82
+
+        time = 4 - time
+        data = Math.map(time, 0, 2, 1, 255)
+
+        wait = 1000
+
+        writeCommand(len, addr, data, wait)
+    }
+
+    /**
+    * TODO: Set the Rider to shake left and right with a period of x s.
+    * @param time describe parameter here, eg: 3
+    */
+    //% group="Sports"
+    //% block="Set the Rider to shake left and right with a period of %time s"
+    //% time.min=2 time.max=4
+    //% weight=170
+    export function shufflingFunc(time: number) {
+
+        let len, addr, data, wait
+        len = 0x09
+        addr = 0x39
+
+        time = 4 - time
+        data = Math.map(time, 0, 2, 1, 255)
+
+        wait = 1000
+
+        writeCommand(len, addr, data, wait)
+    }
 }

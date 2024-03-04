@@ -8,6 +8,8 @@
     "xgo.CalibrationEnum.Complete|block": "完成",
     "xgo.DirectionEnum.Forward|block": "前进",
     "xgo.DirectionEnum.Backward|block": "后退",
+    "xgo.RatateEnum.Ccw|block": "逆时针",
+    "xgo.RatateEnum.Cw|block": "顺时针",
     "xgo.LEDNumber.All|block": "全部",
     "xgo.LEDNumber.One|block": "1号",
     "xgo.LEDNumber.Tow|block": "2号",
@@ -33,11 +35,14 @@
     "xgo.initActionMode|block": "恢复初始动作",
     "xgo.setBalanceMode|block": "%val 动态平衡模式",
     "xgo.moveRider|block": "向 %direct 以 %speed\\% 速度持续 %time s",
+    "xgo.rotateRider|block": "%direct 旋转以 %speed\\% 速度持续 %time s",
     "xgo.squattingFunc|block": "设置Rider 以 %time s为周期蹲起运动",
     "xgo.shufflingFunc|block": "设置Rider 以 %time s为周期左右晃动",
     "xgo.setLEDMode|block": "设置背部 %num LED灯颜色为 $color",
     "xgo.setCalibrationMode|block": "%val 标定模式",
     "xgo.readAngle|block": "读取 %val 姿态角度",
     "{id:group}Basic": "基础",
+    "{id:group}Servo": "舵机",
+    "{id:group}Sports": "运动",
     "{id:category}xgo": "Xgo_Rider"
 }
