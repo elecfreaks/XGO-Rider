@@ -23,6 +23,14 @@ namespace xgo {
         Off,
     }
 
+    export enum CalibrationEnum {
+
+        //% block="enter"
+        Enter,
+        //% block="complete"
+        Complete,
+    }
+
     export enum DirectionEnum {
 
         //% block="forward"
@@ -30,6 +38,45 @@ namespace xgo {
         //% block="backward"
         Backward,
     }
+
+    export enum LEDNumber {
+
+        //% block="All"
+        All,
+        //% block="No.1"
+        One,
+        //% block="No.2"
+        Tow,
+        //% block="No.3"
+        Three,
+        //% block="No.4"
+        Four,
+    }
+
+    export enum LEDColor {
+
+        //% block=red
+        Red = 0xFF0000,
+        //% block=orange
+        Orange = 0xFFA500,
+        //% block=yellow
+        Yellow = 0xFFFF00,
+        //% block=green
+        Green = 0x00FF00,
+        //% block=blue
+        Blue = 0x0000FF,
+        //% block=indigo
+        Indigo = 0x4b0082,
+        //% block=violet
+        Violet = 0x8a2be2,
+        //% block=purple
+        Purple = 0xFF00FF,
+        //% block=white
+        White = 0xFFFFFF,
+        //% block=black
+        Black = 0x000000
+    }
+    
 
     let headData = 0x5500
     let tailData = 0x00AA
@@ -58,6 +105,56 @@ namespace xgo {
 
         basic.pause(wait)
     }
+
+    /**
+    * TODO: xgo write interface
+    */
+    function writeThreeCommand(len: number, addr: number, data0: number, data1: number, data2: number, wait: number) {
+
+        let commands_buffer = pins.createBuffer(len)
+        commands_buffer[0] = headDataH
+        commands_buffer[1] = headDataL
+        commands_buffer[2] = len
+        commands_buffer[3] = 0x00
+        commands_buffer[4] = addr
+        commands_buffer[5] = data0
+        commands_buffer[6] = data1
+        commands_buffer[7] = data2
+        commands_buffer[8] = ~(len + 0x00 + addr + data0 + data1 + data2)
+        commands_buffer[9] = tailDataH
+        commands_buffer[10] = tailDataL
+        serial.writeBuffer(commands_buffer)
+
+        basic.pause(wait)
+    }
+
+    /**
+    * TODO: xgo write interface
+    */
+    function writeStrCommand(len: number, strlen: number, addr: number, str: string, wait: number) {
+
+        let i = 0
+        let errordata = 0
+        let commands_buffer = pins.createBuffer(len)
+        commands_buffer[0] = headDataH
+        commands_buffer[1] = headDataL
+        commands_buffer[2] = len
+        commands_buffer[3] = 0x00
+        commands_buffer[4] = addr
+
+        for(i = 0; i > strlen; i++) {
+
+            commands_buffer[i+5] = parseInt(str.charAt(i))
+            errordata += parseInt(str.charAt(i))
+        }
+        commands_buffer[i++] = ~(len + 0x00 + addr + errordata)
+        commands_buffer[i++] = tailDataH
+        commands_buffer[i]   = tailDataL
+        serial.writeBuffer(commands_buffer)
+
+        basic.pause(wait)
+    }
+
 
     /**
     * TODO: xgo read interface
@@ -133,6 +230,23 @@ namespace xgo {
         writeCommand(len, addr, data, wait)
     }
 
+    /**
+    * TODO: initialization xgo
+    * @param str describe parameter here, eg: "XGO_Rider"
+    */
+    //% group="Basic"
+    //% block="Set the Bluetooth name as %str"
+    //% weight=199
+    export function setBluetooth(str: string) {
+
+        let len, addr, wait
+        len = str.length + 8
+        addr = 0x13
+        wait = 100
+
+        return writeStrCommand(len, str.length, addr, str, wait)
+    }
+
     //% group="Basic"
     //% block="get XGO's current power"
     //% weight=199
@@ -167,6 +281,7 @@ namespace xgo {
         let version = String.fromCharCode(read_data_buffer[5]) + String.fromCharCode(read_data_buffer[6]) + String.fromCharCode(read_data_buffer[7]) + String.fromCharCode(read_data_buffer[8]) + String.fromCharCode(read_data_buffer[9])
         return version
     }
+
 
     /**
     * TODO: set Rider height
@@ -208,41 +323,139 @@ namespace xgo {
 
     /**
     * TODO: Set Rider to perform squatting motion with a period of %time s.
-    * @param time describe parameter here, eg: 5
+    * @param time describe parameter here, eg: 3
     */
     //% group="Basic"
     //% block="Set Rider to perform squatting motion with a period of %time s"
-    //% high.min=0 high.max=0xff
+    //% time.min=2 time.max=4
     //% weight=199
     export function squattingFunc(time: number) {
 
         let len, addr, data, wait
         len = 0x09
         addr = 0x82
-        data = time
+
+        time = 4 - time
+        data = Math.map(time, 0, 2, 1, 255)
+
         wait = 1000
 
         writeCommand(len, addr, data, wait)
     }
 
-    // /**
-    // * TODO: Adjust the left and right tilt of the fuselage angle °
-    // * @param angle describe parameter here, eg: 0
-    // */
-    // //% group="Basic"
-    // //% block="Adjust the left and right tilt of the fuselage %angle °"
-    // //% angle.min=-100 angle.max=100
-    // //% weight=199
-    // export function shufflingFunc(time: number) {
+    /**
+    * TODO: Set the Rider to shake left and right with a period of x s.
+    * @param time describe parameter here, eg: 3
+    */
+    //% group="Basic"
+    //% block="Set the Rider to shake left and right with a period of %time s"
+    //% time.min=2 time.max=4
+    //% weight=199
+    export function shufflingFunc(time: number) {
 
-    //     let len, addr, data, wait
-    //     len = 0x09
-    //     addr = 0x36
-    //     data = Math.map(angle, -100, 100, 0, 255)
-    //     wait = 100
+        let len, addr, data, wait
+        len = 0x09
+        addr = 0x39
 
-    //     writeCommand(len, addr, data, wait)
-    // }
+        time = 4 - time
+        data = Math.map(time, 0, 2, 1, 255)
+
+        wait = 1000
+
+        writeCommand(len, addr, data, wait)
+    }
+
+    /**
+    * TODO: Set the color of the LED light on the back number to color
+    * @param num describe parameter here, eg: LEDNumber.All
+    */
+    //% group="Basic"
+    //% block="Set the color of the LED light on the back %num to $color"
+    //% color.shadow="colorNumberPicker"
+    //% weight=199
+    export function setLEDMode(num: LEDNumber, color: number) {
+
+        let len, addr, data, wait
+        len = 0x09
+
+        data = color
+        wait = 100       
+        // switch (color) {
+
+        //     case LEDColor.Red:
+        //         data = 0xFF0000
+        //         wait = 100
+        //         break
+        //     case LEDColor.Orange:
+        //         data = 0xFFA500
+        //         wait = 100
+        //         break
+        //     case LEDColor.Yellow:
+        //         data = 0xFFFF00
+        //         wait = 100
+        //         break
+        //     case LEDColor.Green:
+        //         data = 0x00FF00
+        //         wait = 100
+        //         break
+        //     case LEDColor.Blue:
+        //         data = 0x0000FF
+        //         wait = 100
+        //         break
+        //     case LEDColor.Indigo:
+        //         data = 0x4b0082
+        //         wait = 100
+        //         break
+        //     case LEDColor.Violet:
+        //         data = 0x8a2be2
+        //         wait = 100
+        //         break
+        //     case LEDColor.Purple:
+        //         data = 0xFF00FF
+        //         wait = 100
+        //         break
+        //     case LEDColor.White:
+        //         data = 0xFFFFFF
+        //         wait = 100
+        //         break
+        //     case LEDColor.Black:
+        //         data = 0x000000
+        //         wait = 100
+        //         break
+        // }
+
+        if (num == LEDNumber.All) {
+
+            addr = 0x69
+            writeThreeCommand(len, addr, ((data >> 16) & 0xff), ((data >> 8) & 0xff), ((data >> 0) & 0xff), wait)
+            addr = 0x6A
+            writeThreeCommand(len, addr, ((data >> 16) & 0xff), ((data >> 8) & 0xff), ((data >> 0) & 0xff), wait)
+            addr = 0x6B
+            writeThreeCommand(len, addr, ((data >> 16) & 0xff), ((data >> 8) & 0xff), ((data >> 0) & 0xff), wait)
+            addr = 0x6C
+            writeThreeCommand(len, addr, ((data >> 16) & 0xff), ((data >> 8) & 0xff), ((data >> 0) & 0xff), wait)
+        } else {
+
+            switch (num) {
+
+                case LEDNumber.One:
+                    addr = 0x69
+                    break
+                case LEDNumber.Tow:
+                    addr = 0x6A
+                    break
+                case LEDNumber.Three:
+                    addr = 0x6B
+                    break
+                case LEDNumber.Four:
+                    addr = 0x6C
+                    break
+            }
+
+            writeThreeCommand(len, addr, ((data >> 16) & 0xff), ((data >> 8) & 0xff), ((data >> 0) & 0xff), wait)
+        }
+        
+    }
 
     /**
     * TODO: Move at any speed for any s
@@ -294,6 +507,31 @@ namespace xgo {
                 data = 0x01
                 break
             case SelectRepeater.Off :
+                data = 0x00
+                break
+        }
+        wait = 100
+
+        writeCommand(len, addr, data, wait)
+    }
+
+    /**
+    * TODO: Set calibration mode
+    */
+    //% group="Basic"
+    //% block="%val calibration mode"
+    //% weight=199
+    export function setCalibrationMode(val: CalibrationEnum) {
+
+        let len, addr, data, wait
+        len = 0x09
+        addr = 0x04
+        switch (val) {
+
+            case CalibrationEnum.Enter:
+                data = 0x01
+                break
+            case CalibrationEnum.Complete:
                 data = 0x00
                 break
         }

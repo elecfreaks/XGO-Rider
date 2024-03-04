@@ -6,12 +6,16 @@
     "xgo.performanceMode|block": "performance mode %mode",
     "xgo.batteryStatus|block": "get XGO's current power",
     "xgo.getVersion|block": "get XGO's version",
+    "xgo.setBluetooth|block": "Set the Bluetooth name as %str",
     "xgo.setHeight|block": "set Rider height %high mm",
     "xgo.setAngle|block": "Adjust the left and right tilt of the fuselage %angle °",
     "xgo.initActionMode|block": "Restore initial action",
     "xgo.setBalanceMode|block": "%val Dynamic balancing mode",
     "xgo.moveRider|block": "Move %direct at %speed speed for %time s",
     "xgo.squattingFunc|block": "Set Rider to perform squatting motion with a period of %time s",
+    "xgo.shufflingFunc|block": "Set the Rider to shake left and right with a period of %time s",
+    "xgo.setLEDMode|block": "Set the color of the LED light on the back %num to $color",
+    "xgo.setCalibrationMode|block": "%val calibration mode",
     "{id:group}Basic": "Basic",
     "{id:category}Xgo": "Xgo"
 }
