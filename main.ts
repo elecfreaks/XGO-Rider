@@ -162,8 +162,8 @@ namespace xgo {
 
         for(i = 0; i > strlen; i++) {
 
-            commands_buffer[i+5] = parseInt(str.charAt(i))
-            errordata += parseInt(str.charAt(i))
+            commands_buffer[i + 5] = str.charCodeAt(i)
+            errordata += str.charCodeAt(i)
         }
         commands_buffer[i++] = ~(len + 0x00 + addr + errordata)
         commands_buffer[i++] = tailDataH
@@ -274,7 +274,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: initialization xgo
+    * TODO: set Bluetooth
     * @param str describe parameter here, eg: "XGO_Rider"
     */
     //% group="Basic"
@@ -418,6 +418,21 @@ namespace xgo {
     }
 
     /**
+    * TODO: Set GRB
+    * @param r describe parameter here, eg: 0xff
+    * @param g describe parameter here, eg: 0
+    * @param b describe parameter here, eg: 0
+    */
+    //% group="Basic"
+    //% block="Set GRB R: %r G: %g B: %b"
+    //% weight=440
+    export function setRGBValue(r: number, g: number, b: number): number {
+
+        return  (((r << 16) & 0xff) | ((g << 8) & 0xff) | (b & 0xff))
+    }
+
+
+    /**
     * TODO: Set the dynamic balance mode
     */
     //% group="Servo"
@@ -474,7 +489,7 @@ namespace xgo {
     //% group="Servo"
     //% block="Read %val attitude angle"
     //% weight=380
-    export function readAngle(val: AngleEnum) {
+    export function readAngle(val: AngleEnum): number{
 
         let len, addr, data, wait
         len = 0x09
@@ -493,7 +508,7 @@ namespace xgo {
         data = 0x02
         wait = 100
 
-        readDoubleCommandOneData(len, addr, data, wait)
+        return readDoubleCommandOneData(len, addr, data, wait)
     }
 
     /**
