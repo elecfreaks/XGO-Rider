@@ -287,7 +287,7 @@ namespace xgo {
         addr = 0x13
         wait = 100
 
-        return writeStrCommand(len, str.length - 1, addr, str, wait)
+        writeStrCommand(len, str.length - 1, addr, str, wait)
     }
 
     //% group="Basic"
@@ -336,7 +336,7 @@ namespace xgo {
     export function setLEDMode(num: LEDNumber, color: number) {
 
         let len, addr, data, wait
-        len = 0x09
+        len = 0x0B
 
         data = color
         wait = 100
