@@ -94,6 +94,22 @@ namespace xgo {
         //% block="CCW"
         Ccw,
     }
+
+    export enum posture{
+        //% block="playPendulum"
+        playPendulum,
+        //% block="AdvanceAndRetreat"
+        AdvanceAndRetreat,
+        //% block="upsAndDowns"
+        upsAndDowns,
+        //% block="TetragonalSnake" 
+        TetragonalSnake,
+        //% block="LiftRotation" 
+        LiftRotation,
+        //% block="CircularSloshing" 
+        CircularSloshing,
+    }
+
     
 
     let headData = 0x5500
@@ -662,6 +678,42 @@ namespace xgo {
 
         wait = 1000
 
+        writeCommand(len, addr, data, wait)
+    }
+    /**
+    * Execute actions (side-to-side sway/forward and backward/high and low/quadrilateral serpentine/lifting and rotating/circumferential wobble).
+    * @param state set the state of the Rider, eg: posture.playPendulum
+    */
+    //% group="Basic"
+    //% block="Execute actions %state"
+    //% weight=485
+    export function executeActions(state: posture) {
+        let len, addr, data, wait
+        len = 0x09
+        addr = 0x3E
+        switch (state) {
+
+            case posture.playPendulum:
+                data = 0x01
+                break
+            case posture.AdvanceAndRetreat:
+                data = 0x02
+                break
+            case posture.upsAndDowns:
+                data = 0x03
+                break
+            case posture.TetragonalSnake:
+                data = 0x04
+                break
+            case posture.LiftRotation:
+                data = 0x05
+                break
+            case posture.CircularSloshing:
+                data = 0x06
+                break
+        }
+        wait = 100
+        
         writeCommand(len, addr, data, wait)
     }
 }
