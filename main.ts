@@ -219,7 +219,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: initialization xgo motor
+    * Restore initial action
     */
     //% group="Basic"
     //% block="Restore initial action"
@@ -230,7 +230,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: initialization xgo
+    * Set Rider serial port TX （P14）  RX  (P13）
     * @param tx describe parameter here, eg: SerialPin.P14 
     * @param rx describe parameter here, eg: SerialPin.P13
     */
@@ -244,7 +244,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: performance mode
+    * Performance mode(Normal control mode) 
     */
     //% group="Basic"
     //% block="performance mode %mode"
@@ -274,7 +274,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: set Bluetooth
+    * Set the bluetooth name as ()
     * @param str describe parameter here, eg: "XGO_Rider"
     */
     //% group="Basic"
@@ -290,6 +290,9 @@ namespace xgo {
         writeStrCommand(len, str.length - 1, addr, str, wait)
     }
 
+    /**
+    * Get the current battery level of Rider
+    */
     //% group="Basic"
     //% block="get XGO's current power"
     //% weight=470
@@ -304,6 +307,9 @@ namespace xgo {
         return readCommandOneData(len, addr, readlen, wait)
     }
 
+    /**
+    * Get Rider firmware version number
+    */
     //% group="Basic"
     //% weight=460
     //%block="get XGO's version"
@@ -326,7 +332,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Set the color of the LED light on the back number to color
+    * Set the color of the LED light on the back (all) to (red)
     * @param num describe parameter here, eg: LEDNumber.One
     */
     //% group="Basic"
@@ -418,7 +424,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Set GRB
+    * Set RGB R(255）G（255）B（255)
     * @param r describe parameter here, eg: 0xff
     * @param g describe parameter here, eg: 0
     * @param b describe parameter here, eg: 0
@@ -433,7 +439,7 @@ namespace xgo {
 
 
     /**
-    * TODO: Set the dynamic balance mode
+    * Turn (on/off) dynamic balancing mode
     */
     //% group="Servo"
     //% block="%val Dynamic balancing mode"
@@ -458,7 +464,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Set calibration mode
+    * Enter/Complete) calibration mode
     */
     //% group="Servo"
     //% block="%val calibration mode"
@@ -483,7 +489,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Read value attitude angle
+    * Read (roll) attitude angle
     * @param %val describe parameter here, eg: AngleEnum.Roll
     */
     //% group="Servo"
@@ -512,7 +518,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: set Rider height
+    * Adjust body height (0) mm
     * @param high describe parameter here, eg: 0
     */
     //% group="Servo"
@@ -531,7 +537,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Adjust the left and right tilt of the fuselage angle °
+    * Adjust the left and right tilt of the fuselage (0)°
     * @param angle describe parameter here, eg: 0
     */
     //% group="Servo"
@@ -550,7 +556,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Move at any speed for any s
+    * Move (forward/backward) at (0)% speed for (5) s
     * @param speed describe parameter here, eg: 0
     * @param time describe parameter here, eg: 5
     */
@@ -583,7 +589,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Rotate %direct at %speed speed for %time s
+    * (Clockwise/counterclockwise) rotation at (0)% for (5)s
     * @param speed describe parameter here, eg: 0
     * @param time describe parameter here, eg: 5
     */
@@ -616,7 +622,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Set Rider to perform squatting motion with a period of %time s.
+    * Set Rider to perform squatting motion with a period of (5) s.
     * @param time describe parameter here, eg: 3
     */
     //% group="Sports"
@@ -638,7 +644,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Set the Rider to shake left and right with a period of x s.
+    * Set the Rider to shake left and right with a period of (5) s.
     * @param time describe parameter here, eg: 3
     */
     //% group="Sports"

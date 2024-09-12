@@ -2,7 +2,7 @@
     "xgo.PerformanceEnum.Normal|block": "normal mode",
     "xgo.PerformanceEnum.Cyclical1|block": "cyclical pattern1",
     "xgo.PerformanceEnum.Cyclical2|block": "cyclical pattern2",
-    "xgo.initXGOSerial|block": "set XGO TX %tx RX %rx",
+    "xgo.initXGOSerial|block": "Set Rider serial port TX %tx RX %rx",
     "xgo.performanceMode|block": "performance mode %mode",
     "xgo.batteryStatus|block": "get XGO's current power",
     "xgo.getVersion|block": "get XGO's version",
