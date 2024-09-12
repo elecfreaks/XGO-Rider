@@ -231,7 +231,7 @@ namespace xgo {
 
     /**
     * TODO: initialization xgo
-    * @param tx describe parameter here, eg: SerialPin.P14
+    * @param tx describe parameter here, eg: SerialPin.P14 
     * @param rx describe parameter here, eg: SerialPin.P13
     */
     //% group="Basic"
