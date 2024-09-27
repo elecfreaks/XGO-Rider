@@ -176,7 +176,7 @@ namespace xgo {
         commands_buffer[3] = 0x00
         commands_buffer[4] = addr
 
-        for(i = 0; i < strlen; i++) {
+        for(i = 5; i < strlen+5; i++) {
 
             commands_buffer[i + 5] = str.charCodeAt(i)
             errordata += str.charCodeAt(i)
