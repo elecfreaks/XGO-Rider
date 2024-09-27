@@ -297,11 +297,11 @@ namespace xgo {
     export function setBluetooth(str: string) {
 
         let len, addr, wait
-        len = str.length - 1 + 8
+        len = str.length + 8
         addr = 0x13
         wait = 100
 
-        writeStrCommand(len, str.length - 1, addr, str, wait)
+        writeStrCommand(len, str.length, addr, str, wait)
     }
 
     /**
