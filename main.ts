@@ -176,14 +176,14 @@ namespace xgo {
         commands_buffer[3] = 0x00
         commands_buffer[4] = addr
 
-        for(i = 0; i > strlen; i++) {
+        for(i = 0; i < strlen; i++) {
 
-            commands_buffer[i + 5] = str[i]
-            // errordata += str[i]
+            commands_buffer[i + 5] = str.charCodeAt(i)
+            errordata += str.charCodeAt(i)
         }
-        // commands_buffer[i++] = ~(len + 0x00 + addr + errordata)
-        // commands_buffer[i++] = tailDataH
-        // commands_buffer[i]   = tailDataL
+        commands_buffer[i++] = ~(len + 0x00 + addr + errordata)
+        commands_buffer[i++] = tailDataH
+        commands_buffer[i]   = tailDataL
         serial.writeBuffer(commands_buffer)
 
         basic.pause(wait)
