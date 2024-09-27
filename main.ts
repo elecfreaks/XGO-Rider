@@ -177,8 +177,8 @@ namespace xgo {
         commands_buffer[4] = addr
 
         for(i = 5; i < strlen+5; i++) {
-            commands_buffer[i] = str.charCodeAt(i)
-            errordata += str.charCodeAt(i)
+            commands_buffer[i] = str.charCodeAt(i-5)
+            errordata += str.charCodeAt(i-5)
         }
         commands_buffer[i++] = ~(len + 0x00 + addr + errordata)
         commands_buffer[i++] = tailDataH
