@@ -449,7 +449,7 @@ namespace xgo {
     //% weight=440
     export function setRGBValue(r: number, g: number, b: number): number {
 
-        return  (((r << 16) & 0xff) | ((g << 8) & 0xff) | (b & 0xff))
+        return  (((r << 16) & 0xff0000) | ((g << 8) & 0xff00) | (b & 0xff))
     }
 
 
