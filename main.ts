@@ -1,8 +1,8 @@
 /**
 * Functions to micro:bit xgo Robot Kit by ELECFREAKS Co.,Ltd.
 */
-//% color=#8600FF icon="\uf1b0"
-//% block="Xgo_Rider" blockId="Xgo_Rider"
+//% color=#8600FF icon="\uf1e7"
+//% block="XGO_Rider" blockId="XGO_Rider"
 namespace xgo {
 
     export enum PerformanceEnum {
