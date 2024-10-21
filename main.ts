@@ -1,7 +1,7 @@
 /**
 * Functions to micro:bit xgo Robot Kit by ELECFREAKS Co.,Ltd.
 */
-//% color=#8600FF icon="\xf1e7"
+//% color=#8600FF icon="\uf1e7"
 //% block="XGO_Rider" blockId="XGO_Rider"
 namespace xgo {
 
