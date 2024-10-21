@@ -176,10 +176,9 @@ namespace xgo {
         commands_buffer[3] = 0x00
         commands_buffer[4] = addr
 
-        for(i = 0; i > strlen; i++) {
-
-            commands_buffer[i + 5] = str.charCodeAt(i)
-            errordata += str.charCodeAt(i)
+        for(i = 5; i < strlen+5; i++) {
+            commands_buffer[i] = str.charCodeAt(i-5)
+            errordata += str.charCodeAt(i-5)
         }
         commands_buffer[i++] = ~(len + 0x00 + addr + errordata)
         commands_buffer[i++] = tailDataH
@@ -254,7 +253,6 @@ namespace xgo {
     //% block="set XGO TX %tx RX %rx"
     //% weight=500
     export function initXGOSerial(tx: SerialPin, rx: SerialPin) {
-
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
         initActionMode()
     }
@@ -299,11 +297,11 @@ namespace xgo {
     export function setBluetooth(str: string) {
 
         let len, addr, wait
-        len = str.length - 1 + 8
+        len = str.length + 8
         addr = 0x13
         wait = 100
 
-        writeStrCommand(len, str.length - 1, addr, str, wait)
+        writeStrCommand(len, str.length, addr, str, wait)
     }
 
     /**
@@ -450,7 +448,7 @@ namespace xgo {
     //% weight=440
     export function setRGBValue(r: number, g: number, b: number): number {
 
-        return  (((r << 16) & 0xff) | ((g << 8) & 0xff) | (b & 0xff))
+        return  (((r << 16) & 0xff0000) | ((g << 8) & 0xff00) | (b & 0xff))
     }
 
 
