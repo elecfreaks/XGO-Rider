@@ -250,7 +250,7 @@ namespace xgo {
     * @param rx describe parameter here, eg: SerialPin.P13
     */
     //% group="Basic"
-    //% block="set XGO TX %tx RX %rx"
+    //% block="Set Rider serial port TX %tx RX %rx"
     //% weight=500
     export function initXGOSerial(tx: SerialPin, rx: SerialPin) {
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
@@ -308,7 +308,7 @@ namespace xgo {
     * Get the current battery level of Rider
     */
     //% group="Basic"
-    //% block="get XGO's current power"
+    //% block="Get the current battery level of Rider"
     //% weight=470
     export function batteryStatus(): number {
 
@@ -326,7 +326,7 @@ namespace xgo {
     */
     //% group="Basic"
     //% weight=460
-    //%block="get XGO's version"
+    //%block="Get Rider firmware version number"
     export function getVersion(): string {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = headDataH
@@ -456,7 +456,7 @@ namespace xgo {
     * Turn (on/off) dynamic balancing mode
     */
     //% group="Servo"
-    //% block="%val Dynamic balancing mode"
+    //% block="Turn %val Dynamic balancing mode"
     //% weight=400
     export function setBalanceMode(val: SelectRepeater) {
 
@@ -532,7 +532,7 @@ namespace xgo {
     }
 
     /**
-    * Adjust body height (0) mm
+    * set Rider height mm
     * @param high describe parameter here, eg: 0
     */
     //% group="Servo"
