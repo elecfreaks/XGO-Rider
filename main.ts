@@ -240,7 +240,10 @@ namespace xgo {
     //% block="Restore initial action"
     //% weight=480
     export function initActionMode() {
-
+        let statu = readCommandOneData(0x09, 0x02, 0x01, 0)
+        if (statu == 0x00) {
+            return;
+        }
         writeCommand(0x09, 0x3E, 0xFF, 1000)
     }
 
