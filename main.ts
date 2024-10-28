@@ -695,10 +695,10 @@ namespace xgo {
                 data = 0x01
                 break
             case posture.AdvanceAndRetreat:
-                data = 0x02
+                data = 0x03
                 break
             case posture.upsAndDowns:
-                data = 0x03
+                data = 0x02
                 break
             case posture.TetragonalSnake:
                 data = 0x04
