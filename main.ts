@@ -2,7 +2,7 @@
 * Functions to micro:bit xgo Robot Kit by ELECFREAKS Co.,Ltd.
 */
 //% color=#8600FF icon="\uf1b0"
-//% block="Xgo_Rider" blockId="Xgo_Rider"
+//% block="XGO_Rider" blockId="XGO_Rider"
 namespace xgo {
 
     export enum PerformanceEnum {
@@ -94,6 +94,22 @@ namespace xgo {
         //% block="CCW"
         Ccw,
     }
+
+    export enum posture{
+        //% block="playPendulum"
+        playPendulum,
+        //% block="AdvanceAndRetreat"
+        AdvanceAndRetreat,
+        //% block="upsAndDowns"
+        upsAndDowns,
+        //% block="TetragonalSnake" 
+        TetragonalSnake,
+        //% block="LiftRotation" 
+        LiftRotation,
+        //% block="CircularSloshing" 
+        CircularSloshing,
+    }
+
     
 
     let headData = 0x5500
@@ -160,10 +176,9 @@ namespace xgo {
         commands_buffer[3] = 0x00
         commands_buffer[4] = addr
 
-        for(i = 0; i > strlen; i++) {
-
-            commands_buffer[i + 5] = str.charCodeAt(i)
-            errordata += str.charCodeAt(i)
+        for(i = 5; i < strlen+5; i++) {
+            commands_buffer[i] = str.charCodeAt(i-5)
+            errordata += str.charCodeAt(i-5)
         }
         commands_buffer[i++] = ~(len + 0x00 + addr + errordata)
         commands_buffer[i++] = tailDataH
@@ -219,32 +234,34 @@ namespace xgo {
     }
 
     /**
-    * TODO: initialization xgo motor
+    * Restore initial action
     */
     //% group="Basic"
     //% block="Restore initial action"
     //% weight=480
     export function initActionMode() {
-
+        let statu = readCommandOneData(0x09, 0x02, 0x01, 0)
+        if (statu == 0x00) {
+            return;
+        }
         writeCommand(0x09, 0x3E, 0xFF, 1000)
     }
 
     /**
-    * TODO: initialization xgo
-    * @param tx describe parameter here, eg: SerialPin.P13
-    * @param rx describe parameter here, eg: SerialPin.P14
+    * Set Rider serial port TX （P14）  RX  (P13）
+    * @param tx describe parameter here, eg: SerialPin.P14 
+    * @param rx describe parameter here, eg: SerialPin.P13
     */
     //% group="Basic"
-    //% block="set XGO TX %tx RX %rx"
+    //% block="Set Rider serial port TX %tx RX %rx"
     //% weight=500
     export function initXGOSerial(tx: SerialPin, rx: SerialPin) {
-
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
         initActionMode()
     }
 
     /**
-    * TODO: performance mode
+    * Performance mode(Normal control mode) 
     */
     //% group="Basic"
     //% block="performance mode %mode"
@@ -274,7 +291,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: set Bluetooth
+    * Set the bluetooth name as ()
     * @param str describe parameter here, eg: "XGO_Rider"
     */
     //% group="Basic"
@@ -283,15 +300,18 @@ namespace xgo {
     export function setBluetooth(str: string) {
 
         let len, addr, wait
-        len = str.length - 1 + 8
+        len = str.length + 8
         addr = 0x13
         wait = 100
 
-        writeStrCommand(len, str.length - 1, addr, str, wait)
+        writeStrCommand(len, str.length, addr, str, wait)
     }
 
+    /**
+    * Get the current battery level of Rider
+    */
     //% group="Basic"
-    //% block="get XGO's current power"
+    //% block="Get the current battery level of Rider"
     //% weight=470
     export function batteryStatus(): number {
 
@@ -304,9 +324,12 @@ namespace xgo {
         return readCommandOneData(len, addr, readlen, wait)
     }
 
+    /**
+    * Get Rider firmware version number
+    */
     //% group="Basic"
     //% weight=460
-    //%block="get XGO's version"
+    //%block="Get Rider firmware version number"
     export function getVersion(): string {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = headDataH
@@ -326,7 +349,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Set the color of the LED light on the back number to color
+    * Set the color of the LED light on the back (all) to (red)
     * @param num describe parameter here, eg: LEDNumber.One
     */
     //% group="Basic"
@@ -418,7 +441,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Set GRB
+    * Set RGB R(255）G（255）B（255)
     * @param r describe parameter here, eg: 0xff
     * @param g describe parameter here, eg: 0
     * @param b describe parameter here, eg: 0
@@ -428,15 +451,15 @@ namespace xgo {
     //% weight=440
     export function setRGBValue(r: number, g: number, b: number): number {
 
-        return  (((r << 16) & 0xff) | ((g << 8) & 0xff) | (b & 0xff))
+        return  (((r << 16) & 0xff0000) | ((g << 8) & 0xff00) | (b & 0xff))
     }
 
 
     /**
-    * TODO: Set the dynamic balance mode
+    * Turn (on/off) dynamic balancing mode
     */
     //% group="Servo"
-    //% block="%val Dynamic balancing mode"
+    //% block="Turn %val Dynamic balancing mode"
     //% weight=400
     export function setBalanceMode(val: SelectRepeater) {
 
@@ -458,7 +481,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Set calibration mode
+    * Enter/Complete) calibration mode
     */
     //% group="Servo"
     //% block="%val calibration mode"
@@ -483,7 +506,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Read value attitude angle
+    * Read (roll) attitude angle
     * @param %val describe parameter here, eg: AngleEnum.Roll
     */
     //% group="Servo"
@@ -512,7 +535,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: set Rider height
+    * set Rider height mm
     * @param high describe parameter here, eg: 0
     */
     //% group="Servo"
@@ -531,7 +554,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Adjust the left and right tilt of the fuselage angle °
+    * Adjust the left and right tilt of the fuselage (0)°
     * @param angle describe parameter here, eg: 0
     */
     //% group="Servo"
@@ -550,7 +573,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Move at any speed for any s
+    * Move (forward/backward) at (0)% speed for (5) s
     * @param speed describe parameter here, eg: 0
     * @param time describe parameter here, eg: 5
     */
@@ -583,7 +606,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Rotate %direct at %speed speed for %time s
+    * (Clockwise/counterclockwise) rotation at (0)% for (5)s
     * @param speed describe parameter here, eg: 0
     * @param time describe parameter here, eg: 5
     */
@@ -616,7 +639,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Set Rider to perform squatting motion with a period of %time s.
+    * Set Rider to perform squatting motion with a period of (5) s.
     * @param time describe parameter here, eg: 3
     */
     //% group="Sports"
@@ -638,7 +661,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: Set the Rider to shake left and right with a period of x s.
+    * Set the Rider to shake left and right with a period of (5) s.
     * @param time describe parameter here, eg: 3
     */
     //% group="Sports"
@@ -656,6 +679,42 @@ namespace xgo {
 
         wait = 1000
 
+        writeCommand(len, addr, data, wait)
+    }
+    /**
+    * Execute actions (side-to-side sway/forward and backward/high and low/quadrilateral serpentine/lifting and rotating/circumferential wobble).
+    * @param state set the state of the Rider, eg: posture.playPendulum
+    */
+    //% group="Basic"
+    //% block="Execute actions %state"
+    //% weight=485
+    export function executeActions(state: posture) {
+        let len, addr, data, wait
+        len = 0x09
+        addr = 0x3E
+        switch (state) {
+
+            case posture.playPendulum:
+                data = 0x01
+                break
+            case posture.AdvanceAndRetreat:
+                data = 0x03
+                break
+            case posture.upsAndDowns:
+                data = 0x02
+                break
+            case posture.TetragonalSnake:
+                data = 0x04
+                break
+            case posture.LiftRotation:
+                data = 0x05
+                break
+            case posture.CircularSloshing:
+                data = 0x06
+                break
+        }
+        wait = 100
+        
         writeCommand(len, addr, data, wait)
     }
 }

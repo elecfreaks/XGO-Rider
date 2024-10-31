@@ -25,6 +25,12 @@
     "xgo.LEDColor.Purple|block": "紫色",
     "xgo.LEDColor.White|block": "白色",
     "xgo.LEDColor.Black|block": "黑色",
+    "xgo.posture.playPendulum|block": "左右摇摆",
+    "xgo.posture.AdvanceAndRetreat|block": "前进后退",
+    "xgo.posture.upsAndDowns|block": "高低起伏",
+    "xgo.posture.TetragonalSnake|block": "四方蛇形",
+    "xgo.posture.LiftRotation|block": "升降旋转",
+    "xgo.posture.CircularSloshing|block": "圆周晃动",
     "xgo.initXGOSerial|block": "设置 XGO 串口 TX %tx RX %rx",
     "xgo.performanceMode|block": "表演模式 %mode",
     "xgo.batteryStatus|block": "获取Rider的当前电量",
@@ -32,6 +38,7 @@
     "xgo.setBluetooth|block": "设置蓝牙名称为 %str",
     "xgo.setHeight|block": "调节机身高度 %high mm",
     "xgo.setAngle|block": "调节机身左右倾斜 %angle °",
+    "xgo.executeActions|block": "执行动作 %state ",
     "xgo.initActionMode|block": "恢复初始动作",
     "xgo.setBalanceMode|block": "%val 动态平衡模式",
     "xgo.moveRider|block": "向 %direct 以 %speed\\% 速度持续 %time s",
@@ -45,5 +52,5 @@
     "{id:group}Basic": "基础",
     "{id:group}Servo": "舵机",
     "{id:group}Sports": "运动",
-    "{id:category}xgo": "Xgo_Rider"
+    "{id:category}xgo": "XGO_Rider"
 }
