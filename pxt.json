@@ -1,7 +1,8 @@
 {
-    "name": "XGO",
-    "version": "1.3.20",
-    "description": "The intelligent programming dog XGO produced",
+    "name": "xgoRider",
+    "version": "1.3.21",
+    "license": "MIT",
+    "description": "The intelligent programming dog XGO-Rider produced",
     "dependencies": {
         "core": "*",
         "radio": "*",
@@ -10,10 +11,10 @@
     "files": [
         "main.ts",
         "README.md",
-        "_locales/XGO-jsdoc-strings.json",
-        "_locales/XGO-strings.json",
-        "_locales/zh-CN/XGO-jsdoc-strings.json",
-        "_locales/zh-CN/XGO-strings.json"
+        "_locales/xgoRider-jsdoc-strings.json",
+        "_locales/xgoRider-strings.json",
+        "_locales/zh-CN/xgoRider-jsdoc-strings.json",
+        "_locales/zh-CN/xgoRider-strings.json"
     ],
     "testFiles": [
         "test.ts"

@@ -3,7 +3,7 @@
 */
 //% color=#8600FF icon="\uf1b0"
 //% block="Xgo_Rider" blockId="Xgo_Rider"
-namespace xgo {
+namespace xgoRider {
 
     export enum PerformanceEnum {
 
@@ -41,15 +41,15 @@ namespace xgo {
 
     export enum LEDNumber {
 
-        //% block="All"
+        //% block="all"
         All,
-        //% block="No.1"
+        //% block="no.1"
         One,
-        //% block="No.2"
+        //% block="no.2"
         Tow,
-        //% block="No.3"
+        //% block="no.3"
         Three,
-        //% block="No.4"
+        //% block="no.4"
         Four,
     }
 
@@ -105,7 +105,7 @@ namespace xgo {
 
     //////////----------------------------------- Basic--------------------------------/////////
     /**
-    * TODO: xgo write interface
+    * TODO: Xgo_Rider write interface
     */
     function writeCommand(len: number, addr: number, data: number, wait: number) {
 
@@ -125,7 +125,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: xgo write interface
+    * TODO: Xgo_Rider write interface
     */
     function writeThreeCommand(len: number, addr: number, data0: number, data1: number, data2: number, wait: number) {
 
@@ -147,7 +147,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: xgo write interface
+    * TODO: Xgo_Rider write interface
     */
     function writeStrCommand(len: number, strlen: number, addr: number, str: string, wait: number) {
 
@@ -175,7 +175,7 @@ namespace xgo {
 
 
     /**
-    * TODO: xgo read interface
+    * TODO: Xgo_Rider read interface
     */
     function readCommandOneData(len: number, addr: number, readlen: number, wait: number) {
 
@@ -197,7 +197,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: xgo read interface
+    * TODO: Xgo_Rider read interface
     */
     function readDoubleCommandOneData(len: number, addr: number, readlen: number, wait: number) {
 
@@ -219,10 +219,10 @@ namespace xgo {
     }
 
     /**
-    * TODO: initialization xgo motor
+    * TODO: initialization Xgo_Rider motor
     */
     //% group="Basic"
-    //% block="Restore initial action"
+    //% block="restore initial action"
     //% weight=480
     export function initActionMode() {
 
@@ -230,7 +230,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: initialization xgo
+    * TODO: initialization Xgo_Rider
     * @param tx describe parameter here, eg: SerialPin.P13
     * @param rx describe parameter here, eg: SerialPin.P14
     */
@@ -278,7 +278,7 @@ namespace xgo {
     * @param str describe parameter here, eg: "XGO_Rider"
     */
     //% group="Basic"
-    //% block="Set the Bluetooth name as %str"
+    //% block="set the Bluetooth name as %str"
     //% weight=450
     export function setBluetooth(str: string) {
 
@@ -306,8 +306,8 @@ namespace xgo {
 
     //% group="Basic"
     //% weight=460
-    //%block="get XGO's version"
-    export function getVersion(): string {
+    //%block="XGO's version"
+    export function version(): string {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = headDataH
         commands_buffer[1] = headDataL
@@ -330,7 +330,7 @@ namespace xgo {
     * @param num describe parameter here, eg: LEDNumber.One
     */
     //% group="Basic"
-    //% block="Set the color of the LED light on the back %num to $color"
+    //% block="set the color of the LED light on the back %num to $color"
     //% color.shadow="colorNumberPicker"
     //% weight=450
     export function setLEDMode(num: LEDNumber, color: number) {
@@ -424,7 +424,7 @@ namespace xgo {
     * @param b describe parameter here, eg: 0
     */
     //% group="Basic"
-    //% block="Set GRB R: %r G: %g B: %b"
+    //% block="set GRB R: %r G: %g B: %b"
     //% weight=440
     export function setRGBValue(r: number, g: number, b: number): number {
 
@@ -555,18 +555,18 @@ namespace xgo {
     * @param time describe parameter here, eg: 5
     */
     //% group="Sports"
-    //% block="Move %direct at %speed speed for %time s"
+    //% block="Move %direction  at %speed speed for %time s"
     //% speed.min=0 speed.max=100
     //% weight=200
-    export function moveRider(direct: DirectionEnum, speed: number, time: number) {
+    export function moveRider(direction : DirectionEnum, speed: number, time: number) {
 
         let len, addr, data, wait
         len = 0x09
         addr = 0x30
-        if (direct == DirectionEnum.Forward) {
+        if (direction  == DirectionEnum.Forward) {
 
             speed = speed
-        } else if (direct == DirectionEnum.Backward) {
+        } else if (direction  == DirectionEnum.Backward) {
 
             speed = -speed
         }
@@ -583,23 +583,23 @@ namespace xgo {
     }
 
     /**
-    * TODO: Rotate %direct at %speed speed for %time s
+    * TODO: Ratate %direction  at %speed speed for %time s
     * @param speed describe parameter here, eg: 0
     * @param time describe parameter here, eg: 5
     */
     //% group="Sports"
-    //% block="Rotate %direct at %speed speed for %time s"
+    //% block="Ratate %direction  at %speed speed for %time s"
     //% speed.min=0 speed.max=100
     //% weight=190
-    export function rotateRider(direct: RatateEnum, speed: number, time: number) {
+    export function rotateRider(direction : RatateEnum, speed: number, time: number) {
 
         let len, addr, data, wait
         len = 0x09
         addr = 0x32
-        if (direct == RatateEnum.Cw) {
+        if (direction  == RatateEnum.Cw) {
 
             speed = speed
-        } else if (direct == RatateEnum.Ccw) {
+        } else if (direction  == RatateEnum.Ccw) {
 
             speed = -speed
         }
@@ -620,7 +620,7 @@ namespace xgo {
     * @param time describe parameter here, eg: 3
     */
     //% group="Sports"
-    //% block="Set Rider to perform squatting motion with a period of %time s"
+    //% block="set Rider to perform squatting motion with a period of %time s"
     //% time.min=2 time.max=4
     //% weight=180
     export function squattingFunc(time: number) {
@@ -642,7 +642,7 @@ namespace xgo {
     * @param time describe parameter here, eg: 3
     */
     //% group="Sports"
-    //% block="Set the Rider to shake left and right with a period of %time s"
+    //% block="set the Rider to shake left and right with a period of %time s"
     //% time.min=2 time.max=4
     //% weight=170
     export function shufflingFunc(time: number) {
