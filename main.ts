@@ -2,8 +2,8 @@
 * Functions to micro:bit xgo Robot Kit by ELECFREAKS Co.,Ltd.
 */
 //% color=#8600FF icon="\uf1b0"
-//% block="XGO_Rider" blockId="XGO_Rider"
-namespace xgo {
+//% block="Xgo_Rider" blockId="Xgo_Rider"
+namespace xgoRider {
 
     export enum PerformanceEnum {
 
@@ -41,15 +41,15 @@ namespace xgo {
 
     export enum LEDNumber {
 
-        //% block="All"
+        //% block="all"
         All,
-        //% block="No.1"
+        //% block="no.1"
         One,
-        //% block="No.2"
+        //% block="no.2"
         Tow,
-        //% block="No.3"
+        //% block="no.3"
         Three,
-        //% block="No.4"
+        //% block="no.4"
         Four,
     }
 
@@ -94,22 +94,6 @@ namespace xgo {
         //% block="CCW"
         Ccw,
     }
-
-    export enum posture{
-        //% block="playPendulum"
-        playPendulum,
-        //% block="AdvanceAndRetreat"
-        AdvanceAndRetreat,
-        //% block="upsAndDowns"
-        upsAndDowns,
-        //% block="TetragonalSnake" 
-        TetragonalSnake,
-        //% block="LiftRotation" 
-        LiftRotation,
-        //% block="CircularSloshing" 
-        CircularSloshing,
-    }
-
     
 
     let headData = 0x5500
@@ -121,7 +105,7 @@ namespace xgo {
 
     //////////----------------------------------- Basic--------------------------------/////////
     /**
-    * TODO: xgo write interface
+    * TODO: Xgo_Rider write interface
     */
     function writeCommand(len: number, addr: number, data: number, wait: number) {
 
@@ -141,7 +125,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: xgo write interface
+    * TODO: Xgo_Rider write interface
     */
     function writeThreeCommand(len: number, addr: number, data0: number, data1: number, data2: number, wait: number) {
 
@@ -163,7 +147,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: xgo write interface
+    * TODO: Xgo_Rider write interface
     */
     function writeStrCommand(len: number, strlen: number, addr: number, str: string, wait: number) {
 
@@ -176,9 +160,10 @@ namespace xgo {
         commands_buffer[3] = 0x00
         commands_buffer[4] = addr
 
-        for(i = 5; i < strlen+5; i++) {
-            commands_buffer[i] = str.charCodeAt(i-5)
-            errordata += str.charCodeAt(i-5)
+        for(i = 0; i > strlen; i++) {
+
+            commands_buffer[i + 5] = str.charCodeAt(i)
+            errordata += str.charCodeAt(i)
         }
         commands_buffer[i++] = ~(len + 0x00 + addr + errordata)
         commands_buffer[i++] = tailDataH
@@ -190,7 +175,7 @@ namespace xgo {
 
 
     /**
-    * TODO: xgo read interface
+    * TODO: Xgo_Rider read interface
     */
     function readCommandOneData(len: number, addr: number, readlen: number, wait: number) {
 
@@ -212,7 +197,7 @@ namespace xgo {
     }
 
     /**
-    * TODO: xgo read interface
+    * TODO: Xgo_Rider read interface
     */
     function readDoubleCommandOneData(len: number, addr: number, readlen: number, wait: number) {
 
@@ -234,34 +219,32 @@ namespace xgo {
     }
 
     /**
-    * Restore initial action
+    * TODO: initialization Xgo_Rider motor
     */
     //% group="Basic"
-    //% block="Restore initial action"
+    //% block="restore initial action"
     //% weight=480
     export function initActionMode() {
-        let statu = readCommandOneData(0x09, 0x02, 0x01, 0)
-        if (statu == 0x00) {
-            return;
-        }
+
         writeCommand(0x09, 0x3E, 0xFF, 1000)
     }
 
     /**
-    * Set Rider serial port TX （P14）  RX  (P13）
-    * @param tx describe parameter here, eg: SerialPin.P14 
-    * @param rx describe parameter here, eg: SerialPin.P13
+    * TODO: initialization Xgo_Rider
+    * @param tx describe parameter here, eg: SerialPin.P13
+    * @param rx describe parameter here, eg: SerialPin.P14
     */
     //% group="Basic"
-    //% block="Set Rider serial port TX %tx RX %rx"
+    //% block="set XGO TX %tx RX %rx"
     //% weight=500
     export function initXGOSerial(tx: SerialPin, rx: SerialPin) {
+
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
         initActionMode()
     }
 
     /**
-    * Performance mode(Normal control mode) 
+    * TODO: performance mode
     */
     //% group="Basic"
     //% block="performance mode %mode"
@@ -291,27 +274,24 @@ namespace xgo {
     }
 
     /**
-    * Set the bluetooth name as ()
+    * TODO: set Bluetooth
     * @param str describe parameter here, eg: "XGO_Rider"
     */
     //% group="Basic"
-    //% block="Set the Bluetooth name as %str"
+    //% block="set the Bluetooth name as %str"
     //% weight=450
     export function setBluetooth(str: string) {
 
         let len, addr, wait
-        len = str.length + 8
+        len = str.length - 1 + 8
         addr = 0x13
         wait = 100
 
-        writeStrCommand(len, str.length, addr, str, wait)
+        writeStrCommand(len, str.length - 1, addr, str, wait)
     }
 
-    /**
-    * Get the current battery level of Rider
-    */
     //% group="Basic"
-    //% block="Get the current battery level of Rider"
+    //% block="get XGO's current power"
     //% weight=470
     export function batteryStatus(): number {
 
@@ -324,13 +304,10 @@ namespace xgo {
         return readCommandOneData(len, addr, readlen, wait)
     }
 
-    /**
-    * Get Rider firmware version number
-    */
     //% group="Basic"
     //% weight=460
-    //%block="Get Rider firmware version number"
-    export function getVersion(): string {
+    //%block="XGO's version"
+    export function version(): string {
         let commands_buffer = pins.createBuffer(9)
         commands_buffer[0] = headDataH
         commands_buffer[1] = headDataL
@@ -349,11 +326,11 @@ namespace xgo {
     }
 
     /**
-    * Set the color of the LED light on the back (all) to (red)
+    * TODO: Set the color of the LED light on the back number to color
     * @param num describe parameter here, eg: LEDNumber.One
     */
     //% group="Basic"
-    //% block="Set the color of the LED light on the back %num to $color"
+    //% block="set the color of the LED light on the back %num to $color"
     //% color.shadow="colorNumberPicker"
     //% weight=450
     export function setLEDMode(num: LEDNumber, color: number) {
@@ -441,25 +418,25 @@ namespace xgo {
     }
 
     /**
-    * Set RGB R(255）G（255）B（255)
+    * TODO: Set GRB
     * @param r describe parameter here, eg: 0xff
     * @param g describe parameter here, eg: 0
     * @param b describe parameter here, eg: 0
     */
     //% group="Basic"
-    //% block="Set GRB R: %r G: %g B: %b"
+    //% block="set GRB R: %r G: %g B: %b"
     //% weight=440
     export function setRGBValue(r: number, g: number, b: number): number {
 
-        return  (((r << 16) & 0xff0000) | ((g << 8) & 0xff00) | (b & 0xff))
+        return  (((r << 16) & 0xff) | ((g << 8) & 0xff) | (b & 0xff))
     }
 
 
     /**
-    * Turn (on/off) dynamic balancing mode
+    * TODO: Set the dynamic balance mode
     */
     //% group="Servo"
-    //% block="Turn %val Dynamic balancing mode"
+    //% block="%val Dynamic balancing mode"
     //% weight=400
     export function setBalanceMode(val: SelectRepeater) {
 
@@ -481,7 +458,7 @@ namespace xgo {
     }
 
     /**
-    * Enter/Complete) calibration mode
+    * TODO: Set calibration mode
     */
     //% group="Servo"
     //% block="%val calibration mode"
@@ -506,7 +483,7 @@ namespace xgo {
     }
 
     /**
-    * Read (roll) attitude angle
+    * TODO: Read value attitude angle
     * @param %val describe parameter here, eg: AngleEnum.Roll
     */
     //% group="Servo"
@@ -535,7 +512,7 @@ namespace xgo {
     }
 
     /**
-    * set Rider height mm
+    * TODO: set Rider height
     * @param high describe parameter here, eg: 0
     */
     //% group="Servo"
@@ -554,7 +531,7 @@ namespace xgo {
     }
 
     /**
-    * Adjust the left and right tilt of the fuselage (0)°
+    * TODO: Adjust the left and right tilt of the fuselage angle °
     * @param angle describe parameter here, eg: 0
     */
     //% group="Servo"
@@ -573,23 +550,23 @@ namespace xgo {
     }
 
     /**
-    * Move (forward/backward) at (0)% speed for (5) s
+    * TODO: Move at any speed for any s
     * @param speed describe parameter here, eg: 0
     * @param time describe parameter here, eg: 5
     */
     //% group="Sports"
-    //% block="Move %direct at %speed speed for %time s"
+    //% block="Move %direction  at %speed speed for %time s"
     //% speed.min=0 speed.max=100
     //% weight=200
-    export function moveRider(direct: DirectionEnum, speed: number, time: number) {
+    export function moveRider(direction : DirectionEnum, speed: number, time: number) {
 
         let len, addr, data, wait
         len = 0x09
         addr = 0x30
-        if (direct == DirectionEnum.Forward) {
+        if (direction  == DirectionEnum.Forward) {
 
             speed = speed
-        } else if (direct == DirectionEnum.Backward) {
+        } else if (direction  == DirectionEnum.Backward) {
 
             speed = -speed
         }
@@ -606,23 +583,23 @@ namespace xgo {
     }
 
     /**
-    * (Clockwise/counterclockwise) rotation at (0)% for (5)s
+    * TODO: Ratate %direction  at %speed speed for %time s
     * @param speed describe parameter here, eg: 0
     * @param time describe parameter here, eg: 5
     */
     //% group="Sports"
-    //% block="Rotate %direct at %speed speed for %time s"
+    //% block="Ratate %direction  at %speed speed for %time s"
     //% speed.min=0 speed.max=100
     //% weight=190
-    export function rotateRider(direct: RatateEnum, speed: number, time: number) {
+    export function rotateRider(direction : RatateEnum, speed: number, time: number) {
 
         let len, addr, data, wait
         len = 0x09
         addr = 0x32
-        if (direct == RatateEnum.Cw) {
+        if (direction  == RatateEnum.Cw) {
 
             speed = speed
-        } else if (direct == RatateEnum.Ccw) {
+        } else if (direction  == RatateEnum.Ccw) {
 
             speed = -speed
         }
@@ -639,11 +616,11 @@ namespace xgo {
     }
 
     /**
-    * Set Rider to perform squatting motion with a period of (5) s.
+    * TODO: Set Rider to perform squatting motion with a period of %time s.
     * @param time describe parameter here, eg: 3
     */
     //% group="Sports"
-    //% block="Set Rider to perform squatting motion with a period of %time s"
+    //% block="set Rider to perform squatting motion with a period of %time s"
     //% time.min=2 time.max=4
     //% weight=180
     export function squattingFunc(time: number) {
@@ -661,11 +638,11 @@ namespace xgo {
     }
 
     /**
-    * Set the Rider to shake left and right with a period of (5) s.
+    * TODO: Set the Rider to shake left and right with a period of x s.
     * @param time describe parameter here, eg: 3
     */
     //% group="Sports"
-    //% block="Set the Rider to shake left and right with a period of %time s"
+    //% block="set the Rider to shake left and right with a period of %time s"
     //% time.min=2 time.max=4
     //% weight=170
     export function shufflingFunc(time: number) {
@@ -679,42 +656,6 @@ namespace xgo {
 
         wait = 1000
 
-        writeCommand(len, addr, data, wait)
-    }
-    /**
-    * Execute actions (side-to-side sway/forward and backward/high and low/quadrilateral serpentine/lifting and rotating/circumferential wobble).
-    * @param state set the state of the Rider, eg: posture.playPendulum
-    */
-    //% group="Basic"
-    //% block="Execute actions %state"
-    //% weight=485
-    export function executeActions(state: posture) {
-        let len, addr, data, wait
-        len = 0x09
-        addr = 0x3E
-        switch (state) {
-
-            case posture.playPendulum:
-                data = 0x01
-                break
-            case posture.AdvanceAndRetreat:
-                data = 0x03
-                break
-            case posture.upsAndDowns:
-                data = 0x02
-                break
-            case posture.TetragonalSnake:
-                data = 0x04
-                break
-            case posture.LiftRotation:
-                data = 0x05
-                break
-            case posture.CircularSloshing:
-                data = 0x06
-                break
-        }
-        wait = 100
-        
         writeCommand(len, addr, data, wait)
     }
 }
