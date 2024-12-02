@@ -223,11 +223,7 @@ namespace xgoRider {
     }
 
     /**
-<<<<<<< HEAD
     * initialization Xgo_Rider motor
-=======
-    * TODO: initialization Xgo_Rider motor
->>>>>>> f6e77acfae9cbb4f6e3707075393f16933cfbdb3
     */
     //% group="Basic"
     //% block="restore initial action"
@@ -252,7 +248,6 @@ namespace xgoRider {
     /**
      * Initializes XgoRider for action mode.
      *
-     * Sets up the device to execute predefined action sequences.
      */
     //% group="Basic"
     //% block="performance mode %mode"
@@ -302,7 +297,6 @@ namespace xgoRider {
     /**
      * Retrieves the current battery status of the XgoRider.
      *
-     * This function returns information about the device's battery level and status.
      */
     //% group="Basic"
     //% block="XGO's current power"
@@ -319,9 +313,8 @@ namespace xgoRider {
     }
 
     /**
-     * Retrieves the version information of the XgoRider.
-     *
-     * This function returns the firmware or software version of the device.
+     * This function returns the firmware or software version of the device.、
+     * 
      */
     //% group="Basic"
     //% weight=460
@@ -345,7 +338,7 @@ namespace xgoRider {
     }
 
     /**
-     * Sets the LED mode for the specified LED(s) on the XgoRider.
+     * Sets the LED mode for the specified LED(s) on the Xgo-Rider.
      *
      * @param ledNumber - Specifies which LED(s) to control (e.g., LEDNumber.All).
      * @param color - The color to set the LED(s) to, in RGB hexadecimal format (e.g., 0xff0000 for red).
@@ -396,13 +389,8 @@ namespace xgoRider {
     }
 
     /**
-     * Sets the RGB value for the LEDs on the XgoRider.
-     *
      * This function configures the color of the LEDs using individual red, green, and blue values.
      *
-     * @param red - The intensity of the red component (0-255).
-     * @param green - The intensity of the green component (0-255).
-     * @param blue - The intensity of the blue component (0-255).
      */
     //% group="Basic"
     //% block="set GRB R: %r G: %g B: %b"
@@ -414,11 +402,8 @@ namespace xgoRider {
 
 
     /**
-     * Sets the balance mode for the XgoRider.
-     *
      * This function enables or disables the balance mode using a repeater selector.
      *
-     * @param repeater - Specifies whether to turn the balance mode on or off (e.g., SelectRepeater.On).
      */
     //% group="Servo"
     //% block="%val dynamic balancing mode"
@@ -443,11 +428,8 @@ namespace xgoRider {
     }
 
     /**
-     * Sets the calibration mode for the XgoRider.
-     *
-     * This function allows entering or exiting the calibration mode, which is used to adjust sensor settings for optimal performance.
-     *
-     * @param mode - Specifies the calibration action (e.g., CalibrationEnum.Enter to enter calibration mode).
+     * This function allows entering or exiting the calibration mode, which is used to adjust sensor settings for optimal performance.\
+     * 
      */
     //% group="Servo"
     //% block="%val calibration mode"
@@ -472,12 +454,8 @@ namespace xgoRider {
     }
 
     /**
-     * Reads the angle for a specified axis on the XgoRider.
-     *
      * This function retrieves the current angle of the device for the given axis, such as roll, pitch, or yaw.
-     *
-     * @param axis - Specifies the axis to read (e.g., AngleEnum.Roll).
-     * @returns The current angle value in degrees.
+     * 
      */
     //% group="Servo"
     //% block="%val attitude angle"
@@ -524,8 +502,8 @@ namespace xgoRider {
     }
 
     /**
-    * Adjust the left and right tilt of the fuselage angle °
-    * @param angle describe parameter here, eg: 0
+     * This function retrieves the current angle of the device for the given axis, such as roll, pitch, or yaw.
+     * 
     */
     //% group="Servo"
     //% block="adjust the left and right tilt of the fuselage %angle °"
@@ -543,9 +521,8 @@ namespace xgoRider {
     }
 
     /**
-    * Move at any speed for any s
-    * @param speed describe parameter here, eg: 0
-    * @param time describe parameter here, eg: 5
+    * This function commands the XgoRider to move in the given direction with specified parameters.
+    * 
     */
     //% group="Sports"
     //% block="move %direction  at %speed speed for %time s"
@@ -576,9 +553,8 @@ namespace xgoRider {
     }
 
     /**
-    * Rotate %direction  at %speed speed for %time s
-    * @param speed describe parameter here, eg: 0
-    * @param time describe parameter here, eg: 5
+    * This function commands the XgoRider to rotate clockwise or counterclockwise with a specified speed for a given duration.
+    * 
     */
     //% group="Sports"
     //% block="rotate %direction  at %speed speed for %time s"
@@ -609,8 +585,8 @@ namespace xgoRider {
     }
 
     /**
-    * Set Rider to perform squatting motion with a period of %time s.
-    * @param time describe parameter here, eg: 3
+    *  This function commands the XgoRider to perform a squatting action with a specified level or mode.
+    * 
     */
     //% group="Sports"
     //% block="set Rider to perform squatting motion with a period of %time s"
@@ -631,8 +607,8 @@ namespace xgoRider {
     }
 
     /**
-    * Set the Rider to shake left and right with a period of x s.
-    * @param time describe parameter here, eg: 3
+    *  This function commands the XgoRider to perform a shuffling action with a specified level or mode.
+    * 
     */
     //% group="Sports"
     //% block="set the Rider to shake left and right with a period of %time s"
