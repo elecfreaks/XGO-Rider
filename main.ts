@@ -87,12 +87,12 @@ namespace xgoRider {
         Yaw,
     }
 
-    export enum RatateEnum {
+    export enum RotateEnum {
 
-        //% block="CW"
-        Cw,
-        //% block="CCW"
-        Ccw,
+        //% block="clockwise"
+        clockwise,
+        //% block="counterclockwise"
+        counterclockwise,
     }
     
 
@@ -105,7 +105,7 @@ namespace xgoRider {
 
     //////////----------------------------------- Basic--------------------------------/////////
     /**
-    * TODO: Xgo_Rider write interface
+    * Xgo_Rider write interface
     */
     function writeCommand(len: number, addr: number, data: number, wait: number) {
 
@@ -125,7 +125,7 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: Xgo_Rider write interface
+    * Xgo_Rider write interface
     */
     function writeThreeCommand(len: number, addr: number, data0: number, data1: number, data2: number, wait: number) {
 
@@ -147,7 +147,7 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: Xgo_Rider write interface
+    * Xgo_Rider write interface
     */
     function writeStrCommand(len: number, strlen: number, addr: number, str: string, wait: number) {
 
@@ -175,7 +175,7 @@ namespace xgoRider {
 
 
     /**
-    * TODO: Xgo_Rider read interface
+    * Xgo_Rider read interface
     */
     function readCommandOneData(len: number, addr: number, readlen: number, wait: number) {
 
@@ -197,7 +197,7 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: Xgo_Rider read interface
+    * Xgo_Rider read interface
     */
     function readDoubleCommandOneData(len: number, addr: number, readlen: number, wait: number) {
 
@@ -219,7 +219,7 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: initialization Xgo_Rider motor
+    * initialization Xgo_Rider motor
     */
     //% group="Basic"
     //% block="restore initial action"
@@ -230,22 +230,21 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: initialization Xgo_Rider
-    * @param tx describe parameter here, eg: SerialPin.P13
-    * @param rx describe parameter here, eg: SerialPin.P14
+    * Initialize Xgo_Rider serial port pins
     */
     //% group="Basic"
     //% block="set XGO TX %tx RX %rx"
     //% weight=500
-    export function initXGOSerial(tx: SerialPin, rx: SerialPin) {
+    export function initXGOSerial(tx: SerialPin = SerialPin.P13, rx: SerialPin = SerialPin.P14) {
 
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
         initActionMode()
     }
 
     /**
-    * TODO: performance mode
-    */
+     * Initializes XgoRider for action mode.
+     *
+     */
     //% group="Basic"
     //% block="performance mode %mode"
     //% weight=490
@@ -274,9 +273,10 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: set Bluetooth
-    * @param str describe parameter here, eg: "XGO_Rider"
-    */
+     * Sets the Bluetooth name for the XgoRider.
+     *
+     * @param name - The Bluetooth name to be set for the device.
+     */
     //% group="Basic"
     //% block="set the Bluetooth name as %str"
     //% weight=450
@@ -290,8 +290,12 @@ namespace xgoRider {
         writeStrCommand(len, str.length - 1, addr, str, wait)
     }
 
+    /**
+     * Retrieves the current battery status of the XgoRider.
+     *
+     */
     //% group="Basic"
-    //% block="get XGO's current power"
+    //% block="XGO's current power"
     //% weight=470
     export function batteryStatus(): number {
 
@@ -304,6 +308,10 @@ namespace xgoRider {
         return readCommandOneData(len, addr, readlen, wait)
     }
 
+    /**
+     * This function returns the firmware or software version of the device.、
+     * 
+     */
     //% group="Basic"
     //% weight=460
     //%block="XGO's version"
@@ -326,63 +334,22 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: Set the color of the LED light on the back number to color
-    * @param num describe parameter here, eg: LEDNumber.One
-    */
+     * Sets the LED mode for the specified LED(s) on the Xgo-Rider.
+     *
+     * @param ledNumber - Specifies which LED(s) to control (e.g., LEDNumber.All).
+     * @param color - The color to set the LED(s) to, in RGB hexadecimal format (e.g., 0xff0000 for red).
+     */
     //% group="Basic"
     //% block="set the color of the LED light on the back %num to $color"
     //% color.shadow="colorNumberPicker"
     //% weight=450
-    export function setLEDMode(num: LEDNumber, color: number) {
+    export function setLEDMode(num: LEDNumber = LEDNumber.All, color: number) {
 
         let len, addr, data, wait
         len = 0x0B
 
         data = color
         wait = 100
-        // switch (color) {
-
-        //     case LEDColor.Red:
-        //         data = 0xFF0000
-        //         wait = 100
-        //         break
-        //     case LEDColor.Orange:
-        //         data = 0xFFA500
-        //         wait = 100
-        //         break
-        //     case LEDColor.Yellow:
-        //         data = 0xFFFF00
-        //         wait = 100
-        //         break
-        //     case LEDColor.Green:
-        //         data = 0x00FF00
-        //         wait = 100
-        //         break
-        //     case LEDColor.Blue:
-        //         data = 0x0000FF
-        //         wait = 100
-        //         break
-        //     case LEDColor.Indigo:
-        //         data = 0x4b0082
-        //         wait = 100
-        //         break
-        //     case LEDColor.Violet:
-        //         data = 0x8a2be2
-        //         wait = 100
-        //         break
-        //     case LEDColor.Purple:
-        //         data = 0xFF00FF
-        //         wait = 100
-        //         break
-        //     case LEDColor.White:
-        //         data = 0xFFFFFF
-        //         wait = 100
-        //         break
-        //     case LEDColor.Black:
-        //         data = 0x000000
-        //         wait = 100
-        //         break
-        // }
 
         if (num == LEDNumber.All) {
 
@@ -418,11 +385,9 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: Set GRB
-    * @param r describe parameter here, eg: 0xff
-    * @param g describe parameter here, eg: 0
-    * @param b describe parameter here, eg: 0
-    */
+     * This function configures the color of the LEDs using individual red, green, and blue values.
+     *
+     */
     //% group="Basic"
     //% block="set GRB R: %r G: %g B: %b"
     //% weight=440
@@ -433,10 +398,11 @@ namespace xgoRider {
 
 
     /**
-    * TODO: Set the dynamic balance mode
-    */
+     * This function enables or disables the balance mode using a repeater selector.
+     *
+     */
     //% group="Servo"
-    //% block="%val Dynamic balancing mode"
+    //% block="%val dynamic balancing mode"
     //% weight=400
     export function setBalanceMode(val: SelectRepeater) {
 
@@ -458,8 +424,9 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: Set calibration mode
-    */
+     * This function allows entering or exiting the calibration mode, which is used to adjust sensor settings for optimal performance.\
+     * 
+     */
     //% group="Servo"
     //% block="%val calibration mode"
     //% weight=390
@@ -483,11 +450,11 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: Read value attitude angle
-    * @param %val describe parameter here, eg: AngleEnum.Roll
-    */
+     * This function retrieves the current angle of the device for the given axis, such as roll, pitch, or yaw.
+     * 
+     */
     //% group="Servo"
-    //% block="Read %val attitude angle"
+    //% block="%val attitude angle"
     //% weight=380
     export function readAngle(val: AngleEnum): number{
 
@@ -512,7 +479,7 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: set Rider height
+    * set Rider height
     * @param high describe parameter here, eg: 0
     */
     //% group="Servo"
@@ -531,11 +498,11 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: Adjust the left and right tilt of the fuselage angle °
-    * @param angle describe parameter here, eg: 0
+     * This function retrieves the current angle of the device for the given axis, such as roll, pitch, or yaw.
+     * 
     */
     //% group="Servo"
-    //% block="Adjust the left and right tilt of the fuselage %angle °"
+    //% block="adjust the left and right tilt of the fuselage %angle °"
     //% angle.min=-100 angle.max=100
     //% weight=360
     export function setAngle(angle: number) {
@@ -550,12 +517,11 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: Move at any speed for any s
-    * @param speed describe parameter here, eg: 0
-    * @param time describe parameter here, eg: 5
+    * This function commands the XgoRider to move in the given direction with specified parameters.
+    * 
     */
     //% group="Sports"
-    //% block="Move %direction  at %speed speed for %time s"
+    //% block="move %direction  at %speed speed for %time s"
     //% speed.min=0 speed.max=100
     //% weight=200
     export function moveRider(direction : DirectionEnum, speed: number, time: number) {
@@ -583,23 +549,22 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: Ratate %direction  at %speed speed for %time s
-    * @param speed describe parameter here, eg: 0
-    * @param time describe parameter here, eg: 5
+    * This function commands the XgoRider to rotate clockwise or counterclockwise with a specified speed for a given duration.
+    * 
     */
     //% group="Sports"
-    //% block="Ratate %direction  at %speed speed for %time s"
+    //% block="rotate %direction  at %speed speed for %time s"
     //% speed.min=0 speed.max=100
     //% weight=190
-    export function rotateRider(direction : RatateEnum, speed: number, time: number) {
+    export function rotateRider(direction : RotateEnum, speed: number, time: number) {
 
         let len, addr, data, wait
         len = 0x09
         addr = 0x32
-        if (direction  == RatateEnum.Cw) {
+        if (direction  == RotateEnum.clockwise) {
 
             speed = speed
-        } else if (direction  == RatateEnum.Ccw) {
+        } else if (direction  == RotateEnum.counterclockwise) {
 
             speed = -speed
         }
@@ -616,8 +581,8 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: Set Rider to perform squatting motion with a period of %time s.
-    * @param time describe parameter here, eg: 3
+    *  This function commands the XgoRider to perform a squatting action with a specified level or mode.
+    * 
     */
     //% group="Sports"
     //% block="set Rider to perform squatting motion with a period of %time s"
@@ -638,8 +603,8 @@ namespace xgoRider {
     }
 
     /**
-    * TODO: Set the Rider to shake left and right with a period of x s.
-    * @param time describe parameter here, eg: 3
+    *  This function commands the XgoRider to perform a shuffling action with a specified level or mode.
+    * 
     */
     //% group="Sports"
     //% block="set the Rider to shake left and right with a period of %time s"

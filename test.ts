@@ -1,18 +1,15 @@
-input.onLogoEvent(TouchButtonEvent.Pressed, function () {
-    basic.showNumber(xgoRider.batteryStatus())
-})
 input.onButtonPressed(Button.A, function () {
-    xgoRider.moveRider(xgoRider.DirectionEnum.Forward, 20, 5)
-})
-input.onButtonPressed(Button.AB, function () {
-    xgoRider.squattingFunc(3)
+    xgoRider.setHeight(14)
 })
 input.onButtonPressed(Button.B, function () {
-    xgoRider.rotateRider(xgoRider.RatateEnum.Cw, 20, 5)
+    xgoRider.setAngle(40)
 })
-xgoRider.initxgoRiderSerial(SerialPin.P13, SerialPin.P14)
-loops.everyInterval(500, function () {
+xgoRider.initXGOSerial(SerialPin.P13, SerialPin.P14)
+loops.everyInterval(1000, function () {
     basic.showString(xgoRider.version())
+})
+loops.everyInterval(500, function () {
+    basic.showNumber(xgoRider.readAngle(xgoRider.AngleEnum.Roll))
 })
 basic.forever(function () {
     xgoRider.setLEDMode(xgoRider.LEDNumber.All, 0xff0000)
