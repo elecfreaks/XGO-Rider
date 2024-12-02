@@ -175,7 +175,11 @@ namespace xgoRider {
 
 
     /**
+<<<<<<< HEAD
     * Xgo_Rider read interface
+=======
+    * TODO: Xgo_Rider read interface
+>>>>>>> f6e77acfae9cbb4f6e3707075393f16933cfbdb3
     */
     function readCommandOneData(len: number, addr: number, readlen: number, wait: number) {
 
@@ -219,7 +223,11 @@ namespace xgoRider {
     }
 
     /**
+<<<<<<< HEAD
     * initialization Xgo_Rider motor
+=======
+    * TODO: initialization Xgo_Rider motor
+>>>>>>> f6e77acfae9cbb4f6e3707075393f16933cfbdb3
     */
     //% group="Basic"
     //% block="restore initial action"
