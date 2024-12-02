@@ -2,11 +2,9 @@
     "name": "xgoRider",
     "version": "1.3.21",
     "license": "MIT",
-    "description": "The intelligent programming dog XGO-Rider produced",
+    "description": "The XGO-Rider is a desktop-sized, dual-wheeled, bipedal robot based on the micro:bit platform. It uses 4.5KG.CM all-metal servos and FOC wheel hub motors for omnidirectional movement and stability. Equipped with an IMU for advanced algorithms and secondary development, it supports graphical programming.",
     "dependencies": {
-        "core": "*",
-        "radio": "*",
-        "microphone": "*"
+        "core": "*"
     },
     "files": [
         "main.ts",

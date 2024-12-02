@@ -41,7 +41,7 @@ input.onButtonPressed(Button.AB, function () {
     xgoRider.squattingFunc(3)
 })
 input.onButtonPressed(Button.B, function () {
-    xgoRider.rotateRider(xgoRider.RatateEnum.Cw, 20, 5)
+    xgoRider.rotateRider(xgoRider.RotateEnum.Cw, 20, 5)
 })
 xgoRider.initXGOSerial(SerialPin.P13, SerialPin.P14)
 loops.everyInterval(500, function () {
