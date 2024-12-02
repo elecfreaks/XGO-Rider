@@ -175,11 +175,7 @@ namespace xgoRider {
 
 
     /**
-<<<<<<< HEAD
     * Xgo_Rider read interface
-=======
-    * TODO: Xgo_Rider read interface
->>>>>>> f6e77acfae9cbb4f6e3707075393f16933cfbdb3
     */
     function readCommandOneData(len: number, addr: number, readlen: number, wait: number) {
 
@@ -239,7 +235,7 @@ namespace xgoRider {
     //% group="Basic"
     //% block="set XGO TX %tx RX %rx"
     //% weight=500
-    export function initXGOSerial(tx: SerialPin, rx: SerialPin) {
+    export function initXGOSerial(tx: SerialPin=SerialPin.P14, rx: SerialPin=SerialPin.P13) {
 
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
         initActionMode()

@@ -31,21 +31,18 @@ This extension is designed to program and control the micro:bit XGO Robot Kit. Y
 **JavaScript Example**
 
 ```javascript
-input.onLogoEvent(TouchButtonEvent.Pressed, function () {
-    basic.showNumber(xgoRider.batteryStatus())
-})
 input.onButtonPressed(Button.A, function () {
-    xgoRider.moveRider(xgoRider.DirectionEnum.Forward, 20, 5)
-})
-input.onButtonPressed(Button.AB, function () {
-    xgoRider.squattingFunc(3)
+    xgoRider.setHeight(14)
 })
 input.onButtonPressed(Button.B, function () {
-    xgoRider.rotateRider(xgoRider.RotateEnum.Cw, 20, 5)
+    xgoRider.setAngle(40)
 })
-xgoRider.initXGOSerial(SerialPin.P13, SerialPin.P14)
+xgoRider.initXGOSerial(SerialPin.P14, SerialPin.P13)
+loops.everyInterval(1000, function () {
+    basic.showString(xgoRider.version())
+})
 loops.everyInterval(500, function () {
-    basic.showString(xgoRider.getVersion())
+    basic.showNumber(xgoRider.readAngle(xgoRider.AngleEnum.Roll))
 })
 basic.forever(function () {
     xgoRider.setLEDMode(xgoRider.LEDNumber.All, 0xff0000)
@@ -55,6 +52,7 @@ basic.forever(function () {
     xgoRider.setLEDMode(xgoRider.LEDNumber.All, 0x0000ff)
     basic.pause(1000)
 })
+
 ```
 
 #### Get Battery Level
