@@ -4,7 +4,7 @@ input.onButtonPressed(Button.A, function () {
 input.onButtonPressed(Button.B, function () {
     xgoRider.setAngle(40)
 })
-xgoRider.initXGOSerial(SerialPin.P14, SerialPin.P13)
+xgoRider.initXGOSerial(SerialPin.P13, SerialPin.P14)
 loops.everyInterval(1000, function () {
     basic.showString(xgoRider.version())
 })

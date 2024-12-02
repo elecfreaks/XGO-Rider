@@ -235,7 +235,7 @@ namespace xgoRider {
     //% group="Basic"
     //% block="set XGO TX %tx RX %rx"
     //% weight=500
-    export function initXGOSerial(tx: SerialPin=SerialPin.P14, rx: SerialPin=SerialPin.P13) {
+    export function initXGOSerial(tx: SerialPin = SerialPin.P13, rx: SerialPin = SerialPin.P14) {
 
         serial.redirect(tx, rx, BaudRate.BaudRate115200)
         initActionMode()
