@@ -1,5 +1,5 @@
 {
-    "name": "xgoRider",
+    "name": "pxt-xgorider",
     "version": "1.4.2",
     "license": "MIT",
     "description": "The XGO-Rider is a desktop-sized, dual-wheeled, bipedal robot based on the micro:bit platform. It uses 4.5KG.CM all-metal servos and FOC wheel hub motors for omnidirectional movement and stability. Equipped with an IMU for advanced algorithms and secondary development, it supports graphical programming.",
@@ -9,10 +9,10 @@
     "files": [
         "main.ts",
         "README.md",
-        "_locales/xgoRider-jsdoc-strings.json",
-        "_locales/xgoRider-strings.json",
-        "_locales/zh-CN/xgoRider-jsdoc-strings.json",
-        "_locales/zh-CN/xgoRider-strings.json"
+        "_locales/xgorider-jsdoc-strings.json",
+        "_locales/xgorider-strings.json",
+        "_locales/zh-CN/xgorider-jsdoc-strings.json",
+        "_locales/zh-CN/xgorider-strings.json"
     ],
     "testFiles": [
         "test.ts"
