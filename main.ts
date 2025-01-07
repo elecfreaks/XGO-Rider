@@ -480,30 +480,30 @@ namespace xgo {
         writeCommand(len, addr, data, wait)
     }
 
-    /**
-    * Enter/Complete) calibration mode
-    */
-    //% group="Servo"
-    //% block="%val calibration mode"
-    //% weight=390
-    export function setCalibrationMode(val: CalibrationEnum) {
+    // /**
+    // * Enter/Complete) calibration mode
+    // */
+    // //% group="Servo"
+    // //% block="%val calibration mode"
+    // //% weight=390
+    // export function setCalibrationMode(val: CalibrationEnum) {
 
-        let len, addr, data, wait
-        len = 0x09
-        addr = 0x04
-        switch (val) {
+    //     let len, addr, data, wait
+    //     len = 0x09
+    //     addr = 0x04
+    //     switch (val) {
 
-            case CalibrationEnum.Enter:
-                data = 0x01
-                break
-            case CalibrationEnum.Complete:
-                data = 0x00
-                break
-        }
-        wait = 100
+    //         case CalibrationEnum.Enter:
+    //             data = 0x01
+    //             break
+    //         case CalibrationEnum.Complete:
+    //             data = 0x00
+    //             break
+    //     }
+    //     wait = 100
 
-        writeCommand(len, addr, data, wait)
-    }
+    //     writeCommand(len, addr, data, wait)
+    // }
 
     /**
     * Read (roll) attitude angle
