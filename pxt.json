@@ -14,7 +14,7 @@
         "_locales/XGO-strings.json",
         "_locales/zh-CN/XGO-jsdoc-strings.json",
         "_locales/zh-CN/XGO-strings.json",
-        "_locales/ko/XGO-jsdoc-strings.json",
+        "_locales/ko/XGO-strings.json"
     ],
     "testFiles": [
         "test.ts"
