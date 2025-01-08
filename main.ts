@@ -696,24 +696,30 @@ namespace xgo {
 
             case posture.playPendulum:
                 data = 0x01
+                wait = 3000
                 break
             case posture.AdvanceAndRetreat:
                 data = 0x03
+                wait = 4000
                 break
             case posture.upsAndDowns:
                 data = 0x02
+                wait = 3000
                 break
             case posture.TetragonalSnake:
                 data = 0x04
+                wait = 4000
                 break
             case posture.LiftRotation:
                 data = 0x05
+                wait = 6000
                 break
             case posture.CircularSloshing:
                 data = 0x06
+                wait = 5000
                 break
         }
-        wait = 100
+
         
         writeCommand(len, addr, data, wait)
     }
