@@ -41,7 +41,7 @@
     "xgo.executeActions|block": "%state 작업 실행 ",
     "xgo.initActionMode|block": "초기 동작으로 되돌리기",
     "xgo.setBalanceMode|block": "%val 다이나믹 밸런스 모드",
-    "xgo.moveRider|block": "%direct 방향으로 %speed 속도로 %time 초 동안 이동",
+    "xgo.moveRider|block": "%direct 방향으로  %speed 속도로%time 초 동안 이동",
     "xgo.rotateRider|block": "%direct 방향으로 %speed 속도로 %time 초 동안 회전",
     "xgo.squattingFunc|block": "라이더가 %time 초 주기로 스쿼트 동작을 수행하도록 설정",
     "xgo.shufflingFunc|block": "라이더가 %time 초 주기로 좌우로 흔들리는 동작을 하도록 설정",
