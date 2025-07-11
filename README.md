@@ -1,6 +1,7 @@
 # micro:bit XGO Robot Kit
 
-![](/xgo.png/)
+![Uploading xgo.png…]()
+
 
 This extension is designed to programme and drive the micro:bit XGO Robot Kit. You can [get micro:bit XGO Robot Kit from the Elecfreaks store.](https://www.elecfreaks.com/micro-bit-xgo-robot-kit.html)
 
